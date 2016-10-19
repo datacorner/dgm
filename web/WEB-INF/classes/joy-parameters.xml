@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+3 parameter types :
+1) Joy fixed parameters
+2) Application String parameters
+    Example : <app-parameter name="test" type="value">tutu</app-parameter>
+    
+3) Application List parameters
+    Example : 
+    <app-parameter name="test2" type="list">
+        <app_parameter-value name="X">A</app_parameter-value>
+        <app_parameter-value name="Y">B</app_parameter-value>
+        <app_parameter-value name="Z">C</app_parameter-value>
+    </app-parameter>
+-->
+
+<joy-parameters>
+
+<!-- MANDATORY PARAMETERS -->
+
+    <!-- Must be equal to the url-pattern tag value in web.xml -->
+    <default-url-pattern>/joy</default-url-pattern>
+    
+    <!-- property file prefix for all the messages -->
+    <bundle-message>dgm</bundle-message>
+    
+    <!-- default date format -->
+    <default-dateformat>yyyy-mm-dd HH:mm:ss</default-dateformat>
+    
+    <!-- Joy Version -->
+    <joy-version>0.1.5.3</joy-version>
+    <joy-app-name>Data Governance Monitor</joy-app-name>
+    
+    <!-- datasources/entities configuration file here-->
+    <joy-entities>
+        <joy-entity name="Governance">joy-entity.xml</joy-entity>
+    </joy-entities>
+    
+    <!-- Joy mapping -->
+    <joy-mappings>
+        <joy-mapping name="landing">joy-mappings.xml</joy-mapping>
+    </joy-mappings>
+    
+    <joy-session-timeout>20</joy-session-timeout> <!-- in minutes -->
+    
+    <!-- locale defaults -->
+    <joy-localelanguage>en</joy-localelanguage>
+    <joy-localecountry>US</joy-localecountry>
+    
+<!-- OPTIONAL PARAMETERS -->
+
+    <!-- custom application parameters -->
+    
+    <!-- Dashboards config here-->
+    <app-parameter name="dashboardconfig" type="value">dashboard/joy-dashboard-personnal.xml</app-parameter>
+    
+    <!-- Transparency for charts display -->
+    <app-parameter name="transparency" type="value">0.5</app-parameter> 
+    
+    <!-- Gauges Colors & thresolds -->
+    <app-parameter name="ThresoldBadToWarn" type="value">40</app-parameter>
+    <app-parameter name="ThresoldwarningToGood" type="value">60</app-parameter> 
+    <app-parameter name="ColorBad" type="value">217,83,79</app-parameter> 
+    <app-parameter name="ColorWarning" type="value">240,173,78</app-parameter> 
+    <app-parameter name="ColorGood" type="value">92,184,92</app-parameter>  
+    <app-parameter name="ColorNoMove" type="value">220,220,220</app-parameter>  
+    
+    <!-- Business Glossary available icons / image names must be located in /images/glossary -->
+    <app-parameter name="GlossaryAvailableIcons" type="list">
+        <app_parameter-value name="">settings.png</app_parameter-value>
+        <app_parameter-value name="">share2.png</app_parameter-value>
+        <app_parameter-value name="">check.png</app_parameter-value>
+        <app_parameter-value name="">signal.png</app_parameter-value>
+        <app_parameter-value name="">direction.png</app_parameter-value>
+        <app_parameter-value name="">pin.png</app_parameter-value>
+        <app_parameter-value name="">setting.png</app_parameter-value>
+        <app_parameter-value name="">substract.png</app_parameter-value>
+        <app_parameter-value name="">favorite.png</app_parameter-value>
+    </app-parameter>
+
+    <!-- Glyphes for all concepts in the application --> 
+    <app-parameter name="ApplicationIconsBSGlyphe" type="list">
+        <app_parameter-value name="status">fa-flag</app_parameter-value>
+        <app_parameter-value name="term">fa-book</app_parameter-value>
+        <app_parameter-value name="metric">fa-bookmark-o</app_parameter-value>
+        <app_parameter-value name="dqaxis">fa-flag-checkered</app_parameter-value>
+        <app_parameter-value name="user">fa-user</app_parameter-value>
+        <app_parameter-value name="businessmap">fa-sitemap</app_parameter-value>
+        <app_parameter-value name="metadata">fa-random</app_parameter-value>
+        <app_parameter-value name="glossary">fa-database</app_parameter-value>
+        <app_parameter-value name="category">fa-folder-open</app_parameter-value>
+        <app_parameter-value name="dashboard">fa-dashboard</app_parameter-value>
+        <app_parameter-value name="relationship">fa-pagelines</app_parameter-value>
+        <app_parameter-value name="context">fa-briefcase</app_parameter-value>
+        <app_parameter-value name="datasource">fa-cubes</app_parameter-value>
+        <app_parameter-value name="common-chart">fa-bar-chart-o</app_parameter-value>
+        <app_parameter-value name="common-data">fa-table</app_parameter-value>
+        <app_parameter-value name="common-configuration">fa-gears</app_parameter-value>
+        <app_parameter-value name="trend-up">fa-arrow-up</app_parameter-value>
+        <app_parameter-value name="trend-down">fa-arrow-down</app_parameter-value>
+        <app_parameter-value name="trend-stable">fa-arrow-right</app_parameter-value>
+        <app_parameter-value name="trend-new">fa-plus-circle</app_parameter-value>
+        <app_parameter-value name="tasks">fa-random</app_parameter-value>
+    </app-parameter>
+
+    <!-- Availables colors for all charts -->
+    <app-parameter name="ChartsColors" type="list">
+        <app_parameter-value name="">220,220,220</app_parameter-value>
+        <app_parameter-value name="">120,220,220</app_parameter-value>
+        <app_parameter-value name="">151,187,0</app_parameter-value>
+        <app_parameter-value name="">0,187,105</app_parameter-value>
+        <app_parameter-value name="">100,120,220</app_parameter-value>
+        <app_parameter-value name="">100,0,205</app_parameter-value>
+        <app_parameter-value name="">252,180,220</app_parameter-value>
+        <app_parameter-value name="">220,20,220</app_parameter-value>
+        <app_parameter-value name="">255.3.21</app_parameter-value>
+    </app-parameter>
+    
+</joy-parameters>

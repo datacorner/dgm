@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+
+    <joy-customquery name="Analytics - DataSource Last Runs"> <!-- Replace RPT_CON_LASTRUNS -->
+        select max(DIM_TIME.TIM_CALENDAR_DATE) AS rundate, 
+        DIM_DQAXIS.DQX_NAME, 
+        avg(FRS_KPI_SCORE) AS SCORE, 
+        DSO_FK
+        from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                               from FACT_GOVERNANCE) A,  DIM_DQAXIS, DIM_TIME, DIM_TERM
+        Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+        And FACT_GOVERNANCE.DQX_FK = DIM_DQAXIS.DQX_PK
+        And FACT_GOVERNANCE.TIM_FK = DIM_TIME.TIM_PK
+        And FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+        GROUP BY dqx_name, tim_calendar_date, DSO_FK
+        ORDER BY DSO_FK, tim_calendar_date
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - DataSource Term List"> <!-- Replace RPT_CON_TERM_LIST -->
+        SELECT AVG (FRS_KPI_SCORE) AS SCORE, AVG (FRS_COST) AS COST, DQX_NAME, TRM_NAME,  TRM_FK, DQX_CODE, B.DSO_FK
+          FROM (select FACT_GOVERNANCE.*, DIM_TERM.CAT_FK, DIM_TERM.GLO_FK
+               from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                        from FACT_GOVERNANCE) A, DIM_TERM
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+               And DIM_TERM.TRM_PK = FACT_GOVERNANCE.TRM_FK) B, DIM_DQAXIS, DIM_TERM
+        WHERE TRM_FK > 0
+        AND DIM_DQAXIS.DQX_PK = B.DQX_FK
+        AND B.TRM_FK = DIM_TERM.TRM_PK
+        GROUP BY DQX_NAME, TRM_NAME, TRM_FK,  DQX_CODE, B.DSO_FK
+        ORDER BY TRM_NAME
+    </joy-customquery>
+</joy-entities>

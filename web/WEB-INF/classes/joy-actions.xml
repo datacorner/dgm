@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<joy-actions>
+
+<!-- LOGIN BEHAVIOR HERE --> 
+    <loginRequest>
+        <action>com.dgm.login.Login</action>
+        <request>./WEB-INF/login.jsp</request>
+        <afterlogin>index.jsp</afterlogin>
+        <afterlogout>index.jsp</afterlogout>
+    </loginRequest>
+    
+<!-- FORM ACTIONS HERE -->  
+    <!-- List here all the actions with redirections -->
+    <actionRequest>
+        <object>dqaxis</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.manage.SrcDQAxisAction</action>
+        <redirects>
+            <redirect tag="EDIT">./WEB-INF/manage/srcDqAxis/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/manage/srcDqAxis/edit.jsp</redirect>
+            <redirect tag="LIST">./WEB-INF/manage/srcDqAxis/list.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>home</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.HomeAction</action>
+        <redirects>
+            <redirect tag="DISPLAY">./WEB-INF/home.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>termtype</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.manage.SrcTermTypeAction</action>
+        <redirects>
+            <redirect tag="EDIT">./WEB-INF/manage/srcTermType/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/manage/srcTermType/edit.jsp</redirect>
+            <redirect tag="LIST">./WEB-INF/manage/srcTermType/list.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>context</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.manage.SrcContextAction</action>
+        <redirects>
+            <redirect tag="EDIT">./WEB-INF/manage/srcContext/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/manage/srcContext/edit.jsp</redirect>
+            <redirect tag="LIST">./WEB-INF/manage/srcContext/list.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+    <actionRequest>
+        <object>relsccontext</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.manage.RelScContextAction</action>
+        <redirects>
+            <redirect tag="EDIT">./WEB-INF/manage/relScContext/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/manage/relScContext/edit.jsp</redirect>
+            <redirect tag="LIST">./WEB-INF/manage/relScContext/list.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>reltermmetric</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.manage.RelTermMetricAction</action>
+        <redirects>
+            <redirect tag="EDIT">./WEB-INF/manage/relTermMetric/edit.jsp</redirect>
+            <redirect tag="LIST">./WEB-INF/manage/relTermMetric/list.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+    <actionRequest>
+        <object>infainterface</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.load.InfaConfigInterface</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/admin/infa_import.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>landinginterface</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.load.LandingConfigInterface</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/admin/landing_import.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>parameters</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.admin.ParametersAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/admin/parameters/list.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/admin/parameters/add.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/admin/parameters/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+    <!-- Import data here -->  
+    <actionRequest>
+        <object>import</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.admin.ImportAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/admin/impexp.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+    <!-- View Datamart facts -->
+    <actionRequest>
+        <object>dtmlist</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.DTMListAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/datamart.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <!-- Landing table management --> 
+    <actionRequest>
+        <object>lndterms</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDTermAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/terms/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/terms/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/terms/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>lndglossary</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDGlossaryAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/glossary/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/glossary/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/glossary/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>lndcategory</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDCategoryAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/category/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/category/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/category/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>lndtermsrel</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDTermsRel</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/termsrel/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/termsrel/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/termsrel/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>lndmetric</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDMetricAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/metric/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/metric/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/metric/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+    <actionRequest>
+        <object>lndsc</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDScorecardAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/sc/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/sc/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/sc/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>lndscgrp</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.data.LNDScorecardGrpAction</action>
+        <redirects>
+            <redirect tag="LIST">./WEB-INF/data/landing/scgrp/list.jsp</redirect>
+            <redirect tag="EDIT">./WEB-INF/data/landing/scgrp/edit.jsp</redirect>
+            <redirect tag="ADD">./WEB-INF/data/landing/scgrp/edit.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <!-- Reports actions here -->  
+    <actionRequest>
+        <object>globalinvalids</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.global.ReportGlobalInvalidsAction</action>
+        <redirects>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/global/global_invalids.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>globalcosts</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.global.ReportGlobalCostsAction</action>
+        <redirects>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/global/global_costs.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>byterm</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.bg.ReportByTerm</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/bg/byterm_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/bg/byterm_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>byglossary</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.bg.ReportByGlossary</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/bg/byglossary_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/bg/byglossary_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>bydqaxis</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.scoring.ReportByDQAxis</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/scoring/bydqaxis_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/scoring/bydqaxis_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>bycategory</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.bg.ReportByCategory</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/bg/bycategory_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/bg/bycategory_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>bycontext</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.scoring.ReportByContext</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/scoring/bycontext_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/scoring/bycontext_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>byds</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.scoring.ReportByDataSource</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/scoring/byds_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/scoring/byds_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>bymetric</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.scoring.ReportByMetric</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/scoring/bymetric_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/scoring/bymetric_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>mapbyterm</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.form.analytics.maps.MapForRelatedTerms</action>
+        <redirects>
+            <redirect tag="SEARCH">./WEB-INF/analytics/maps/mapByTerm_request.jsp</redirect>
+            <redirect tag="DISPLAY">./WEB-INF/analytics/maps/mapByTerm_display.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+    <actionRequest>
+        <object>dashboard</object>
+        <objecttype>form</objecttype>
+        <action>com.dgm.dashboard.DashboardAction</action>
+        <redirects>
+            <redirect tag="DISPLAY">./WEB-INF/dashboard/dashboard.jsp</redirect>
+        </redirects>
+    </actionRequest>
+
+
+<!-- NO ACTIONS HERE -->  
+<!-- list here all the actions without action class -->
+    <redirects_no_action>
+        <redirect tag="IMPORTEXPORT">./WEB-INF/admin/impexp.jsp</redirect>
+        <redirect tag="ACTION_404">./404.jsp</redirect>
+        <redirect tag="ACTION_ERROR">./error.jsp</redirect>
+        <redirect tag="TEST">./WEB-INF/test.jsp</redirect>
+        <redirect tag="CHECKAPP">./WEB-INF/admin/checkapp.jsp</redirect>
+        <redirect tag="TASKS">./WEB-INF/admin/tasks/list.jsp</redirect>
+        <redirect tag="LANDING">./WEB-INF/data/landing/all/landing.jsp</redirect>
+    </redirects_no_action>
+
+<!-- TASKS ACTIONS HERE -->    
+<!-- http://localhost:18180/dgm/task/[tag]  -->
+    <actionRequest>
+        <object>infawf</object>
+        <objecttype>task</objecttype>
+        <action>com.dgm.tasks.load.TASKInfaWorkflow</action>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>dtmpurge</object>
+        <objecttype>task</objecttype>
+        <action>com.dgm.tasks.load.TASKDtmPurge</action>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>landingpurge</object>
+        <objecttype>task</objecttype>
+        <action>com.dgm.tasks.load.TASKLandingPurge</action>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>landingload</object>
+        <objecttype>task</objecttype>
+        <action>com.dgm.tasks.load.TASKLoadProcess</action>
+    </actionRequest>
+    
+<!-- REST ACTIONS HERE -->    
+<!-- http://localhost:18180/GovManagementTool/rest/[tag]  -->
+    <actionRequest>
+        <object>taskslist</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.tasks.RESTTasksList</action>
+    </actionRequest>
+
+    <actionRequest>
+        <object>relterm</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.actions.RESTActionRelTerms</action>
+    </actionRequest>
+
+    <actionRequest>
+        <object>data</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.actions.RESTData</action>
+        <flowtype>file</flowtype>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>checks</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.actions.RESTApplicationChecks</action>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>charts</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.actions.RESTChart</action>
+    </actionRequest>
+    
+    <actionRequest>
+        <object>landingcount</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.actions.RESTLandingCount</action>
+    </actionRequest>
+
+    <actionRequest>
+        <object>search</object>
+        <objecttype>rest</objecttype>
+        <action>com.dgm.rest.actions.RESTSearch</action>
+    </actionRequest>
+</joy-actions>

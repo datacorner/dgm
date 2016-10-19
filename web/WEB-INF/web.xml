@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>dgm</display-name>
+    <servlet>
+        <servlet-name>mainHandler</servlet-name>
+        <servlet-class>com.joy.mvc.controller.MVCHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mainHandler</servlet-name>
+        <url-pattern>/joy</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <context-param>
+        <param-name>joy-actions</param-name>
+        <param-value>joy-actions.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>joy-parameters</param-name>
+        <param-value>joy-parameters.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>joy-log</param-name>
+        <param-value>joy-log.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>scheduler</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    
+    <filter>
+        <filter-name>restFilter</filter-name>
+        <filter-class>com.joy.mvc.filters.FilterREST</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>restFilter</filter-name>
+        <url-pattern>/rest/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>taskFilter</filter-name>
+        <filter-class>com.joy.mvc.filters.FilterTASK</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>taskFilter</filter-name>
+        <url-pattern>/task/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+<!--    
+    <listener>
+        <listener-class>com.dgm.governance.scheduler.batchScheduler</listener-class>
+    </listener>
+-->    
+    <error-page>
+        <exception-type>Exception</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+
+    <resource-ref>
+        <description>jdbc/GOVERNANCE</description>
+        <res-ref-name>jdbc/GOVERNANCE</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+</web-app>

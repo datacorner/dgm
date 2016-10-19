@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joy-entities>
+    
+    <joy-composite name = "SEARCH_TERM">
+        <joy-field alias="X">TRM_PK</joy-field>
+        <joy-field alias="X">TRM_PHASE</joy-field>
+        <joy-field alias="X">TRM_NAME</joy-field>
+        <joy-field alias="X">TRM_DESCRIPTION</joy-field>
+        <joy-field alias="X">TRT_FK</joy-field>
+        <joy-entity alias="X">DIM_TERM</joy-entity>
+    </joy-composite>
+
+</joy-entities>

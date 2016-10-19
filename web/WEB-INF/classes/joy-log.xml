@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<joy-log>
+    <joy-logfilename dateprefix="yes">dgm_0.1.4.0.log</joy-logfilename>
+    <joy-logdirectory>C:\temp</joy-logdirectory>
+    <joy-loglevels>
+        <joy-loglevel active="yes">DEBUG</joy-loglevel>
+        <joy-loglevel active="yes">INFO</joy-loglevel>
+        <joy-loglevel active="yes">WARNING</joy-loglevel>
+        <joy-loglevel active="yes">ERROR</joy-loglevel>
+        <joy-loglevel active="yes">FATAL</joy-loglevel>
+    </joy-loglevels>
+</joy-log>

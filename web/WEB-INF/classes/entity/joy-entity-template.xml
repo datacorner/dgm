@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+    
+    <!-- Simple table -->
+    <joy-table name="APP_PARAMS" />
+    
+    <!-- Direct Query / SQL -->
+    <joy-customquery name="Mandatory name">
+        <!-- SQL Query here
+        AND/OR You can add DB specifics by using 
+            <POSTGRESQL></POSTGRESQL>
+            <ORACLE></ORACLE> -->
+    </joy-customquery>
+    
+    <!-- Composite object -->
+    <joy-composite name = "Composite name" distinct="yes/no">
+        <joy-entity alias="left1">...</joy-entity>
+        <joy-field alias="...">...</joy-field>
+        <joy-join type="LEFT/RIGHT/INNER">
+            <joy-entity alias="right1">...</joy-entity>
+            <joy-join-key left="..." right="..." />
+        </joy-join>
+        <joy-join type="LEFT/RIGHT/INNER">
+            ...
+        </joy-join>
+        <joy-filter alias="..." field="..." operator="&lt;&gt;">...</joy-filter>
+        <joy-sort alias="..." field="..." desc="no/yes" />
+    </joy-composite>
+    
+</joy-entities>

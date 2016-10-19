@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+    <!--
+    <joy-customquery name="Last Facts Only with details2">
+        SELECT X.frs_pk,  X.tim_fk, X.trm_fk,X.ori_fk,X.dqx_fk,X.met_fk,X.con_fk,X.dso_fk,X.frs_valid_rows, frs_totalrows-frs_valid_rows AS frs_invalid_rows,X.frs_totalrows,X.frs_kpi_score,X.frs_datetime_load,X.frs_weight,
+            X.frs_cost,dim_scorecard.sco_name,dim_scorecard_group.scg_name,dim_metric.met_name,dim_origine.ori_name,dim_dqaxis.dqx_name,dim_dqaxis.dqx_code,dim_term.trm_name,dim_time.tim_calendar_date,
+            dim_context.con_funckey AS con_code,dim_datasource.dso_sourcename,dim_category.cat_name,dim_category.cat_pk,dim_glossary.glo_name,dim_glossary.glo_pk
+           FROM ( SELECT FACT_GOVERNANCE.FRS_PK, JOB_FK, TIM_FK, TRM_FK, ORI_FK, DQX_FK,  MET_FK, CON_FK,FRS_VALID_ROWS,FRS_TOTALROWS,FRS_KPI_SCORE,FRS_DATETIME_LOAD,FRS_WEIGHT,FRS_COST,DSO_FK 
+                from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                       from FACT_GOVERNANCE) A
+                Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+                and FACT_GOVERNANCE.TRM_FK > 0) X,
+            (dim_metric
+             LEFT JOIN (dim_scorecard_group
+             LEFT JOIN dim_scorecard ON ((dim_scorecard_group.sco_fk = dim_scorecard.sco_pk))) ON ((dim_metric.scg_fk = dim_scorecard_group.scg_pk))),
+            dim_origine,
+            dim_dqaxis,
+            ((dim_term
+             LEFT JOIN dim_category ON ((dim_term.cat_fk = dim_category.cat_pk)))
+             LEFT JOIN dim_glossary ON ((dim_term.glo_fk = dim_glossary.glo_pk))),
+            dim_time,
+            dim_context,
+            dim_datasource
+          WHERE  X.met_fk = dim_metric.met_pk 
+          AND X.ori_fk = dim_origine.ori_pk
+          AND X.dqx_fk = dim_dqaxis.dqx_pk
+          AND X.trm_fk = dim_term.trm_pk
+          AND X.tim_fk = dim_time.tim_pk
+          AND X.con_fk = dim_context.con_pk
+          AND X.dso_fk = dim_datasource.dso_pk
+    </joy-customquery>
+
+
+    <joy-customquery name="All Facts with details"> 
+        SELECT X.frs_pk,  X.tim_fk, X.trm_fk,X.ori_fk,X.dqx_fk,X.met_fk,X.con_fk,X.dso_fk,X.frs_valid_rows,X.frs_totalrows-X.frs_valid_rows AS frs_invalid_rows,X.frs_totalrows,X.frs_kpi_score,X.frs_datetime_load,X.frs_weight,
+            X.frs_cost,dim_scorecard.sco_name,dim_scorecard_group.scg_name,dim_metric.met_name,dim_origine.ori_name,dim_dqaxis.dqx_name,dim_dqaxis.dqx_code,dim_term.trm_name,dim_time.tim_calendar_date,
+            dim_context.con_funckey AS con_code,dim_datasource.dso_sourcename,dim_category.cat_name,dim_category.cat_pk,dim_glossary.glo_name,dim_glossary.glo_pk
+           FROM FACT_GOVERNANCE X,
+            (dim_metric
+             LEFT JOIN (dim_scorecard_group
+             LEFT JOIN dim_scorecard ON ((dim_scorecard_group.sco_fk = dim_scorecard.sco_pk))) ON ((dim_metric.scg_fk = dim_scorecard_group.scg_pk))),
+            dim_origine,
+            dim_dqaxis,
+            ((dim_term
+             LEFT JOIN dim_category ON ((dim_term.cat_fk = dim_category.cat_pk)))
+             LEFT JOIN dim_glossary ON ((dim_term.glo_fk = dim_glossary.glo_pk))),
+            dim_time,
+            dim_context,
+            dim_datasource
+          WHERE (((((((X.met_fk = dim_metric.met_pk) AND (X.ori_fk = dim_origine.ori_pk)) AND (X.dqx_fk = dim_dqaxis.dqx_pk)) AND (X.trm_fk = dim_term.trm_pk)) AND (X.tim_fk = dim_time.tim_pk)) AND (X.con_fk = dim_context.con_pk)) AND (X.dso_fk = dim_datasource.dso_pk))
+    </joy-customquery>
+    -->
+
+    <joy-customquery name="Available Metrics"> 
+        SELECT DISTINCT DIM_METRIC.MET_NAME
+        FROM DIM_METRIC LEFT OUTER JOIN REL_TERM_METRIC ON DIM_METRIC.MET_NAME = REL_TERM_METRIC.MET_NAME
+        WHERE REL_TERM_METRIC.MET_NAME IS NULL
+        ORDER BY DIM_METRIC.MET_NAME
+    </joy-customquery>
+    
+    
+    <joy-customquery name="Metric Condidate for autolink"> 
+        SELECT rel_term_metric.trm_name,rel_term_metric.dqx_name,src_dqaxis.dqx_code
+        FROM rel_term_metric LEFT JOIN src_dqaxis ON src_dqaxis.dqx_label = rel_term_metric.dqx_name
+        WHERE rel_term_metric.met_name IS NULL
+        ORDER BY rel_term_metric.trm_name
+    </joy-customquery>
+    
+    <joy-customquery name="Rel Term Metric List"> 
+        SELECT DISTINCT rel_term_metric.trm_cluster_id,rel_term_metric.trm_name,dim_term.trm_pk
+        FROM rel_term_metric LEFT JOIN dim_term ON rel_term_metric.trm_name = dim_term.trm_name
+    </joy-customquery>
+    
+     <joy-customquery name="Rel Term Metric Cluster"> 
+        SELECT DISTINCT rel_term_metric.trm_cluster_id, rel_term_metric.trm_name, dim_term.trm_pk
+        FROM rel_term_metric, dim_term
+        WHERE rel_term_metric.trm_name = dim_term.trm_name
+     </joy-customquery>
+     
+          <joy-customquery name="DQ Axis In DTM Scope">
+        select SRC_DQAXIS.DQX_PK
+        from DIM_DQAXIS, SRC_DQAXIS
+        where DIM_DQAXIS.DQX_CODE = SRC_DQAXIS.DQX_CODE
+     </joy-customquery>
+     
+    <joy-customquery name="Analytics - Terms Type List"> <!-- Searh criteria / Term list -->
+        select TRT_PK, TRT_NAME from DIM_TERM_TYPE
+    </joy-customquery>
+    
+    
+    <joy-customquery name="SEARCH_TERM"> 
+        select TRM_PK, TRM_PHASE, TRM_NAME, TRM_DESCRIPTION, TRT_FK from DIM_TERM
+    </joy-customquery>
+    
+    <joy-customquery name="List of terms used OBS"> <!-- Home page -->
+        select distinct TRM_NAME from FACT_GOVERNANCE, DIM_TERM
+        Where FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+    </joy-customquery>
+    
+    <joy-customquery name="List of metrics used OBS"> <!-- Home page -->
+        select distinct MET_NAME from REL_TERM_METRIC
+    </joy-customquery>
+    
+        
+    <joy-customquery name="AXIS_SCORE_HOME_00 OBS"> <!-- Scoring per DQ axis -->
+        SELECT DIM_DQAXIS.DQX_NAME, ROUND(avg(FRS_KPI_SCORE), 2) SCORE
+        FROM (select * from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk from FACT_GOVERNANCE) A
+              Where FACT_GOVERNANCE.frs_pk = A.FRS_PK and FACT_GOVERNANCE.TRM_FK > 0) X, DIM_DQAXIS
+        WHERE X.DQX_FK = DIM_DQAXIS.DQX_PK
+        group by DIM_DQAXIS.DQX_NAME
+    </joy-customquery>
+    
+        
+    <joy-customquery name="GLOBAL_SCORING_HOME_01 OBS"> 
+        SELECT DIM_GLOSSARY.GLO_NAME ,'Scores' JOBS,  ROUND(avg(FRS_KPI_SCORE), 2) SCORE
+        FROM (select * from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk from FACT_GOVERNANCE) A
+              Where FACT_GOVERNANCE.frs_pk = A.FRS_PK and FACT_GOVERNANCE.TRM_FK > 0) X, DIM_GLOSSARY, DIM_TERM
+        WHERE X.TRM_FK = DIM_TERM.TRM_PK
+        And DIM_GLOSSARY.GLO_PK = DIM_TERM.GLO_FK
+        group by DIM_GLOSSARY.GLO_NAME
+    </joy-customquery>
+    
+    <joy-customquery name="Load - get Terms type OBS"> 
+        select distinct TERM_TYPE, JOYSTATUS from LND_TERM
+    </joy-customquery> 
+    
+    <joy-customquery name="Load - get Relationship name"> 
+        select distinct REL_NAME, REL_DESCRIPTION, JOYSTATUS from LND_TERM_RELATIONSHIPS
+    </joy-customquery> 
+    
+    <joy-customquery name="Load - get Relationship"> 
+        select distinct REL_KEY_TERM_SOURCE,REL_KEY_TERM_TARGET,REL_NAME, JOYSTATUS from LND_TERM_RELATIONSHIPS
+    </joy-customquery> 
+    
+    <joy-customquery name="Load - get Glossary"> 
+        select distinct glossary_description, glossary_name, JOYLOADDATE, JOYSTATUS, JOYFUNCKEY from LND_GLOSSARY
+    </joy-customquery>
+    <joy-customquery name="Load - get Scorecard"> 
+        select distinct JOYFUNCKEY, JOYLOADDATE, JOYSTATUS, SCO_NAME, SCO_DESCRIPTION, SCO_LASTRUN from LND_SCORECARD
+    </joy-customquery> 
+    <joy-customquery name="Load - get Category"> 
+        select distinct JOYFUNCKEY, JOYLOADDATE, JOYSTATUS, category_name, category_description, 
+            category_fullpath, category_parent_key 
+        from LND_CATEGORY
+    </joy-customquery>
+    <joy-customquery name="Load - get Term">     
+        select distinct JOYFUNCKEY, JOYLOADDATE, JOYSTATUS, TERM_STATUS, TERM_TYPE, term_name, 
+            term_funckey, term_description, term_usage, term_example, term_phase, term_owner, 
+            term_steward, term_owner_email, term_steward_email, glossary_key, category_key 
+        from LND_TERM
+    </joy-customquery> 
+    
+    <joy-customquery name="Load - get Scorecard Group"> 
+        select distinct SCGROUP_NAME, JOYFUNCKEY, SCORECARD_KEY, JOYSTATUS from LND_SCORECARD_GROUP
+    </joy-customquery> 
+    
+    <joy-customquery name="Load - get Datasource"> 
+        select distinct MET_CONNECTION, MET_SOURCENAME, JOYSTATUS from LND_METRIC
+    </joy-customquery> 
+
+    <joy-customquery name="Load - get Origin"> 
+        select distinct ORI_NAME, JOYSTATUS from LND_METRIC
+    </joy-customquery>   
+    
+        
+    <joy-customquery name="Load - get Metrics OBS"> 
+        select distinct LND_METRIC.MET_NAME, LND_METRIC.MET_DESCRIPTION, JOYSTATUS, MET_WEIGHT, 
+            scorecard_key || '|' || scorecardgrp_key || '|' || LND_METRIC.met_name AS JOYFUNCKEY, 
+            MET_TYPE, SCORECARDGRP_KEY
+        from lnd_metric 
+        order by met_name
+    </joy-customquery>

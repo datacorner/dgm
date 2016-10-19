@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joy-entities>
+
+<!-- Custom Queries here / never put <;> character ! -->
+  
+    <joy-composite name = "List of terms used" distinct="yes">
+        <joy-field alias="Y">TRM_NAME</joy-field>
+        <joy-entity alias="X">FACT_GOVERNANCE</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="Y">DIM_TERM</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join>
+    </joy-composite>
+
+    <joy-composite name = "List of metrics used" distinct="yes">
+        <joy-field alias="X">MET_NAME</joy-field>
+        <joy-entity alias="X">REL_TERM_METRIC</joy-entity>
+    </joy-composite>
+
+    <joy-composite name = "AXIS_SCORE_HOME_00" distinct="yes">
+        <joy-field alias="Y">DQX_NAME</joy-field>
+        <joy-field as="SCORE">ROUND(AVG(FRS_KPI_SCORE), 2)</joy-field>
+        <joy-entity alias="X">Last Facts Only</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="Y">DIM_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_FK" slave="DQX_PK" />
+        </joy-join>
+        <joy-group alias="Y">DQX_NAME</joy-group>
+    </joy-composite>
+    
+    <joy-composite name = "GLOBAL_SCORING_HOME_01" distinct="yes">
+        <joy-field alias="Y">GLO_NAME</joy-field>
+        <joy-field as="JOBS">'Scores'</joy-field>
+        <joy-field as="SCORE">ROUND(AVG(FRS_KPI_SCORE), 2)</joy-field>
+        <joy-entity alias="X">Last Facts Only</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="Y">Terms with Glossary information</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join>
+        <joy-group alias="Y">GLO_NAME</joy-group>
+    </joy-composite>
+     
+    <joy-customquery name="NO_OWNER_HOME_02"> <!-- No owners and no stewards -->
+        SELECT GLO_NAME, 'No Owner' MISSING, count(*) MYVALUE
+        FROM DIM_GLOSSARY INNER JOIN DIM_TERM ON (GLO_PK = GLO_FK)
+        and TRM_OWNER IS NULL
+        group by GLO_NAME
+        UNION
+        SELECT GLO_NAME, 'No Steward' MISSING, count(*) MYVALUE
+        FROM DIM_GLOSSARY INNER JOIN DIM_TERM ON (GLO_PK = GLO_FK)
+        and TRM_STEWARD IS NULL
+        group by GLO_NAME
+    </joy-customquery>
+    
+    <joy-customquery name="Home - Best terms"> <!-- Best terms scores -->
+        select TRM_FK, DIM_TERM.TRM_NAME, round(sum(FRS_KPI_SCORE*DQX_WEIGHT)/max(GLOBALSUM.SC), 2) AS GLOBALSCORE
+        from (  select * 
+                from FACT_GOVERNANCE, 
+                     ( select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                       from FACT_GOVERNANCE) A
+                Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+                and FACT_GOVERNANCE.TRM_FK > 0) X, 
+              DIM_DQAXIS, DIM_TERM,
+              (Select sum(DQX_WEIGHT) SC from DIM_DQAXIS) GLOBALSUM
+        where X.DQX_FK = DIM_DQAXIS.DQX_PK
+        And X.TRM_FK = DIM_TERM.TRM_PK
+        And X.TRM_FK > 0
+        group by TRM_FK, DIM_TERM.TRM_NAME
+        order by GLOBALSCORE DESC
+    </joy-customquery>
+</joy-entities>

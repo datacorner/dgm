@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joy-entities>
+    
+    <!-- Management Data Access Tables -->
+    <joy-table name="SRC_CONTEXT" />
+    <joy-table name="SRC_DQAXIS" />
+    <joy-table name="SRC_TERMTYPE" />
+    <joy-table name="REL_SC_CONTEXT" />
+    <joy-table name="REL_TERM_METRIC" />
+    
+    <!-- parametres de l'application -->
+    <joy-table name="APP_PARAMS" />
+
+    <joy-composite name = "Available Metrics" distinct="yes">
+        <joy-field alias="AT1">MET_NAME</joy-field>
+        <joy-entity alias="AT1">DIM_METRIC</joy-entity>
+        <joy-join type="LEFT OUTER">
+            <joy-entity alias="SC1">REL_TERM_METRIC</joy-entity>
+            <joy-join-key master="MET_NAME" slave="MET_NAME" />
+        </joy-join>
+        <joy-filter alias="SC1" field="MET_NAME" operator="IS">NULL</joy-filter>
+        <joy-sort alias="AT1" field="MET_NAME" desc="no" />
+    </joy-composite>
+    
+    <joy-customquery name="Available Terms">
+        SELECT DISTINCT TERM_NAME 
+        FROM LND_TERM 
+        WHERE TERM_NAME NOT IN (SELECT distinct rel_term_metric.trm_name FROM rel_term_metric)
+    </joy-customquery>
+    
+    <joy-composite name = "Metric Condidate for autolink" distinct="no">
+        <joy-field alias="AT1">TRM_NAME</joy-field>
+        <joy-field alias="AT1">DQX_NAME</joy-field>
+        <joy-field alias="SC1">DQX_CODE</joy-field>
+        <joy-entity alias="AT1">REL_TERM_METRIC</joy-entity>
+        <joy-join type="LEFT">
+            <joy-entity alias="SC1">SRC_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_NAME" slave="DQX_LABEL" />
+        </joy-join>
+        <joy-filter alias="AT1" field="MET_NAME" operator="IS">NULL</joy-filter>
+        <joy-sort alias="AT1" field="MET_NAME" desc="no" />
+    </joy-composite>
+
+    <joy-composite name = "Rel Term Metric List" distinct="yes">
+        <joy-field alias="AT1">TRM_CLUSTER_ID</joy-field>
+        <joy-field alias="AT1">TRM_NAME</joy-field>
+        <joy-field alias="SC1">TRM_PK</joy-field>
+        <joy-entity alias="AT1">REL_TERM_METRIC</joy-entity>
+        <joy-join type="LEFT">
+            <joy-entity alias="SC1">DIM_TERM</joy-entity>
+            <joy-join-key master="TRM_NAME" slave="TRM_NAME" />
+        </joy-join>
+    </joy-composite>
+    
+    <joy-composite name = "Rel Term Metric Cluster" distinct="yes">
+        <joy-field alias="X">TRM_CLUSTER_ID</joy-field>
+        <joy-field alias="X">TRM_NAME</joy-field>
+        <joy-field alias="X">TRM_PK</joy-field>
+        <joy-entity alias="X">Rel Term Metric List</joy-entity>
+        <joy-filter alias="X" field="TRM_PK" operator="IS NOT">NULL</joy-filter>
+    </joy-composite>
+    
+    <joy-composite name = "DQ Axis In DTM Scope">
+        <joy-field alias="Y">DQX_PK</joy-field>
+        <joy-entity alias="X">DIM_DQAXIS</joy-entity>
+        <joy-join type="LEFT">
+            <joy-entity alias="Y">SRC_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_CODE" slave="DQX_CODE" />
+        </joy-join>
+    </joy-composite>
+
+</joy-entities>
