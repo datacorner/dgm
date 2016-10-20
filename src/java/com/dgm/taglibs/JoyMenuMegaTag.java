@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ * Copyright (C) 2016 Benoit CAYLA (benoit@famillecayla.fr)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ import org.jdom2.Element;
  *        - pnx= Nom du parametre x
  *        - pnv= Valeur du parametre x
  * 
- * @author Benoit CAYLA <benoit@famillecayla.fr>
+ * @author Benoit CAYLA (benoit@famillecayla.fr)
  */
 public class JoyMenuMegaTag extends SimpleTagSupport {
     private boolean display;    // affichage ou non

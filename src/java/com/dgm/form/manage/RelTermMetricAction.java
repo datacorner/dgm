@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ * Copyright (C) 2016 Benoit CAYLA (benoit@famillecayla.fr)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ import com.joy.bo.IEntity;
  * Gestion des relations Term Metric & DQ Axis
  * Table : REL_TERM_METRIC
  * Definition: un cluster (TRM_CLUSTER_ID) est un groupe (DQ Axis & Metric) pour un Term
- * @author Benoit CAYLA <benoit@famillecayla.fr> 
+ * @author Benoit CAYLA (benoit@famillecayla.fr) 
  */
 public class RelTermMetricAction extends ActionTypeForm {
     

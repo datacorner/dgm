@@ -3,7 +3,7 @@
     <display-name>dgm</display-name>
     <servlet>
         <servlet-name>mainHandler</servlet-name>
-        <servlet-class>com.joy.mvc.controller.MVCHandler</servlet-class>
+        <servlet-class>com.joy.mvc.controller.JoyController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>mainHandler</servlet-name>

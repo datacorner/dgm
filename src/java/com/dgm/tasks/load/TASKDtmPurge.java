@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ * Copyright (C) 2016 Benoit CAYLA (benoit@famillecayla.fr)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ import com.joy.tasks.JoyTaskStatus;
 
 /**
  *
- * @author Benoit CAYLA <benoit@famillecayla.fr>
+ * @author Benoit CAYLA (benoit@famillecayla.fr)
  */
 public class TASKDtmPurge extends TASKCommonRAZ {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ * Copyright (C) 2016 Benoit CAYLA (benoit@famillecayla.fr)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ import com.joy.bo.IEntity;
  * search terms with criterias
  * call with ./rest/search/[Entity]/[criteria 1]/[Value 1]/[criteria 2]/[Value 2]
  *           Example : http://localhost:18080/dgm/rest/search/term/termtypeid/3
- * @author Benoit CAYLA <benoit@famillecayla.fr>
+ * @author Benoit CAYLA (benoit@famillecayla.fr)
  */
 
 public class RESTSearch extends RESTPairMgtCommon {

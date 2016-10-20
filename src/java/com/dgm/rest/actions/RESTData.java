@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ * Copyright (C) 2016 Benoit CAYLA (benoit@famillecayla.fr)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ import com.joy.bo.IEntity;
 
 /**
  *
- * @author Benoit CAYLA <benoit@famillecayla.fr> 
+ * @author Benoit CAYLA (benoit@famillecayla.fr) 
  * Retourne le contenu d'une table au format JSON
  * P1 : nom de la table
  * http://localhost:18180/GovManagementTool/rest/data/[Nom de table]

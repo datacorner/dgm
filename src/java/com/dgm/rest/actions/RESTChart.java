@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ * Copyright (C) 2016 Benoit CAYLA (benoit@famillecayla.fr)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import com.joy.bo.IEntity;
 
 /**
  *
- * @author Benoit CAYLA <benoit@famillecayla.fr>
+ * @author Benoit CAYLA (benoit@famillecayla.fr)
  * P1: type de chart (polar, bar, line, donut, pie)
  * P2: nom de la query
  * P3 ... PX : parametres de la query --> par paire : (NOM Colonne, valeur colonne)
