@@ -1,15 +1,18 @@
-/**
-*    Chaque element de menu est placé dans un tag <joy-menu></joy-menu>
-*    Attributs du tag:
-*    * name (obligatoire) : nom du menu
-*    [choix]
-*    * url (obligatoire): URL du menu (http://)
-*    Ou
-*    * object (obligatoire) nom du tag Object (joy)
-*    * actiontype (facultatif) nom de l'actiontype (joy)
-*    * parametres (entier x de 1 à ...)
-*        - pnx= Nom du parametre x
-*        - pnv= Valeur du parametre x
+/*
+ * Copyright (C) 2016 Benoit CAYLA <benoit@famillecayla.fr>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.dgm.taglibs;
 
@@ -28,7 +31,18 @@ import org.jdom2.input.SAXBuilder;
 
 /**
  * Taglib d'affichage d'un menu
- * @author Benoit CAYLA
+*    Chaque element de menu est placé dans un tag <joy-menu></joy-menu>
+*    Attributs du tag:
+*    * name (obligatoire) : nom du menu
+*    [choix]
+*    * url (obligatoire): URL du menu (http://)
+*    Ou
+*    * object (obligatoire) nom du tag Object (joy)
+*    * actiontype (facultatif) nom de l'actiontype (joy)
+*    * parametres (entier x de 1 à ...)
+*        - pnx= Nom du parametre x
+*        - pnv= Valeur du parametre x
+ * @author Benoit CAYLA <benoit@famillecayla.fr>
  */
 public class JoyMenuTag extends SimpleTagSupport {
     private boolean display;    // affichage ou non
