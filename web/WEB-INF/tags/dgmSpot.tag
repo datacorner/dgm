@@ -1,10 +1,10 @@
 <%-- 
     Document   : Spots here
     Created on : 5 mars 2016, 09:03:52
-    Author     : benoit
+    Author     : benoit CAYLA
 --%>
 
-<%@tag description="Spots here" pageEncoding="UTF-8" import="com.joy.Joy, com.joy.mvc.Action, com.dgm.ui.UITaglibSpotData, com.joy.common.JoyParameter" %>
+<%@tag description="Spots here" pageEncoding="UTF-8" import="com.joy.Joy, com.joy.mvc.Action, com.dgm.beans.UITaglibSpotData, com.joy.common.JoyParameter" %>
 
 <%@attribute name="tag"%>
 <%@attribute name="panelcolor"%>

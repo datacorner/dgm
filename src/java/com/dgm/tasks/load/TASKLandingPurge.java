@@ -27,8 +27,8 @@ import com.joy.tasks.JoyTaskStatus;
 public class TASKLandingPurge extends TASKCommonRAZ {
 
     @Override
-    protected void init() {
-        super.init();
+    protected void dimensionsInit() {
+        super.dimensionsInit();
     }
     
     @Override
@@ -37,7 +37,7 @@ public class TASKLandingPurge extends TASKCommonRAZ {
             ParamProvider myParams = new ParamProvider(this.getEntities());
             
             // vide les tables
-            landingpurge();
+            landingPurge();
             
             super.taskExecute();
             this.setMessage("Landing tables purged.");

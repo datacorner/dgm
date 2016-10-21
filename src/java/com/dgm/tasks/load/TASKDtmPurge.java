@@ -16,7 +16,6 @@
  */
 package com.dgm.tasks.load;
 
-import com.dgm.common.providers.ParamProvider;
 import com.joy.Joy;
 import com.joy.tasks.JoyTaskStatus;
 
@@ -27,23 +26,20 @@ import com.joy.tasks.JoyTaskStatus;
 public class TASKDtmPurge extends TASKCommonRAZ {
 
     @Override
-    protected void init() {
-        super.init();
+    protected void dimensionsInit() {
+        super.dimensionsInit();
     }
     
     @Override
     public JoyTaskStatus taskExecute() {
         try {
-            ParamProvider myParams = new ParamProvider(this.getEntities());
-            
-            // vide les tables
-            dtmpurge();
-
-            // initialisation des données
-            init();
+            // Empty all the tables (fact + dim)
+            dtmPurge();
+            // Initialize the dimensions
+            dimensionsInit();
             
             super.taskExecute();
-            this.setMessage("DataMart purged.");
+            this.setMessage("DataMart reinitialized successfully");
             
         } catch (Exception e) {
             Joy.log().fatal(e);

@@ -57,6 +57,12 @@
     <!-- Transparency for charts display -->
     <app-parameter name="transparency" type="value">0.5</app-parameter> 
     
+    <!-- DIM_TIME initialisation parameters -->
+    <app-parameter name="dimtime_year_begin" type="value">2010</app-parameter>
+    <app-parameter name="dimtime_month_begin" type="value">0</app-parameter>
+    <app-parameter name="dimtime_day_begin" type="value">1</app-parameter>
+    <app-parameter name="dimtime_nb_records" type="value">5000</app-parameter>
+    
     <!-- Gauges Colors & thresolds -->
     <app-parameter name="ThresoldBadToWarn" type="value">40</app-parameter>
     <app-parameter name="ThresoldwarningToGood" type="value">60</app-parameter> 

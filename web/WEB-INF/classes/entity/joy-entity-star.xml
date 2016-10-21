@@ -38,6 +38,7 @@ for the custom queries :
     <joy-table name="DIM_TERM_RELLINKS" />
     <joy-table name="DIM_TERM_TYPE" />
     <joy-table name="DIM_METRICTYPE" />
+    <joy-table name="DIM_TIME" />
     
     <!-- Fact Tables -->
     <joy-table name="FACT_GOVERNANCE" label="All Facts" />

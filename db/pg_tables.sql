@@ -5,7 +5,7 @@
 -- Dumped from database version 9.4.5
 -- Dumped by pg_dump version 9.5.1
 
--- Started on 2016-10-21 09:02:09
+-- Started on 2016-10-21 12:03:41
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,7 +24,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2193 (class 0 OID 0)
+-- TOC entry 2185 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -388,18 +388,11 @@ CREATE TABLE dim_time (
     tim_datetime_load timestamp(6) without time zone DEFAULT ('now'::text)::date,
     tim_calendar_date date,
     tim_day_in_week_name character varying(10),
-    tim_month_name character varying(3),
-    tim_day_in_week_num integer,
-    tim_day_in_month_num integer,
-    tim_day_in_year_num integer,
-    tim_week_in_year_num integer,
-    tim_month_num integer,
-    tim_year_num character varying(20),
-    tim_quarter_num integer,
-    tim_weekend_flag integer,
-    tim_business_day integer,
-    tim_month_end_flag integer,
-    tim_sequence_order integer
+    tim_month_name character varying(20),
+    tim_year_num integer,
+    tim_sequence_order integer,
+    tim_day_num integer,
+    tim_month_num integer
 );
 
 
@@ -751,79 +744,15 @@ CREATE UNIQUE INDEX dim_term_relationship_pk ON dim_term_relationship USING btre
 
 
 --
--- TOC entry 2064 (class 1259 OID 17741)
--- Name: dim_time_index1; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index1 ON dim_time USING btree (tim_day_in_week_num);
-
-
---
--- TOC entry 2065 (class 1259 OID 17742)
--- Name: dim_time_index2; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index2 ON dim_time USING btree (tim_day_in_month_num);
-
-
---
--- TOC entry 2066 (class 1259 OID 17743)
--- Name: dim_time_index3; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index3 ON dim_time USING btree (tim_day_in_year_num);
-
-
---
--- TOC entry 2067 (class 1259 OID 17744)
--- Name: dim_time_index4; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index4 ON dim_time USING btree (tim_week_in_year_num);
-
-
---
--- TOC entry 2068 (class 1259 OID 17745)
+-- TOC entry 2064 (class 1259 OID 17745)
 -- Name: dim_time_index5; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX dim_time_index5 ON dim_time USING btree (tim_month_num);
+CREATE INDEX dim_time_index5 ON dim_time USING btree (tim_year_num);
 
 
 --
--- TOC entry 2069 (class 1259 OID 17746)
--- Name: dim_time_index6; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index6 ON dim_time USING btree (tim_quarter_num);
-
-
---
--- TOC entry 2070 (class 1259 OID 17747)
--- Name: dim_time_index7; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index7 ON dim_time USING btree (tim_weekend_flag);
-
-
---
--- TOC entry 2071 (class 1259 OID 17748)
--- Name: dim_time_index8; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index8 ON dim_time USING btree (tim_business_day);
-
-
---
--- TOC entry 2072 (class 1259 OID 17749)
--- Name: dim_time_index9; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX dim_time_index9 ON dim_time USING btree (tim_month_end_flag);
-
-
---
--- TOC entry 2073 (class 1259 OID 17750)
+-- TOC entry 2065 (class 1259 OID 17750)
 -- Name: dim_time_pk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -831,7 +760,7 @@ CREATE UNIQUE INDEX dim_time_pk ON dim_time USING btree (tim_pk);
 
 
 --
--- TOC entry 2075 (class 1259 OID 17765)
+-- TOC entry 2067 (class 1259 OID 17765)
 -- Name: fact_gvresult_pk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -839,7 +768,7 @@ CREATE UNIQUE INDEX fact_gvresult_pk ON fact_governance USING btree (frs_pk);
 
 
 --
--- TOC entry 2074 (class 1259 OID 17751)
+-- TOC entry 2066 (class 1259 OID 17751)
 -- Name: src_dqaxis_pk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -855,7 +784,7 @@ CREATE UNIQUE INDEX table_11_pk ON dim_scorecard_group USING btree (scg_pk);
 
 
 --
--- TOC entry 2076 (class 1259 OID 17808)
+-- TOC entry 2068 (class 1259 OID 17808)
 -- Name: trt_pk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -863,7 +792,7 @@ CREATE UNIQUE INDEX trt_pk ON dim_term_type USING btree (trt_pk);
 
 
 --
--- TOC entry 2192 (class 0 OID 0)
+-- TOC entry 2184 (class 0 OID 0)
 -- Dependencies: 7
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -874,7 +803,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2016-10-21 09:02:10
+-- Completed on 2016-10-21 12:03:41
 
 --
 -- PostgreSQL database dump complete

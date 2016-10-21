@@ -17,23 +17,33 @@
 package com.dgm.tasks.load;
 
 import com.dgm.common.Constants;
-import com.joy.bo.BOEntityReadWrite;
+import com.joy.Joy;
+import com.joy.bo.IEntity;
 import com.joy.mvc.actionTypes.ActionTypeTASK;
 import com.joy.tasks.JoyTaskStatus;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
- *
+ * This class manages the reinitialization process (removing all in the datamart and reinit it)
  * @author Benoit CAYLA (benoit@famillecayla.fr)
  */
 public class TASKCommonRAZ extends ActionTypeTASK {
 
+    /**
+     * Purge/trunctate a specified table
+     * @param Table table to purge
+     */
     protected void purgeTable(String Table) {
-        BOEntityReadWrite entity = (BOEntityReadWrite)this.getEntities().getEntity(Table);
+        IEntity entity = (IEntity)this.getEntities().getEntity(Table);
         if (!entity.deleteAll())
             this.addTrace(Table + " not purged successfully");
     }
     
-    protected void landingpurge() {
+    /**
+     * Purge/truncate the landing tables
+     */
+    protected void landingPurge() {
         purgeTable("LND_TERM");
         purgeTable("LND_GLOSSARY");
         purgeTable("LND_CATEGORY");
@@ -44,10 +54,12 @@ public class TASKCommonRAZ extends ActionTypeTASK {
         this.addTrace("Landing Tables purged");
     }
     
-    protected void dtmpurge() {
+    /**
+     * Purge/Truncate all the Datamart tables
+     */
+    protected void dtmPurge() {
         purgeTable("All Facts");
         this.addTrace("Facts purged");
-        
         purgeTable("DIM_METRIC");
         purgeTable("DIM_ORIGINE");
         purgeTable("DIM_SCORECARD_GROUP");
@@ -62,112 +74,161 @@ public class TASKCommonRAZ extends ActionTypeTASK {
         purgeTable("DIM_TERM_RELLINKS");
         purgeTable("DIM_TERM_RELATIONSHIP");
         purgeTable("DIM_TERM_TYPE");
+        purgeTable("DIM_TIME");
         purgeTable("Scorecard Dimension");
         this.addTrace("Dimensions purged");
-        
-        this.addTrace("Working area purged");
     }
 
-    protected void insertUnknownLine(BOEntityReadWrite entity) {
+    /**
+     * Insert an unknown line (ID=0) in a entity
+     * @param entity 
+     */
+    protected void insertUnknownLine(IEntity entity) {
         if (entity.insert()<0)
             this.addTrace(entity.getName() + " not initialized successfully !");
     }
     
-    protected void init() {
-        BOEntityReadWrite entity;
+    /**
+     * Initialize all the dimension tables by truncating them + addind a unknown line (ID=0)
+     */
+    protected void dimensionsInit() {
+        IEntity entity;
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_CONTEXT");
+        entity = this.getEntities().getEntity("DIM_CONTEXT");
         entity.field("CON_PK").setValue(0);
         entity.field("CON_DESCRIPTION").setValue(Constants.UNKNOWN);
         entity.field("CON_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_ORIGINE");
+        entity = this.getEntities().getEntity("DIM_ORIGINE");
         entity.field("ORI_PK").setValue(0);
         entity.field("ORI_NAME").setValue(Constants.UNKNOWN);
         entity.field("ORI_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_JOB");
+        entity = this.getEntities().getEntity("DIM_JOB");
         entity.field("JOB_PK").setValue(0);
         entity.field("JOB_NAME").setValue(Constants.UNKNOWN);
         entity.field("JOB_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("Scorecard Dimension");
+        entity = this.getEntities().getEntity("Scorecard Dimension");
         entity.field("SCO_PK").setValue(0);
         entity.field("SCO_NAME").setValue(Constants.UNKNOWN);
         entity.field("SCO_DESCRIPTION").setValue(Constants.UNKNOWN);
         entity.field("SCO_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
 
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_SCORECARD_GROUP");
+        entity = this.getEntities().getEntity("DIM_SCORECARD_GROUP");
         entity.field("SCG_PK").setValue(0);
         entity.field("SCO_FK").setValue(0);
         entity.field("SCG_NAME").setValue(Constants.UNKNOWN);
         entity.field("SCG_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_METRIC");
+        entity = this.getEntities().getEntity("DIM_METRIC");
         entity.field("MET_PK").setValue(0);
         entity.field("MET_NAME").setValue(Constants.UNKNOWN);
         entity.field("MET_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
 
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_TERM");
+        entity = this.getEntities().getEntity("DIM_TERM");
         entity.field("TRM_PK").setValue(0);
         entity.field("TRM_NAME").setValue(Constants.UNKNOWN);
         entity.field("TRM_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);     
 
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_DATASOURCE");
+        entity = this.getEntities().getEntity("DIM_DATASOURCE");
         entity.field("DSO_PK").setValue(0);
         entity.field("DSO_SOURCENAME").setValue(Constants.UNKNOWN);
         entity.field("DSO_CONNECTION").setValue(Constants.UNKNOWN);
         entity.field("DSO_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity); 
 
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_DQAXIS");
+        entity = this.getEntities().getEntity("DIM_DQAXIS");
         entity.field("DQX_PK").setValue(0);
         entity.field("DQX_NAME").setValue(Constants.UNKNOWN);
         entity.field("DQX_CODE").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_GLOSSARY");
+        entity = this.getEntities().getEntity("DIM_GLOSSARY");
         entity.field("GLO_PK").setValue(0);
         entity.field("GLO_NAME").setValue(Constants.UNKNOWN);
         entity.field("GLO_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_TERM_TYPE");
+        entity = this.getEntities().getEntity("DIM_TERM_TYPE");
         entity.field("TRT_PK").setValue(0);
         entity.field("TRT_NAME").setValue(Constants.UNKNOWN);
         entity.field("TRT_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_CATEGORY");
+        entity = this.getEntities().getEntity("DIM_CATEGORY");
         entity.field("CAT_PK").setValue(0);
         entity.field("CAT_NAME").setValue(Constants.UNKNOWN);
         entity.field("CAT_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_TERM_RELATIONSHIP");
+        entity = this.getEntities().getEntity("DIM_TERM_RELATIONSHIP");
         entity.field("REL_PK").setValue(0);
         entity.field("REL_NAME").setValue(Constants.UNKNOWN);
         entity.field("REL_NAME").setValue(Constants.UNKNOWN);
         insertUnknownLine(entity);
         
-        entity = (BOEntityReadWrite)this.getEntities().getEntity("DIM_TERM_RELLINKS");
+        entity = this.getEntities().getEntity("DIM_TERM_RELLINKS");
         entity.field("TRL_PK").setValue(0);
         entity.field("REL_FK").setValue(0);
         insertUnknownLine(entity);
         
-        this.addTrace("Tables Initialized successfully");
+        initDimTime();
+        
+        this.addTrace("Dimensions Initialized successfully");
     }
 
+    /**
+     * Do nothing ... this class must be overrided
+     * @return 
+     */
     @Override
     public JoyTaskStatus taskExecute() {
-        return super.taskExecute(); //To change body of generated methods, choose Tools | Templates.
+        return super.taskExecute();
     }
 
+    /**
+     * Initialize the DIM_TIME dimension table
+     */
+    private void initDimTime() {
+        Calendar cal = Calendar.getInstance();
+        int iNbRecords = 10000;
+        
+        // Calendar initialization
+        try {
+            int iYear = Integer.parseInt(Joy.parameters().getParameter("dimtime_year_begin").getValue().toString());
+            int iMonth = Integer.parseInt(Joy.parameters().getParameter("dimtime_month_begin").getValue().toString());
+            int iDay = Integer.parseInt(Joy.parameters().getParameter("dimtime_day_begin").getValue().toString());
+            iNbRecords = Integer.parseInt(Joy.parameters().getParameter("dimtime_nb_records").getValue().toString());
+            cal.set(iYear, iMonth, iDay);
+        } catch (NumberFormatException e) { 
+            cal.set(2010, 00, 01);
+        }
+        
+        // Inserts
+        for (int i=0; i<iNbRecords; i++) {
+            Date myDate = cal.getTime();
+            
+            IEntity dimTime = this.getEntities().getEntity("DIM_TIME");
+            dimTime.field("TIM_PK").setValue(Integer.parseInt(Joy.formatDate(myDate, "yyyyMMdd")));
+            dimTime.field("TIM_DATETIME_LOAD").setValue(Joy.getDate());
+            dimTime.field("TIM_CALENDAR_DATE").setValue(myDate);
+            dimTime.field("TIM_DAY_IN_WEEK_NAME").setValue(Joy.formatDate(myDate, "E"));
+            dimTime.field("TIM_MONTH_NAME").setValue(Joy.formatDate(myDate, "MMM"));
+            dimTime.field("TIM_YEAR_NUM").setValue(Joy.formatDate(myDate, "yyyy"));
+            dimTime.field("TIM_MONTH_NUM").setValue(Joy.formatDate(myDate, "MM"));
+            dimTime.field("TIM_DAY_NUM").setValue(Joy.formatDate(myDate, "ddd"));
+            dimTime.field("TIM_SEQUENCE_ORDER").setValue(i);
+            
+            dimTime.insert();
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+        }
+    }
 }
