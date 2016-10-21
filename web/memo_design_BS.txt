@@ -1,0 +1,112 @@
+<i class="fa XXX fa-fw"></i>&nbsp;LABEL
+<i class="fa fa-plus-circle fa-fw fa-5x" style="color:black"></i>
+<UI:dgmGlyphe name="XXX" /> Cf. joyparameter.xml
+
+fa-flag             status                <i class="fa fa-flag fa-fw"></i>&nbsp;
+fa-book             business term       <i class="fa fa-book fa-fw"></i>&nbsp;
+fa-bookmark-o       Metric              <i class="fa fa-bookmark-o fa-fw"></i>&nbsp;
+fa-flag-checkered   DQ dimension        <i class="fa fa-flag-checkered fa-fw"></i>&nbsp;
+fa-user             Utilisateur         <i class="fa fa-user fa-fw"></i>&nbsp;
+fa-sitemap          Business Map        <i class="fa fa-sitemap fa-fw"></i>&nbsp;
+
+fa-random           metadata manager    <i class="fa fa-random fa-fw"></i>&nbsp;
+fa-database         glossary            <i class="fa fa-database fa-fw"></i>&nbsp;
+fa-folder-open      category            <i class="fa fa-folder-open fa-fw"></i>&nbsp;
+fa-dashboard        dashboard           <i class="fa fa-dashboard fa-fw"></i>&nbsp;
+fa-pagelines        relationship        <i class="fa fa-pagelines fa-fw"></i>&nbsp;
+fa-briefcase        context             <i class="fa fa-briefcase fa-fw"></i>&nbsp;
+fa-cubes            data sources        <i class="fa fa-cubes fa-fw"></i>&nbsp;
+
+fa-bar-chart-o      chart               <i class="fa fa-bar-chart-o fa-fw"></i>&nbsp;
+fa-table            data                <i class="fa fa-table fa-fw"></i>&nbsp;
+fa-gears            Configuration       <i class="fa fa-gears fa-fw"></i>&nbsp;
+
+trends :
+fa-arrow-up         increase            <i class="fa fa-arrow-up fa-fw"></i>&nbsp;
+fa-arrow-down       decrease            <i class="fa fa-arrow-down fa-fw"></i>&nbsp;
+fa-arrow-right      stable              <i class="fa fa-arrow-right fa-fw"></i>&nbsp;
+fa-plus-circle      new                 <i class="fa fa-plus-circle fa-fw"></i>&nbsp;
+
+------------------------------
+Boutons
+------------------------------
+Add button:
+<joy:JoyFormButtonTag id="btn1" label="<i class='fa fa-plus-circle'></i>" CSSClass="btn btn-success btn-circle" onclick="ValidateForm();" />
+<script>
+function ValidateForm() {
+    if(document.forms['frmEditItem'].TRM_NAME.value == '') { 
+        alert('Please enter a business term'); 
+    } else {
+        document.forms['frmEditItem'].submit();
+    }
+} 
+</script>
+
+Delete button:
+<button type="button" class="btn btn-danger btn-circle" onclick="Delete('URL');"><i class="fa fa-times"></i></button>
+<script>
+function Delete(link) {
+    if (confirm('Are you sure you want to delete this Business Term ?')) {
+        window.open(link, '_self');
+    } 
+} 
+</script>
+
+**************************
+
+Edit button:
+<button type="button" class="btn btn-primary btn-circle" onclick="window.open('#', '_self');"><i class="fa fa-edit"></i></button>
+
+**************************
+
+URLS test
+http://localhost:18080/dgm/rest/taskslist
+
+http://localhost:18080/dgm/task/infawf/wf_10_Full_Delta_SC
+
+
+**************************
+aller voir http://getbootstrap.com/javascript/
+
+Alert
+
+bootbox.alert("Hello world!", function() {
+  Example.show("Hello world callback");
+});
+
+
+Confirm
+
+bootbox.confirm("Are you sure?", function(result) {
+  Example.show("Confirm result: "+result);
+}); 
+
+
+Prompt
+
+bootbox.prompt("What is your name?", function(result) {                
+  if (result === null) {                                             
+    Example.show("Prompt dismissed");                              
+  } else {
+    Example.show("Hi <b>"+result+"</b>");                          
+  }
+});
+
+
+Prompt with default value
+
+bootbox.prompt({
+  title: "What is your real name?",
+  value: "makeusabrew",
+  callback: function(result) {
+    if (result === null) {
+      Example.show("Prompt dismissed");
+    } else {
+      Example.show("Hi <b>"+result+"</b>");
+    }
+  }
+});
+
+*********************************
+Ajouter bouton
+<joy:JoyFormButtonTag id="btn1" label="Modify parameters"  CSSClass="btn btn-default" link="true" object="parameters" actiontype="list" />

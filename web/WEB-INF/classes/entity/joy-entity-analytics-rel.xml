@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+
+    <joy-customquery name="Analytics - Rel Term Info"> <!-- Replace BO_TERMBASIC_INFO -->
+        SELECT TRM_PK, TRM_NAME, GLO_NAME
+        FROM DIM_GLOSSARY INNER JOIN DIM_TERM ON (GLO_PK = GLO_FK)
+    </joy-customquery>
+
+    <joy-customquery name="Analytics - Rel Term Relationships"> <!-- Replace BO_TERMS_RELATIONSHIPS -->
+        SELECT REL_FK,
+               REL_NAME,
+               DIM_TERM.TRM_NAME AS TERM_SOURCE,
+               DIM_TERM.TRM_PK AS TERM_PK_SOURCE,
+               DIM_TERM.GLO_FK AS GLO_FK_SOURCE,
+               DIM_GLOSSARY_1.GLO_NAME AS GLO_NAME_SOURCE,
+               DIM_TERM_1.TRM_NAME AS TERM_TARGET,
+               DIM_TERM_1.TRM_PK AS TERM_PK_TARGET,
+               DIM_TERM_1.GLO_FK AS GLO_FK_TARGET,
+               DIM_GLOSSARY.GLO_NAME AS GLO_NAME_TARGET,
+               DIM_TERM_RELATIONSHIP.REL_DESCRIPTION
+          FROM DIM_TERM_RELATIONSHIP
+               INNER JOIN DIM_TERM_RELLINKS ON (REL_PK = REL_FK)
+               INNER JOIN DIM_TERM DIM_TERM_1 ON OBJECT_ID_TARGET = DIM_TERM_1.OBJECT_ID
+               INNER JOIN DIM_GLOSSARY ON DIM_TERM_1.GLO_FK = DIM_GLOSSARY.GLO_PK
+               INNER JOIN DIM_TERM ON OBJECT_ID_SOURCE = DIM_TERM.OBJECT_ID
+               INNER JOIN DIM_GLOSSARY DIM_GLOSSARY_1 ON DIM_TERM.GLO_FK = DIM_GLOSSARY_1.GLO_PK
+    </joy-customquery>
+</joy-entities>

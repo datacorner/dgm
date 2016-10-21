@@ -1,0 +1,41 @@
+<SCRIPT type='text/javascript'>
+
+    function loadChartData_[ID](fname) {	
+        var xhr=createXHR();
+        xhr.open("GET", fname, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status !== 404) {
+                        var data = eval("(" + xhr.responseText + ")");
+                        callbackSuccess_[ID](data);
+                } else {
+                        callbackError(tag);
+                }
+            }
+        };
+        xhr.send(null);
+    }
+
+    function callbackSuccess_[ID](content, tag) {
+        var ctx = document.getElementById("CHART_[ID]").getContext("2d");
+        var config = {
+            data: content,
+            options: {
+                responsive: true,
+                legend: { position: 'bottom' },
+                title: { display: true, text: '[title]' },
+                scale: {
+                    ticks: { beginAtZero: true },
+                    reverse: false
+                },
+                animateRotate:true,
+                segmentShowStroke : true,
+                scaleShowLine : true
+                }
+            };
+        var ctx = document.getElementById("CHART_[ID]");
+        window.myPolar_[ID] = Chart.PolarArea(ctx, config);
+    }
+
+    loadChartData_[ID]('./rest/charts/sds/[entity]');
+</SCRIPT>

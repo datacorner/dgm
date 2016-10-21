@@ -1,0 +1,10 @@
+/* DGM specifics styles */
+
+.litaskitem { width : 300px; padding-right: 5px; padding-left: 5px; padding-top: 0px; text-align: right; }
+.divTask { width : 290px; }
+.divTaskImage { float : left;  width : 16px; height : 50px; background-image: url(../images/loading.gif); background-repeat: no-repeat; background-position: left center; padding-left: 8px; }
+.divTaskItem { float : left;  width : 50px; height : 35px;  }
+.divTaskDesc { width : 274px; height : 50px; vertical-align: middle; padding-left: 5px;  }
+.divNoTask { width : 290px; height : 50px; text-align: left; padding-left: 5px; padding-top: 15px;  }
+.divTask { width : 290px; height : 50px; text-align: left; padding-left: 5px; padding-top: 5px;   }
+.lishortcutitem  { width : 200px; padding-right: 5px;  }

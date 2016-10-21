@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    joy-menu for the item menus
+    joy-button for the buttons (under the menu)
+-->
+
+<joy-menu>
+    <joy-menu glyphe="fa-book" id="term" name="Business Term" object="lndterms" actiontype="list" />
+    <joy-menu glyphe="fa-folder-open" id="category" name="Category" object="lndcategory" actiontype="list" />
+    <joy-menu glyphe="fa-database" id="glossary" name="Glossary" object="lndglossary" actiontype="list" />
+    <joy-menu glyphe="fa-pagelines" id="termrel" name="Terms Relationships" object="lndtermsrel" actiontype="list" />
+    <joy-menu glyphe="fa-bookmark-o" id="metric" name="Metrics" object="lndmetric" actiontype="list" />
+    <joy-menu glyphe="fa-dashboard" id="scorecard" name="Scorecards" object="lndsc" actiontype="list" />
+    <joy-menu glyphe="fa-dashboard" id="groups" name="Groups" object="lndscgrp" actiontype="list" />
+    <joy-button name="Import Landing tables ..." object="landinginterface" actiontype="list" />
+</joy-menu>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joy-dashboards> 
+    <joy-dashboard-template type="bar">
+        <body>dashboard/bar/html.template</body>
+        <after-body>dashboard/bar/js.template</after-body>
+    </joy-dashboard-template>
+    <joy-dashboard-template type="polar">
+        <body>dashboard/polar/html.template</body>
+        <after-body>dashboard/polar/js.template</after-body>
+    </joy-dashboard-template>
+    <joy-dashboard-template type="text">
+        <body>dashboard/text/html.template</body>
+    </joy-dashboard-template>
+    <joy-dashboard-template type="lines">
+        <body>dashboard/lines/html.template</body>
+        <after-body>dashboard/lines/js.template</after-body>
+    </joy-dashboard-template>
+    <joy-dashboard-template type="iframe">
+        <body>dashboard/iframe/html.template</body>
+    </joy-dashboard-template>
+    
+    <joy-dashboard id="r1" name="Personnal Dashboard">
+        <joy-dashboard-row>
+             <joy-dashboard-bloc id="c3" type="polar" size="4" title="Global scoring per Data Quality Dimension"> 
+                <joy-param name="entity">AXIS_SCORE_HOME_00</joy-param>
+             </joy-dashboard-bloc>
+             <joy-dashboard-bloc id="c1" type="bar" size="4" title="No Owners/stewards"> 
+                <joy-param name="entity">NO_OWNER_HOME_02</joy-param>
+             </joy-dashboard-bloc>
+             <joy-dashboard-bloc id="d1" type="iframe" size="4" title="Informatica"> 
+                <joy-param name="src">http://www.informatica.com/</joy-param>
+                <joy-param name="height">250px</joy-param>
+                <joy-param name="width">100%</joy-param>
+             </joy-dashboard-bloc>
+        </joy-dashboard-row>
+        
+    </joy-dashboard>
+
+</joy-dashboards> 

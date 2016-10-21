@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+
+<!-- Tables or views here -->
+
+    <!-- Star schema Tables -->
+    <joy-table name="DIM_SCORECARD" label="Scorecard Dimension">
+        <joy-field-label name="SCO_PK">Scorecard Dimension PKey</joy-field-label>
+        <joy-field-label name="SCO_NAME">Scorecard Name</joy-field-label>
+    </joy-table>
+    <joy-table name="DIM_CATEGORY" />
+    <joy-table name="DIM_METRIC" />
+    <joy-table name="DIM_SCORECARD_GROUP" />
+    <joy-table name="DIM_SCORECARD" />
+    <joy-table name="DIM_DQAXIS" />
+    <joy-table name="DIM_CONTEXT" />
+    <joy-table name="DIM_JOB" />
+    <joy-table name="DIM_TERM" />
+    <joy-table name="DIM_DATASOURCE" />
+    <joy-table name="DIM_ORIGINE" />
+    <joy-table name="DIM_CATEGORY" />
+    <joy-table name="DIM_GLOSSARY" />
+    <joy-table name="DIM_TERM_RELATIONSHIP" />
+    <joy-table name="DIM_TERM_RELLINKS" />
+    <joy-table name="DIM_TERM_TYPE" />
+    <joy-table name="DIM_METRICTYPE" />
+    
+    <!-- Fact Tables -->
+    <joy-table name="FACT_GOVERNANCE" label="All Facts" />
+
+    <joy-customquery name="Last Facts Only"> 
+        SELECT FRS_PK, JOB_FK, TIM_FK, TRM_FK, ORI_FK, DQX_FK, MET_FK, CON_FK, FRS_VALID_ROWS, FRS_INVALID_ROWS,  FRS_TOTALROWS, FRS_KPI_SCORE, FRS_DATETIME_LOAD, 
+               FRS_WEIGHT, FRS_COST, DSO_FK, FRS_METRIC_FUNCKEY
+        FROM FACT_GOVERNANCE, 
+            (SELECT DISTINCT FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk_1 FROM FACT_GOVERNANCE) A        
+        WHERE FACT_GOVERNANCE.frs_pk = A.frs_pk_1        
+        AND FACT_GOVERNANCE.TRM_FK > 0    
+    </joy-customquery>
+    
+    <joy-composite name = "Terms with Glossary information">
+        <joy-entity alias="T">DIM_TERM</joy-entity>
+        <joy-join type="LEFT">
+            <joy-entity alias="C">DIM_CATEGORY</joy-entity>
+            <joy-join-key master="CAT_FK" slave="CAT_PK" />
+        </joy-join>
+        <joy-join type="LEFT">
+            <joy-entity alias="G">DIM_GLOSSARY</joy-entity>
+            <joy-join-key master="GLO_FK" slave="GLO_PK" />
+        </joy-join>
+        <joy-filter alias="G" field="GLO_PK" operator="&lt;&gt;">0</joy-filter>
+    </joy-composite>
+    
+    <joy-composite name = "Scorecards with Group information">
+        <joy-entity alias="SG1">DIM_SCORECARD_GROUP</joy-entity>
+        <joy-join type="LEFT">
+            <joy-entity alias="SC1">DIM_SCORECARD</joy-entity>
+            <joy-join-key master="SCO_FK" slave="SCO_PK" />
+        </joy-join>
+    </joy-composite>
+    
+    <joy-composite name = "Metrics With Scorecard information">
+        <joy-entity alias="SG1">DIM_METRIC</joy-entity>
+        <joy-join type="LEFT">
+            <joy-entity alias="SC1">Scorecards with Group information</joy-entity>
+            <joy-join-key master="SCG_FK" slave="SCG_PK" />
+        </joy-join>
+    </joy-composite>
+    
+    <joy-composite name = "Last Facts Only with details">
+        <joy-entity alias="LFO">Last Facts Only</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="DQ">DIM_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_FK" slave="DQX_PK" />
+        </joy-join>
+        <joy-join type="INNER">
+            <joy-entity alias="GI">Terms with Glossary information</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join> 
+        <joy-join type="INNER">
+            <joy-entity alias="TI">DIM_TIME</joy-entity>
+            <joy-join-key master="TIM_FK" slave="TIM_PK" />
+        </joy-join>
+        <joy-join type="LEFT">
+            <joy-entity alias="OR1">DIM_ORIGINE</joy-entity>
+            <joy-join-key master="ORI_FK" slave="ORI_PK" />
+        </joy-join>
+        <joy-join type="LEFT">
+            <joy-entity alias="CON1">DIM_CONTEXT</joy-entity>
+            <joy-join-key master="CON_FK" slave="CON_PK" />
+        </joy-join> 
+        <joy-join type="LEFT">
+            <joy-entity alias="DSO1">DIM_DATASOURCE</joy-entity>
+            <joy-join-key master="DSO_FK" slave="DSO_PK" />
+        </joy-join> 
+        <joy-join type="INNER">
+            <joy-entity alias="MSG">Metrics With Scorecard information</joy-entity>
+            <joy-join-key master="MET_FK" slave="MET_PK" />
+        </joy-join> 
+    </joy-composite>
+
+    <joy-composite name = "All Facts with details">
+        <joy-entity alias="LFO">FACT_GOVERNANCE</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="DQ">DIM_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_FK" slave="DQX_PK" />
+        </joy-join>
+        <joy-join type="INNER">
+            <joy-entity alias="GI">Terms with Glossary information</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join> 
+        <joy-join type="INNER">
+            <joy-entity alias="TI">DIM_TIME</joy-entity>
+            <joy-join-key master="TIM_FK" slave="TIM_PK" />
+        </joy-join>
+        <joy-join type="LEFT">
+            <joy-entity alias="OR1">DIM_ORIGINE</joy-entity>
+            <joy-join-key master="ORI_FK" slave="ORI_PK" />
+        </joy-join>
+        <joy-join type="LEFT">
+            <joy-entity alias="CON1">DIM_CONTEXT</joy-entity>
+            <joy-join-key master="CON_FK" slave="CON_PK" />
+        </joy-join> 
+        <joy-join type="LEFT">
+            <joy-entity alias="DSO1">DIM_DATASOURCE</joy-entity>
+            <joy-join-key master="DSO_FK" slave="DSO_PK" />
+        </joy-join> 
+        <joy-join type="INNER">
+            <joy-entity alias="MSG">Metrics With Scorecard information</joy-entity>
+            <joy-join-key master="MET_FK" slave="MET_PK" />
+        </joy-join> 
+    </joy-composite>
+
+</joy-entities>

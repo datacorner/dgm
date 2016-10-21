@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+
+    <joy-customquery name="Analytics - Category Last Runs"> <!-- Replace RPT_CAT_LASTRUNS -->
+        select max(DIM_TIME.TIM_CALENDAR_DATE) AS rundate, 
+        DIM_DQAXIS.DQX_NAME, 
+        avg(FRS_KPI_SCORE) AS SCORE, 
+        CAT_FK
+        from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                               from FACT_GOVERNANCE) A,  DIM_DQAXIS, DIM_TIME, DIM_TERM
+        Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+        And FACT_GOVERNANCE.DQX_FK = DIM_DQAXIS.DQX_PK
+        And FACT_GOVERNANCE.TIM_FK = DIM_TIME.TIM_PK
+        And FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+        GROUP BY dqx_name, tim_calendar_date, CAT_FK
+        ORDER BY CAT_FK, tim_calendar_date
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Category Context List"> <!-- Replace rpt_cat_context_list -->
+       select DISTINCT dim_context.con_description, dim_context.con_pk, CAT_FK
+       from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                      from FACT_GOVERNANCE) A, DIM_CONTEXT, DIM_TERM
+       Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+       And FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+       And FACT_GOVERNANCE.con_fk = DIM_CONTEXT.con_Pk
+    </joy-customquery>
+    
+	
+    <joy-customquery name="Analytics - Category DS List"> <!-- Replace RPT_CAT_DATASOURCE_LIST -->
+       select DISTINCT DIM_DATASOURCE.dso_sourcename, DIM_DATASOURCE.dso_connection,DIM_DATASOURCE.dso_pk, CAT_FK
+       from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                      from FACT_GOVERNANCE) A, DIM_DATASOURCE, DIM_TERM
+       Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+       And FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+       And FACT_GOVERNANCE.dso_fk = DIM_DATASOURCE.dso_pk
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Category List">
+        select distinct CAT_PK, CAT_NAME 
+        from FACT_GOVERNANCE, DIM_TERM, DIM_CATEGORY
+        Where TRM_FK > 0
+        And FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+        And DIM_CATEGORY.CAT_PK = DIM_TERM.CAT_FK
+        Order by CAT_NAME
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Category Term List"> <!-- Replace RPT_CAT_TERM_LIST -->
+        SELECT AVG (FRS_KPI_SCORE) AS SCORE, AVG (FRS_COST) AS COST, DQX_NAME, TRM_NAME,  TRM_FK, DQX_CODE, CAT_FK
+          FROM (select * 
+                from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                       from FACT_GOVERNANCE) A
+           Where FACT_GOVERNANCE.frs_pk = A.FRS_PK) B, DIM_DQAXIS, DIM_TERM
+        WHERE TRM_FK > 0
+        AND DIM_DQAXIS.DQX_PK = B.DQX_FK
+        AND B.TRM_FK = DIM_TERM.TRM_PK
+        GROUP BY DQX_NAME, TRM_NAME, TRM_FK,  DQX_CODE, CAT_FK
+        ORDER BY TRM_NAME
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Category Glossary List"> <!-- Replace RPT_CAT_GLOSSARY_LIST -->
+        SELECT DISTINCT DIM_GLOSSARY.GLO_PK, DIM_GLOSSARY.GLO_NAME, DIM_GLOSSARY.GLO_DESCRIPTION, DIM_CATEGORY.CAT_PK
+        FROM DIM_CATEGORY, DIM_TERM, DIM_GLOSSARY
+        WHERE DIM_CATEGORY.CAT_PK = DIM_TERM.CAT_FK
+        AND DIM_TERM.GLO_FK = DIM_GLOSSARY.GLO_PK
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Category Parent List"> <!-- Replace RPT_CAT_PARENTS -->
+        SELECT DISTINCT  parent.CAT_PK, parent.CAT_NAME, parent.CAT_ID, parent.CAT_PARENT_ID, parent.CAT_DATETIME_LOAD, parent.CAT_DESCRIPTION, parent.CAT_FULLPATH, REF.CAT_PK AS CAT_FILTERING
+          FROM DIM_CATEGORY REF, 
+               DIM_CATEGORY parent LEFT JOIN 
+              (select FACT_GOVERNANCE.*, DIM_TERM.CAT_FK
+               from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                        from FACT_GOVERNANCE) A, DIM_TERM
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+               And DIM_TERM.TRM_PK = FACT_GOVERNANCE.TRM_FK) B ON B.CAT_FK = parent.CAT_PK
+         WHERE PARENT.CAT_ID = REF.CAT_PARENT_ID
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Category Child List"> <!-- Replace RPT_CAT_CHILDS -->
+        SELECT DISTINCT  enfant.CAT_PK, enfant.CAT_NAME, enfant.CAT_ID, enfant.CAT_PARENT_ID, enfant.CAT_DATETIME_LOAD, enfant.CAT_DESCRIPTION, enfant.CAT_FULLPATH, REF.CAT_PK AS CAT_FILTERING
+          FROM DIM_CATEGORY REF, 
+               (select FACT_GOVERNANCE.*, DIM_TERM.CAT_FK
+               from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                        from FACT_GOVERNANCE) A, DIM_TERM
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+               And DIM_TERM.TRM_PK = FACT_GOVERNANCE.TRM_FK) B LEFT JOIN DIM_CATEGORY enfant ON B.CAT_FK = enfant.CAT_PK
+         WHERE enfant.CAT_PARENT_ID = REF.CAT_ID
+    </joy-customquery>
+    
+</joy-entities>

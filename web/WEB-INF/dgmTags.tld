@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>dgmtags</short-name>
+  <uri>/WEB-INF/tlds/dgmTags</uri>
+
+  <tag>
+    <name>dgmAlertTag</name>
+    <tag-class>com.dgm.taglibs.JoyResultMsgTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>display</name>
+      <required>true</required>
+    </attribute>
+  </tag>
+  
+</taglib>
+

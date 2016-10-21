@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joy-entities>
+    <!-- Landing tables -->
+    <joy-table name="LND_TERM" />
+    <joy-table name="LND_GLOSSARY" />
+    <joy-table name="LND_CATEGORY" />
+    <joy-table name="LND_TERM_RELATIONSHIPS" />
+    <joy-table name="LND_METRIC" />
+    <joy-table name="LND_SCORECARD" />
+    <joy-table name="LND_SCORECARD_GROUP" />
+    
+    <!-- Queries -->
+    <joy-customquery name="Landing - List of available Glossary"> 
+        select GLO_ID, GLO_NAME from DIM_GLOSSARY
+        UNION
+        select JOYFUNCKEY, GLOSSARY_NAME from LND_GLOSSARY
+    </joy-customquery>
+    
+    <joy-customquery name="Landing - List of available Category"> 
+        select CAT_ID, CAT_NAME from DIM_CATEGORY
+        UNION
+        select JOYFUNCKEY, CATEGORY_NAME from LND_CATEGORY
+    </joy-customquery>
+    
+    <!-- Used for Landing mappings (sources) -->
+    <joy-composite name = "Load - get Terms type" distinct="yes">
+        <joy-field alias="X">TERM_TYPE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-entity alias="X">LND_TERM</joy-entity>
+    </joy-composite>
+
+    <joy-composite name = "Load - get Relationship name" distinct="yes">
+        <joy-field alias="X">REL_NAME</joy-field>
+        <joy-field alias="X">REL_DESCRIPTION</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-entity alias="X">LND_TERM_RELATIONSHIPS</joy-entity>
+    </joy-composite>
+    
+    <joy-composite name = "Load - get Relationship" distinct="yes">
+        <joy-field alias="X">REL_KEY_TERM_SOURCE</joy-field>
+        <joy-field alias="X">REL_KEY_TERM_TARGET</joy-field>
+        <joy-field alias="X">REL_NAME</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-entity alias="X">LND_TERM_RELATIONSHIPS</joy-entity>
+    </joy-composite>
+    
+    <joy-composite name = "Load - get Glossary" distinct="yes">
+        <joy-field alias="X">GLOSSARY_DESCRIPTION</joy-field>
+        <joy-field alias="X">GLOSSARY_NAME</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-entity alias="X">LND_GLOSSARY</joy-entity>
+    </joy-composite>
+    
+    <joy-composite name = "Load - get Category" distinct="yes">
+        <joy-field alias="X">CATEGORY_NAME</joy-field>
+        <joy-field alias="X">CATEGORY_DESCRIPTION</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-field alias="X">CATEGORY_FULLPATH</joy-field>
+        <joy-field alias="X">CATEGORY_PARENT_KEY</joy-field>
+        <joy-entity alias="X">LND_CATEGORY</joy-entity>
+    </joy-composite>
+
+    <joy-composite name = "Load - get Scorecard" distinct="yes">
+        <joy-field alias="X">SCO_NAME</joy-field>
+        <joy-field alias="X">SCO_DESCRIPTION</joy-field>
+        <joy-field alias="X">SCO_LASTRUN</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-entity alias="X">LND_SCORECARD</joy-entity>
+    </joy-composite>
+    
+    <joy-composite name = "Load - get Term" distinct="yes">
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">TERM_STATUS</joy-field>
+        <joy-field alias="X">TERM_TYPE</joy-field>
+        <joy-field alias="X">term_name</joy-field>
+        <joy-field alias="X">term_funckey</joy-field>
+        <joy-field alias="X">term_description</joy-field>
+        <joy-field alias="X">term_usage</joy-field>
+        <joy-field alias="X">term_example</joy-field>
+        <joy-field alias="X">term_phase</joy-field>
+        <joy-field alias="X">term_owner</joy-field>
+        <joy-field alias="X">term_steward</joy-field>
+        <joy-field alias="X">term_owner_email</joy-field>
+        <joy-field alias="X">term_steward_email</joy-field>
+        <joy-field alias="X">glossary_key</joy-field>
+        <joy-field alias="X">category_key</joy-field>
+        <joy-entity alias="X">LND_TERM</joy-entity>
+    </joy-composite> 
+    
+    <joy-composite name = "Load - get Scorecard Group" distinct="yes">
+        <joy-field alias="X">SCGROUP_NAME</joy-field>
+        <joy-field alias="X">SCORECARD_KEY</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-entity alias="X">LND_SCORECARD_GROUP</joy-entity>
+    </joy-composite>
+
+    <joy-composite name = "Load - get Datasource" distinct="yes">
+        <joy-field alias="X">MET_CONNECTION</joy-field>
+        <joy-field alias="X">MET_SOURCENAME</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-entity alias="X">LND_METRIC</joy-entity>
+    </joy-composite>
+
+    <joy-composite name = "Load - get Origin" distinct="yes">
+        <joy-field alias="X">ORI_NAME</joy-field>
+        <joy-field alias="X">JOYLOADDATE</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-field alias="X">JOYFUNCKEY</joy-field>
+        <joy-entity alias="X">LND_METRIC</joy-entity>
+    </joy-composite>
+
+    <joy-composite name = "Load - get Metrics" distinct="yes">
+        <joy-field alias="X">MET_NAME</joy-field>
+        <joy-field alias="X">MET_DESCRIPTION</joy-field>
+        <joy-field alias="X">MET_WEIGHT</joy-field>
+        <joy-field as="JOYFUNCKEY">scorecard_key || '|' || scorecardgrp_key || '|' || met_name</joy-field>
+        <joy-field alias="X">MET_TYPE</joy-field>
+        <joy-field alias="X">SCORECARDGRP_KEY</joy-field>
+        <joy-field alias="X">JOYSTATUS</joy-field>
+        <joy-entity alias="X">LND_METRIC</joy-entity>
+        <joy-sort alias="X" field="MET_NAME" desc="no" />
+    </joy-composite>
+
+    <joy-customquery name="Load - Facts from landing">
+        SELECT TIM_PK, TRM_PK, MET_PK, DQX_PK, DSO_PK, CON_PK, ORI_PK,
+               DIM_METRIC.MET_WEIGHT,LND_METRIC.FRS_VALID_ROWS, LND_METRIC.FRS_TOTALROWS, LND_METRIC.FRS_COST,
+               FRS_CALCULATION_DATE, FRS_COSTUNIT, MET_SCORE,
+               JOYFUNCKEY, FACT_GOVERNANCE.FRS_PK
+          FROM LND_METRIC
+                LEFT OUTER JOIN FACT_GOVERNANCE ON LND_METRIC.JOYFUNCKEY = FACT_GOVERNANCE.FRS_METRIC_FUNCKEY
+                INNER JOIN DIM_TIME ON (DIM_TIME.TIM_PK = to_number(to_char(LND_METRIC.FRS_CALCULATION_DATE, 'YYYYMMDD'), '99999999'))
+                LEFT OUTER JOIN REL_TERM_METRIC ON (LND_METRIC.MET_NAME = REL_TERM_METRIC.MET_NAME)
+                    LEFT OUTER JOIN DIM_DQAXIS ON (REL_TERM_METRIC.DQX_NAME = DIM_DQAXIS.DQX_NAME)
+                    LEFT OUTER JOIN DIM_TERM ON (REL_TERM_METRIC.TRM_NAME = DIM_TERM.TRM_NAME)
+                INNER JOIN DIM_METRIC ON (LND_METRIC.MET_NAME = DIM_METRIC.MET_NAME)
+                LEFT OUTER JOIN DIM_ORIGINE ON (LND_METRIC.ORI_NAME = DIM_ORIGINE.ORI_NAME)
+                LEFT OUTER JOIN DIM_DATASOURCE ON (LND_METRIC.MET_SOURCENAME = DIM_DATASOURCE.DSO_FUNCKEY)
+                LEFT OUTER JOIN REL_SC_CONTEXT ON (LND_METRIC.SCORECARD_KEY = REL_SC_CONTEXT.SCO_NAME)
+                    LEFT OUTER JOIN DIM_CONTEXT ON (REL_SC_CONTEXT.CON_DESCRIPTION = DIM_CONTEXT.CON_DESCRIPTION)
+        WHERE FACT_GOVERNANCE.FRS_PK IS NULL
+    </joy-customquery>
+    
+</joy-entities>

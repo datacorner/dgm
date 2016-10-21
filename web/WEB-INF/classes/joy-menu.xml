@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<joy-menu>
+    <joy-menu class="fa fa-home fa-fw" id="Home" name="Home" object="home"  actiontype="display" />
+    
+    <joy-menu class="fa fa-tachometer fa-fw" id="Dashboards" name="Dashboards" object="dashboard" actiontype="display" shortcut="true" />
+    
+    <joy-menu id="Analytics" class="fa fa-star fa-fw" name="Analytics">
+        <joy-menu class="fa fa-database fa-fw" id="Analytics-BG" name="Business Glossary"> 
+            <joy-menu class="fa fa-book fa-fw" id="Analytics-BG-Term" name="By Term" object="byterm" actiontype="search" shortcut="true" />
+            <joy-menu class="fa fa-folder-open fa-fw" id="Analytics-BG-Category" name="By Category" object="bycategory" actiontype="search" />
+            <joy-menu class="fa fa-database fa-fw" id="Analytics-BG-Glossary" name="By Glossary" object="byglossary" actiontype="search" />
+        </joy-menu>
+        <joy-menu class="fa fa-pagelines fa-fw" id="Analytics-BM-Relationships" name="Business Map" object="mapbyterm" actiontype="search" shortcut="true" />
+        <joy-menu class="fa fa-bookmark-o fa-fw" id="Analytics-S" name="Scoring"> 
+            <joy-menu class="fa fa-bookmark-o fa-fw" id="Analytics-S-Metric" name="By Metric" object="bymetric" actiontype="search" shortcut="true" />
+            <joy-menu class="fa fa-briefcase fa-fw" id="Analytics-S-Context" name="By Context" object="bycontext" actiontype="search" />
+            <joy-menu class="fa fa-flag-checkered fa-fw" id="Analytics-S-QV" name="By Quality Dimension" object="bydqaxis" actiontype="search" />
+            <joy-menu class="fa fa-cubes fa-fw" id="Analytics-S-DS" name="By Data Source" object="byds" actiontype="search" />
+        </joy-menu>
+        <joy-menu class="fa fa-star fa-fw" id="Analytics-G" name="Global"> 
+            <joy-menu class="fa fa-bar-chart-o fa-fw" id="Analytics-G-Costs" name="Costs" object="globalcosts" actiontype="display" />
+            <joy-menu class="fa fa-bar-chart-o fa-fw" id="Analytics-G-ID" name="Invalid Data" object="globalinvalids" actiontype="display" shortcut="true" />
+        </joy-menu>
+    </joy-menu>
+    
+    <joy-menu id="Configuration" class="fa  fa-wrench fa-fw" name="Management"> 
+        <joy-menu class="fa fa-gears fa-fw" id="Management-AC-QV" name="Quality Dimensions" object="dqaxis" actiontype="list" />
+        <joy-menu class="fa fa-gears fa-fw" id="Management-AC-Contexts" name="Contexts" object="context" actiontype="list" />
+        <joy-menu class="fa fa-gears fa-fw" id="Management-AC-GI" name="Term Types" object="termtype" actiontype="list" />
+        <joy-menu class="fa fa-gears fa-fw" id="Management-AC-CS" name="Contexts and Scorecards" object="relsccontext" actiontype="list" />
+        <joy-menu class="fa fa-gears fa-fw" id="Management-AC-MT" name="Metrics and Terms" object="reltermmetric" actiontype="list" shortcut="true" />
+    </joy-menu>
+    
+    <joy-menu class="fa fa-unlock-alt fa-fw" id="Administration" name="Administration"> 
+        <joy-menu class="fa fa-random fa-fw" id="Administration-II" name="Informatica Gateway" object="infainterface" actiontype="list" />
+        <joy-menu class="fa fa-random fa-fw" id="Administration-InternalImport" name="Import Process" object="landinginterface"  actiontype="list" shortcut="true" />
+        <joy-menu class="fa fa-unlock-alt fa-fw" id="Administration-CA" name="Check Application" object="checkapp" />
+        <joy-menu class="fa fa-unlock-alt fa-fw" id="Administration-BC" name="Backup configuration" object="import" actiontype="list" />
+        <joy-menu class="fa fa-unlock-alt fa-fw" id="Administration-A" name="Administration" object="parameters" actiontype="list" />
+        <joy-menu class="fa fa-random fa-fw" id="Administration-Tasks" name="Tasks" object="tasks" />
+    </joy-menu>
+    
+    <joy-menu id="Data" class="fa fa-th fa-fw" name="Data"> 
+        <joy-menu class="fa fa-star fa-fw" id="Data-DataMart" name="DataMart"> 
+            <joy-menu class="fa fa-star fa-fw" id="Data-DataMart-LM" name="Last Metrics" object="dtmlist" actiontype="list" pn1="list" pv1="last" shortcut="true"/>
+            <joy-menu class="fa fa-star fa-fw" id="Data-DataMart-AM" name="All Metrics" object="dtmlist" actiontype="list" pn1="list" pv1="all"/>
+        </joy-menu>
+        <joy-menu class="fa fa-th fa-fw" id="Data-Landing" name="Landing" object="landing" actiontype="list" />
+    </joy-menu>
+
+</joy-menu>

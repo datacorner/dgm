@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/dgm">
+    <Resource name="jdbc/GOVERNANCE" auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="oracle.jdbc.driver.OracleDriver"
+        url="jdbc:oracle:thin:@localhost:1521:orcl"
+        username="DGM" password="DGM" maxActive="150" maxIdle="10" maxWait="10000" />
+<!--
+    Add this parameter to setup a separate (from J2EE tree) app directory (no default values)
+    in this directory you must have the files :
+        ./config/joy-entity-Governance.xml
+        ./config/joy-log.xml
+        ./config/joy-mappings.xml
+        ./config/joy-mega-menu.xml
+        ./config/joy-parameters.xml
+-->
+
+<!--    
+<Parameter name="joy-appdir" value="C:/Dropbox/DGM/appdir/dgm" override="true"/>
+-->
+</Context>

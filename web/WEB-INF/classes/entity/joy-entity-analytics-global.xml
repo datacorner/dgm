@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+
+<!-- Analytics queries here -->
+
+    <joy-customquery name="Analytics - Global by DQ Axis"> <!-- Replace lastonly_cost_ir_byaxis -->
+        SELECT DIM_DQAXIS.dqx_name, DIM_DQAXIS.dqx_code, sum(lastonly_knownterms_by_axis.frs_cost) AS costbyterm, 
+               sum(lastonly_knownterms_by_axis.frs_totalrows - lastonly_knownterms_by_axis.frs_valid_rows) AS invalidrowsbyterm
+        FROM (select * 
+              from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                     from FACT_GOVERNANCE) A
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK) lastonly_knownterms_by_axis, 
+              DIM_DQAXIS
+       Where DIM_DQAXIS.dqx_PK = lastonly_knownterms_by_axis.DQX_FK
+       And trm_fk > 0
+       GROUP BY DIM_DQAXIS.dqx_name, DIM_DQAXIS.dqx_code
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Global by Context"> <!-- Replace lastonly_cost_ir_bycontext -->
+        SELECT DIM_CONTEXT.con_description, sum(lastonly_knownterms_by_axis.frs_cost) AS costbyterm, 
+               sum(lastonly_knownterms_by_axis.frs_totalrows - lastonly_knownterms_by_axis.frs_valid_rows) AS invalidrowsbyterm
+        FROM (select * 
+              from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                     from FACT_GOVERNANCE) A
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK) lastonly_knownterms_by_axis, 
+              DIM_CONTEXT
+        Where DIM_CONTEXT.con_PK = lastonly_knownterms_by_axis.con_FK
+        And trm_fk > 0
+        GROUP BY DIM_CONTEXT.con_description
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Global by Datasource"> <!-- Replace lastonly_cost_ir_bysource -->
+        SELECT DIM_DATASOURCE.DSO_SOURCENAME, sum(lastonly_knownterms_by_axis.frs_cost) AS costbyterm, 
+               sum(lastonly_knownterms_by_axis.frs_totalrows - lastonly_knownterms_by_axis.frs_valid_rows) AS invalidrowsbyterm
+        FROM (select * 
+              from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                     from FACT_GOVERNANCE) A
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK) lastonly_knownterms_by_axis, 
+              DIM_DATASOURCE
+        Where DIM_DATASOURCE.dso_PK = lastonly_knownterms_by_axis.dso_FK
+        And trm_fk > 0
+        GROUP BY DIM_DATASOURCE.DSO_SOURCENAME
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Global by Term"> <!-- Replace lastonly_cost_ir_byterm -->
+        SELECT DIM_TERM.TRM_NAME, sum(lastonly_knownterms_by_axis.frs_cost) AS costbyterm, 
+               sum(lastonly_knownterms_by_axis.frs_totalrows - lastonly_knownterms_by_axis.frs_valid_rows) AS invalidrowsbyterm
+        FROM (select * 
+              from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                                     from FACT_GOVERNANCE) A
+               Where FACT_GOVERNANCE.frs_pk = A.FRS_PK) lastonly_knownterms_by_axis, 
+              DIM_TERM
+        Where DIM_TERM.trm_PK = lastonly_knownterms_by_axis.trm_FK
+        And trm_fk > 0
+        GROUP BY DIM_TERM.TRM_NAME
+    </joy-customquery>
+
+    
+</joy-entities>

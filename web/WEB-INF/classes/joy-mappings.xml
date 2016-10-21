@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    1 mapping for 1 source
+    <map to="GLO_PK" key="yes" /> means it's a target table key
+        * set a new value (incremental)
+        * check if a value already exists (get all the check-if-exist="yes" fields to lookup) and retreive the value, set a new instead
+    <map-lookup to="CAT_FK"> means a lookup search for this value
+-->
+
+<joy-mappings>
+    
+    <!-- Data Quality Dimension -->
+    <joy-mapping id="DQ Axis Source" entity-from="SRC_DQAXIS" entity-to="DIM_DQAXIS">
+        <map to="DQX_PK" key="yes" />
+        <map to="DQX_CODE" from="DQX_CODE" check-if-exist="yes"/>
+        <map to="DQX_NAME" from="DQX_LABEL"/>
+        <map to="DQX_STATUS" from="DQX_STATUS" />
+        <map to="DQX_WEIGHT" from="DQX_WEIGHT" />
+        <map to="DQX_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+
+    <!-- Context -->
+    <joy-mapping id="Context" entity-from="SRC_CONTEXT" entity-to="DIM_CONTEXT">
+        <map to="CON_PK" key="yes" />
+        <map to="CON_FUNCKEY" from="CON_FUNCKEY" check-if-exist="yes"/>
+        <map to="CON_DESCRIPTION" from="CON_DESCRIPTION"/>
+        <map to="CON_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+    
+    <!-- Term Type -->
+    <joy-mapping id="Terms Type landing" entity-from="Load - get Terms type" entity-to="DIM_TERM_TYPE" filter="JOYSTATUS='L'">
+        <map to="TRT_PK" key="yes" />
+        <map to="TRT_NAME" from="TERM_TYPE" check-if-exist="yes"/>
+        <map to="TRT_DESCRIPTION" from="TERM_TYPE"/>
+        <map to="TRT_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+    
+    <!-- Terms relationships -->
+    <joy-mapping id="Term RelationShips Names Landing" entity-from="Load - get Relationship name" entity-to="DIM_TERM_RELATIONSHIP" filter="JOYSTATUS='L'">
+        <map to="REL_PK" key="yes" />
+        <map to="REL_NAME" from="REL_NAME" check-if-exist="yes"/>
+        <map to="REL_DESCRIPTION" from="REL_DESCRIPTION" />
+    </joy-mapping>
+    
+    <joy-mapping id="Term RelationShips Landing" entity-from="Load - get Relationship" entity-to="DIM_TERM_RELLINKS" filter="JOYSTATUS='L'">
+        <map to="TRL_PK" key="yes" />
+        <map to="OBJECT_ID_SOURCE" from="REL_KEY_TERM_SOURCE"/>
+        <map to="OBJECT_ID_TARGET" from="REL_KEY_TERM_TARGET" />
+        <map-lookup to="REL_FK">
+            <entity-lookup>DIM_TERM_RELATIONSHIP</entity-lookup>
+            <entity-lookup-key>REL_PK</entity-lookup-key>
+            <lookup-condition lookup-key="REL_NAME" from="REL_NAME"/>
+        </map-lookup>
+    </joy-mapping>
+    
+    <!-- Glossary -->
+    <joy-mapping id="Glossary Landing" entity-from="Load - get Glossary" entity-to="DIM_GLOSSARY" filter="JOYSTATUS='L'">
+        <map to="GLO_ID" from="JOYFUNCKEY" check-if-exist="yes" />
+        <map to="GLO_DATETIME_LOAD" from="JOYLOADDATE" />
+        <map to="GLO_PK" key="yes" />
+        <map to="GLO_NAME" from="glossary_name"/>
+        <map to="GLO_DESCRIPTION" from="glossary_description" />
+    </joy-mapping>
+    
+    <!-- Category -->
+    <joy-mapping id="Category Landing" entity-from="Load - get Category" entity-to="DIM_CATEGORY" filter="JOYSTATUS='L'">
+        <map to="CAT_ID" from="JOYFUNCKEY" check-if-exist="yes" />
+        <map to="CAT_DATETIME_LOAD" from="JOYLOADDATE" />
+        <map to="CAT_PK" key="yes" />
+        <map to="CAT_NAME" from="category_name" />
+        <map to="CAT_DESCRIPTION" from="category_description" />
+        <map to="CAT_FULLPATH" from="category_fullpath" />
+        <map to="CAT_PARENT_ID" from="category_parent_key" />
+    </joy-mapping>
+    
+    <!-- Terms -->
+    <joy-mapping id="Term Landing" entity-from="Load - get Term" entity-to="DIM_TERM" filter="JOYSTATUS='L'">
+        <map to="OBJECT_ID" from="JOYFUNCKEY" check-if-exist="yes"/>
+        <map to="TRM_DATETIME_LOAD" from="JOYLOADDATE" />
+        <map to="TRM_PK" key="yes" />
+        <map to="TRM_STATUS" from="TERM_STATUS" />
+        <map to="TRM_NAME" from="term_name" />
+        <map to="TRM_FUNCKEY" from="term_funckey" />
+        <map to="TRM_DESCRIPTION" from="term_description" />
+        <map to="TRM_USAGE" from="term_usage" />
+        <map to="TRM_EXAMPLE" from="term_example" />
+        <map to="TRM_PHASE" from="term_phase" />
+        <map to="TRM_OWNER" from="term_owner" />
+        <map to="TRM_STEWARD" from="term_steward" />
+        <map to="TRM_OWNER_EMAIL" from="term_owner_email" />
+        <map to="TRM_STEWARD_EMAIL" from="term_steward_email" />
+        <map-lookup to="GLO_FK">
+            <entity-lookup>DIM_GLOSSARY</entity-lookup> <!-- external entity -->
+            <entity-lookup-key>GLO_PK</entity-lookup-key> <!-- lookup key to retreive and to match with GLO_FK -->
+            <lookup-condition lookup-key="GLO_ID" from="glossary_key"/> <!-- lookup conditions -->
+        </map-lookup>
+        <map-lookup to="CAT_FK">
+            <entity-lookup>DIM_CATEGORY</entity-lookup> 
+            <entity-lookup-key>CAT_PK</entity-lookup-key>
+            <lookup-condition lookup-key="CAT_ID" from="category_key"/>
+        </map-lookup>
+        <map-lookup to="TRT_FK">
+            <entity-lookup>DIM_TERM_TYPE</entity-lookup> 
+            <entity-lookup-key>TRT_PK</entity-lookup-key>
+            <lookup-condition lookup-key="TRT_NAME" from="TERM_TYPE"/>
+        </map-lookup>
+    </joy-mapping>
+    
+    <!-- Scorecard -->
+    <joy-mapping id="Scorecard Landing" entity-from="Load - get Scorecard" entity-to="DIM_SCORECARD" filter="JOYSTATUS='L'">
+        <map to="SCO_PK" key="yes" />
+        <map to="SCO_NAME" from="SCO_NAME"/>
+        <map to="SCO_DESCRIPTION" from="SCO_DESCRIPTION"/>
+        <map to="SCO_LASTRUN" from="SCO_LASTRUN"/>
+        <map to="SCO_IDENTIFIER" from="JOYFUNCKEY"/>
+        <map to="SCO_FUNCKEY" from="JOYFUNCKEY" check-if-exist="yes"/>
+        <map to="SCO_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+    
+    <!-- Scorecard Groups -->
+    <joy-mapping id="Scorecard Group Landing" entity-from="Load - get Scorecard Group" entity-to="DIM_SCORECARD_GROUP" filter="JOYSTATUS='L'">
+        <map to="SCG_PK" key="yes" />
+        <map to="SCG_NAME" from="SCGROUP_NAME"/>
+        <map to="SCG_PATH" from="JOYFUNCKEY"/>
+        <map to="SCG_FUNCKEY" from="JOYFUNCKEY"  check-if-exist="yes"/>
+        <map to="SCG_DATETIME_LOAD" value="sysdate" />
+        <map-lookup to="SCO_FK">
+            <entity-lookup>DIM_SCORECARD</entity-lookup> 
+            <entity-lookup-key>SCO_PK</entity-lookup-key>
+            <lookup-condition lookup-key="SCO_FUNCKEY" from="SCORECARD_KEY"/>
+        </map-lookup>
+    </joy-mapping>
+
+    <!-- DataSource -->
+    <joy-mapping id="DataSource Landing" entity-from="Load - get Datasource" entity-to="DIM_DATASOURCE" filter="JOYSTATUS='L'">
+        <map to="DSO_PK" key="yes" />
+        <map to="DSO_CONNECTION" from="MET_CONNECTION"/>
+        <map to="DSO_SOURCENAME" from="MET_SOURCENAME"/>
+        <map to="DSO_FUNCKEY" from="MET_SOURCENAME" check-if-exist="yes"/>
+        <map to="DSO_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+    
+    <!-- Origin -->
+    <joy-mapping id="Origin Landing" entity-from="Load - get Origin" entity-to="DIM_ORIGINE" filter="JOYSTATUS='L'">
+        <map to="ORI_PK" key="yes" />
+        <map to="ORI_NAME" from="ORI_NAME"/>
+        <map to="ORI_FUNCKEY" from="ORI_NAME" check-if-exist="yes"/>
+        <map to="ORI_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+    
+    <!-- Metric -->
+    <joy-mapping id="Metric Landing" entity-from="Load - get Metrics" entity-to="DIM_METRIC" filter="JOYSTATUS='L'">
+        <map to="MET_PK" key="yes" />
+        <map to="MET_NAME" from="MET_NAME"/>
+        <map to="MET_DESCRIPTION" from="MET_DESCRIPTION"/>
+        <map to="MET_DATETIME_LOAD" value="sysdate" />
+        <map to="MET_WEIGHT" from="MET_WEIGHT"/>
+        <map to="MET_FUNCKEY" from="JOYFUNCKEY"  check-if-exist="yes"/>
+        <map-lookup to="SCG_FK">
+            <entity-lookup>DIM_SCORECARD_GROUP</entity-lookup> 
+            <entity-lookup-key>SCG_PK</entity-lookup-key>
+            <lookup-condition lookup-key="SCG_NAME" from="SCORECARDGRP_KEY"/>
+        </map-lookup>
+        <map-lookup to="MTY_FK">
+            <entity-lookup>DIM_METRICTYPE</entity-lookup> 
+            <entity-lookup-key>MTY_PK</entity-lookup-key>
+            <lookup-condition lookup-key="MTY_NAME" from="MET_TYPE"/>
+        </map-lookup>
+    </joy-mapping>
+    
+    <!-- Fact -->
+    <joy-mapping id="Facts Landing" entity-from="Load - Facts from landing" entity-to="All Facts">
+        <map to="FRS_PK" key="yes" />
+        <map to="TRM_FK" from="TRM_PK" default-if-null="0"/>
+        <map to="DQX_FK" from="DQX_PK" default-if-null="0"/>
+        <map to="MET_FK" from="MET_PK" default-if-null="0"/>
+        <map to="CON_FK" from="CON_PK" default-if-null="0"/>
+        <map to="DSO_FK" from="DSO_PK" default-if-null="0"/>
+        <map to="TIM_FK" from="TIM_PK" default-if-null="0"/>
+        <map to="ORI_FK" from="ORI_PK" default-if-null="0"/>
+        <map to="JOB_FK" value="%1"/>
+        <map to="FRS_VALID_ROWS" from="FRS_VALID_ROWS"/>
+        <map to="FRS_TOTALROWS" from="FRS_TOTALROWS"/>
+        <map to="FRS_KPI_SCORE" from="MET_SCORE"/>
+        <map to="FRS_WEIGHT" from="MET_WEIGHT"/>
+        <map to="FRS_COST" from="FRS_COST"/>
+        <map to="FRS_METRIC_FUNCKEY" from="JOYFUNCKEY"/>
+        <map to="FRS_DATETIME_LOAD" value="sysdate" />
+    </joy-mapping>
+    
+</joy-mappings>

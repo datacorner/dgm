@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+for the Views or tables :
+<joy-table name="XX" /> 
+<joy-view name="YY" />
+
+for the custom queries :
+<joy-customquery name="Mandatory name">
+    SQL Query here
+    AND/OR You can add DB specifics by using 
+        <POSTGRESQL></POSTGRESQL>
+        <ORACLE></ORACLE>
+</joy-customquery>
+-->
+
+<joy-entities>
+
+    <!-- BUSINESS TERMS -->
+    <joy-customquery name="Analytics - Terms Last Runs"> <!-- Replace RPT_TERM_LASTRUNS -->
+        select max(DIM_TIME.TIM_CALENDAR_DATE) AS rundate, 
+        DIM_DQAXIS.DQX_NAME, DIM_DQAXIS.DQX_WEIGHT,
+        avg(FRS_KPI_SCORE) AS SCORE, 
+        TRM_FK
+        from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                               from FACT_GOVERNANCE) A,  DIM_DQAXIS, DIM_TIME
+        Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+        And FACT_GOVERNANCE.DQX_FK = DIM_DQAXIS.DQX_PK
+        And FACT_GOVERNANCE.TIM_FK = DIM_TIME.TIM_PK
+        GROUP BY dqx_name, DIM_DQAXIS.DQX_WEIGHT, tim_calendar_date, trm_fk
+        ORDER BY trm_fk, tim_calendar_date
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Terms Context List"> <!-- Replace rpt_term_context_list -->
+       select DISTINCT dim_context.con_description, dim_context.con_pk, TRM_FK
+       from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                      from FACT_GOVERNANCE) A, DIM_CONTEXT
+       Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+       And FACT_GOVERNANCE.con_fk = DIM_CONTEXT.con_Pk
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Terms DS List"> <!-- Replace RPT_TERM_DATASOURCE_LIST -->
+       select DISTINCT DIM_DATASOURCE.dso_sourcename, DIM_DATASOURCE.dso_connection,DIM_DATASOURCE.dso_pk, TRM_FK
+       from FACT_GOVERNANCE, (select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                      from FACT_GOVERNANCE) A, DIM_DATASOURCE
+       Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+       And FACT_GOVERNANCE.dso_fk = DIM_DATASOURCE.dso_pk
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Terms List"> 
+        select distinct TRM_PK, TRM_NAME 
+        from FACT_GOVERNANCE, DIM_TERM
+        Where TRM_FK >0
+        And FACT_GOVERNANCE.TRM_FK = DIM_TERM.TRM_PK
+        Order by TRM_NAME
+    </joy-customquery>
+
+    <joy-composite name = "Analytics - Terms Type List">
+        <joy-field alias="X">TRT_PK</joy-field>
+        <joy-field alias="X">TRT_NAME</joy-field>
+        <joy-entity alias="X">DIM_TERM_TYPE</joy-entity>
+    </joy-composite>
+    
+    <joy-customquery name="Analytics - Terms Global Informations"> 
+        SELECT DISTINCT rel_term_metric.trm_cluster_id, dim_term.trm_pk, dim_term.trm_name,  dim_term.trm_description, dim_glossary.glo_name,
+           DIM_CATEGORY.CAT_NAME, dim_term.trm_usage,  dim_term.trm_example,  dim_term.trm_phase,  dim_term.trm_owner, dim_term.trm_steward,  
+           dim_term.trm_owner_email,  dim_term.trm_steward_email, dim_glossary.glo_pk, DIM_CATEGORY.cat_pk,  dim_term.object_id, dim_term_type.trt_name
+        FROM dim_term 
+            LEFT JOIN rel_term_metric ON rel_term_metric.trm_name = dim_term.trm_name 
+            LEFT JOIN dim_term_type ON dim_term_type.trt_pk = dim_term.trt_fk 
+            LEFT JOIN DIM_CATEGORY ON dim_term.cat_fk = DIM_CATEGORY.cat_pk 
+            LEFT JOIN dim_glossary ON dim_term.glo_fk = dim_glossary.glo_pk
+    </joy-customquery>
+    
+    <joy-customquery name="Analytics - Terms Global Score Calculation">
+        select TRM_FK, round(sum(FRS_KPI_SCORE*DQX_WEIGHT)/max(GLOBALSUM.SC), 2) AS GLOBALSCORE
+        from (  select * 
+                from FACT_GOVERNANCE, 
+                     ( select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                       from FACT_GOVERNANCE) A
+                Where FACT_GOVERNANCE.frs_pk = A.FRS_PK) X, DIM_DQAXIS, (Select sum(DQX_WEIGHT) SC from DIM_DQAXIS) GLOBALSUM
+        where X.DQX_FK = DIM_DQAXIS.DQX_PK
+        group by TRM_FK
+        order by X.TRM_FK
+    </joy-customquery>
+    
+</joy-entities>

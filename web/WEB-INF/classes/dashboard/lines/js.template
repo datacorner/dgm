@@ -1,0 +1,34 @@
+<SCRIPT type='text/javascript'>
+
+    function loadChartData_[ID](fname) {	
+        var xhr=createXHR();
+        xhr.open("GET", fname, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status !== 404) {
+                        var data = eval("(" + xhr.responseText + ")");
+                        callbackSuccess_[ID](data);
+                } else {
+                        callbackError(tag);
+                }
+            }
+        };
+        xhr.send(null);
+    }
+
+    function callbackSuccess_[ID](content, tag) {
+        var ctx = document.getElementById("CHART_[ID]").getContext("2d");
+        window.CHART_[ID] = new Chart(ctx, {
+            type: 'line',
+            data: content,
+            options: {
+                elements: {  rectangle: { borderWidth: 2, borderSkipped: 'bottom' } },
+                responsive: true,
+                legend: { position: 'bottom' },
+                title: { display: true, text: '[title]' }
+            }
+        });
+    }
+
+    loadChartData_[ID]('./rest/charts/mds/[entity]');
+</SCRIPT>

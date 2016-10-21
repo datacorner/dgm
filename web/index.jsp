@@ -1,0 +1,1 @@
+<jsp:forward page="./joy?object=home&actiontype=DISPLAY"/>
