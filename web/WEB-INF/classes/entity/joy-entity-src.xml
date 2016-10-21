@@ -8,9 +8,6 @@
     <joy-table name="SRC_TERMTYPE" />
     <joy-table name="REL_SC_CONTEXT" />
     <joy-table name="REL_TERM_METRIC" />
-    
-    <!-- parametres de l'application -->
-    <joy-table name="APP_PARAMS" />
 
     <joy-composite name = "Available Metrics" distinct="yes">
         <joy-field alias="AT1">MET_NAME</joy-field>

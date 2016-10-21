@@ -31,14 +31,51 @@ for the custom queries :
     <joy-table name="DIM_JOB" />
     <joy-table name="DIM_TERM" />
     <joy-table name="DIM_DATASOURCE" />
-    <joy-table name="DIM_ORIGINE" />
+    <joy-table name="DIM_ORIGINE"> 
+        <joy-init-record>
+            <joy-field name="ORI_PK">0</joy-field>
+            <joy-field name="ORI_NAME">Unknown</joy-field>
+            <joy-field name="ORI_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
+        <joy-init-record>
+            <joy-field name="ORI_PK">1</joy-field>
+            <joy-field name="ORI_NAME">Informatica Data Quality Scorecards</joy-field>
+            <joy-field name="ORI_FUNCKEY">IDQSC</joy-field>
+        </joy-init-record>
+        <joy-init-record>
+            <joy-field name="ORI_PK">2</joy-field>
+            <joy-field name="ORI_NAME">Informatica Data Quality Profiles</joy-field>
+            <joy-field name="ORI_FUNCKEY">IDQPL</joy-field>
+        </joy-init-record>
+        <joy-init-record>
+            <joy-field name="ORI_PK">3</joy-field>
+            <joy-field name="ORI_NAME">External</joy-field>
+            <joy-field name="ORI_FUNCKEY">EXT</joy-field>
+        </joy-init-record>
+    </joy-table>
     <joy-table name="DIM_CATEGORY" />
     <joy-table name="DIM_GLOSSARY" />
     <joy-table name="DIM_TERM_RELATIONSHIP" />
     <joy-table name="DIM_TERM_RELLINKS" />
     <joy-table name="DIM_TERM_TYPE" />
-    <joy-table name="DIM_METRICTYPE" />
+    <joy-table name="DIM_METRICTYPE">
+        <joy-init-record>
+            <joy-field name="MTY_PK">0</joy-field>
+            <joy-field name="MTY_NAME">Unknown</joy-field>
+        </joy-init-record>
+        <joy-init-record>
+            <joy-field name="MTY_PK">1</joy-field>
+            <joy-field name="MTY_NAME">Rule</joy-field>
+        </joy-init-record>
+        <joy-init-record>
+            <joy-field name="MTY_PK">2</joy-field>
+            <joy-field name="MTY_NAME">Field</joy-field>
+        </joy-init-record>
+    </joy-table>    
     <joy-table name="DIM_TIME" />
+    
+    <!-- parametres de l'application -->
+    <joy-table name="APP_PARAMS" />
     
     <!-- Fact Tables -->
     <joy-table name="FACT_GOVERNANCE" label="All Facts" />

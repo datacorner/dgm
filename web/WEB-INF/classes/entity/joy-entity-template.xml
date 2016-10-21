@@ -27,18 +27,28 @@ for the custom queries :
     </joy-customquery>
     
     <!-- Composite object -->
-    <joy-composite name = "Composite name" distinct="yes/no">
-        <joy-entity alias="left1">...</joy-entity>
-        <joy-field alias="...">...</joy-field>
-        <joy-join type="LEFT/RIGHT/INNER">
-            <joy-entity alias="right1">...</joy-entity>
-            <joy-join-key left="..." right="..." />
-        </joy-join>
-        <joy-join type="LEFT/RIGHT/INNER">
-            ...
-        </joy-join>
-        <joy-filter alias="..." field="..." operator="&lt;&gt;">...</joy-filter>
-        <joy-sort alias="..." field="..." desc="no/yes" />
-    </joy-composite>
+  <joy-composite name = "Composite name" distinct="yes/no">
+    <joy-entity alias="[Left Table Alias]" as="[As in Select/To rename the selected field]">...</joy-entity>
+  
+    <joy-field alias="[Table Alias for selected field]">[Left IEntity]</joy-field>
+    <joy-field ...></joy-field>
+  
+    <joy-join type="INNER/LEFT/RIGHT [Single JOIN by default]">
+        <joy-entity alias="[Right Table Alias]">[Right IEntity]</joy-entity>
+        <joy-join-key master="[Left field Key]" slave="[Right field Key]" />
+   </joy-join>
+    <joy-join type="...">
+        ...
+    </joy-join>
+  
+    <joy-filter alias="[Table Alias for filter field]" field="[Filter field]" operator="&lt;&gt;[Or anything else]">[Filter]</joy-filter>
+    <joy-filter>...</joy-filter>
+  
+    <joy-sort alias="[Alias Sort field]" field="[Sort field]" desc="[no/yes]" />
+    <joy-sort ... />
+  
+    <joy-group alias="[Table Alias for grouped field]">[Group Field]</joy-group>
+  
+ </joy-composite>
     
 </joy-entities>

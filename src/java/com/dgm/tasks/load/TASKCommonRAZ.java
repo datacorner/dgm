@@ -75,6 +75,7 @@ public class TASKCommonRAZ extends ActionTypeTASK {
         purgeTable("DIM_TERM_RELATIONSHIP");
         purgeTable("DIM_TERM_TYPE");
         purgeTable("DIM_TIME");
+        purgeTable("DIM_METRICTYPE");
         purgeTable("Scorecard Dimension");
         this.addTrace("Dimensions purged");
     }
@@ -98,12 +99,6 @@ public class TASKCommonRAZ extends ActionTypeTASK {
         entity.field("CON_PK").setValue(0);
         entity.field("CON_DESCRIPTION").setValue(Constants.UNKNOWN);
         entity.field("CON_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_ORIGINE");
-        entity.field("ORI_PK").setValue(0);
-        entity.field("ORI_NAME").setValue(Constants.UNKNOWN);
-        entity.field("ORI_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
         insertUnknownLine(entity);
         
         entity = this.getEntities().getEntity("DIM_JOB");
@@ -180,7 +175,16 @@ public class TASKCommonRAZ extends ActionTypeTASK {
         entity.field("REL_FK").setValue(0);
         insertUnknownLine(entity);
         
+        // Init DIM_TIME
         initDimTime();
+        
+        // Init DIM_METRICTYPE
+        entity = this.getEntities().getEntity("DIM_METRICTYPE");
+        entity.insertDefaultRecords();
+        
+        // Init DIM_ORIGINE
+        entity = this.getEntities().getEntity("DIM_ORIGINE");
+        entity.insertDefaultRecords();
         
         this.addTrace("Dimensions Initialized successfully");
     }
@@ -193,7 +197,7 @@ public class TASKCommonRAZ extends ActionTypeTASK {
     public JoyTaskStatus taskExecute() {
         return super.taskExecute();
     }
-
+    
     /**
      * Initialize the DIM_TIME dimension table
      */
