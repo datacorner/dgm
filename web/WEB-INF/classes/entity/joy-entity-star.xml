@@ -21,16 +21,64 @@ for the custom queries :
     <joy-table name="DIM_SCORECARD" label="Scorecard Dimension">
         <joy-field-label name="SCO_PK">Scorecard Dimension PKey</joy-field-label>
         <joy-field-label name="SCO_NAME">Scorecard Name</joy-field-label>
+        <joy-init-record>
+            <joy-field name="SCO_PK">0</joy-field>
+            <joy-field name="SCO_NAME">Unknown</joy-field>
+            <joy-field name="SCO_DESCRIPTION">Unknown</joy-field>
+            <joy-field name="SCO_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
     </joy-table>
-    <joy-table name="DIM_CATEGORY" />
-    <joy-table name="DIM_METRIC" />
-    <joy-table name="DIM_SCORECARD_GROUP" />
-    <joy-table name="DIM_SCORECARD" />
-    <joy-table name="DIM_DQAXIS" />
-    <joy-table name="DIM_CONTEXT" />
-    <joy-table name="DIM_JOB" />
-    <joy-table name="DIM_TERM" />
-    <joy-table name="DIM_DATASOURCE" />
+    <joy-table name="DIM_METRIC">
+         <joy-init-record>
+            <joy-field name="MET_PK">0</joy-field>
+            <joy-field name="MET_NAME">Unknown</joy-field>
+            <joy-field name="MET_DESCRIPTION">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_SCORECARD_GROUP">
+         <joy-init-record>
+            <joy-field name="SCG_PK">0</joy-field>
+            <joy-field name="SCO_FK">0</joy-field>
+            <joy-field name="SCG_NAME">Unknown</joy-field>
+            <joy-field name="SCG_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_DQAXIS">
+         <joy-init-record>
+            <joy-field name="DQX_PK">0</joy-field>
+            <joy-field name="DQX_NAME">Unknown</joy-field>
+            <joy-field name="DQX_CODE">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_CONTEXT">
+        <joy-init-record>
+            <joy-field name="CON_PK">0</joy-field>
+            <joy-field name="CON_DESCRIPTION">Unknown</joy-field>
+            <joy-field name="CON_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_JOB">
+        <joy-init-record>
+            <joy-field name="JOB_PK">0</joy-field>
+            <joy-field name="JOB_NAME">Unknown</joy-field>
+            <joy-field name="JOB_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_TERM">
+         <joy-init-record>
+            <joy-field name="TRM_PK">0</joy-field>
+            <joy-field name="TRM_NAME">Unknown</joy-field>
+            <joy-field name="TRM_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_DATASOURCE">
+         <joy-init-record>
+            <joy-field name="DSO_PK">0</joy-field>
+            <joy-field name="DSO_SOURCENAME">Unknown</joy-field>
+            <joy-field name="DSO_CONNECTION">Unknown</joy-field>
+            <joy-field name="DSO_FUNCKEY">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
     <joy-table name="DIM_ORIGINE"> 
         <joy-init-record>
             <joy-field name="ORI_PK">0</joy-field>
@@ -53,11 +101,39 @@ for the custom queries :
             <joy-field name="ORI_FUNCKEY">EXT</joy-field>
         </joy-init-record>
     </joy-table>
-    <joy-table name="DIM_CATEGORY" />
-    <joy-table name="DIM_GLOSSARY" />
-    <joy-table name="DIM_TERM_RELATIONSHIP" />
-    <joy-table name="DIM_TERM_RELLINKS" />
-    <joy-table name="DIM_TERM_TYPE" />
+    <joy-table name="DIM_CATEGORY">
+         <joy-init-record>
+            <joy-field name="CAT_PK">0</joy-field>
+            <joy-field name="CAT_NAME">Unknown</joy-field>
+            <joy-field name="CAT_DESCRIPTION">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_GLOSSARY">
+         <joy-init-record>
+            <joy-field name="GLO_PK">0</joy-field>
+            <joy-field name="GLO_NAME">Unknown</joy-field>
+            <joy-field name="GLO_DESCRIPTION">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_TERM_RELATIONSHIP">
+         <joy-init-record>
+            <joy-field name="REL_PK">0</joy-field>
+            <joy-field name="REL_NAME">Unknown</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_TERM_RELLINKS">
+         <joy-init-record>
+            <joy-field name="TRL_PK">0</joy-field>
+            <joy-field name="REL_FK">0</joy-field>
+        </joy-init-record>
+    </joy-table>
+    <joy-table name="DIM_TERM_TYPE">
+         <joy-init-record>
+            <joy-field name="TRT_PK">0</joy-field>
+            <joy-field name="TRT_NAME">Unknown</joy-field>
+            <joy-field name="TRT_DESCRIPTION">UNKN</joy-field>
+        </joy-init-record>
+    </joy-table>
     <joy-table name="DIM_METRICTYPE">
         <joy-init-record>
             <joy-field name="MTY_PK">0</joy-field>

@@ -16,7 +16,6 @@
  */
 package com.dgm.tasks.load;
 
-import com.dgm.common.Constants;
 import com.joy.Joy;
 import com.joy.bo.IEntity;
 import com.joy.mvc.actionTypes.ActionTypeTASK;
@@ -81,110 +80,27 @@ public class TASKCommonRAZ extends ActionTypeTASK {
     }
 
     /**
-     * Insert an unknown line (ID=0) in a entity
-     * @param entity 
-     */
-    protected void insertUnknownLine(IEntity entity) {
-        if (entity.insert()<0)
-            this.addTrace(entity.getName() + " not initialized successfully !");
-    }
-    
-    /**
      * Initialize all the dimension tables by truncating them + addind a unknown line (ID=0)
      */
     protected void dimensionsInit() {
-        IEntity entity;
         
-        entity = this.getEntities().getEntity("DIM_CONTEXT");
-        entity.field("CON_PK").setValue(0);
-        entity.field("CON_DESCRIPTION").setValue(Constants.UNKNOWN);
-        entity.field("CON_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_JOB");
-        entity.field("JOB_PK").setValue(0);
-        entity.field("JOB_NAME").setValue(Constants.UNKNOWN);
-        entity.field("JOB_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("Scorecard Dimension");
-        entity.field("SCO_PK").setValue(0);
-        entity.field("SCO_NAME").setValue(Constants.UNKNOWN);
-        entity.field("SCO_DESCRIPTION").setValue(Constants.UNKNOWN);
-        entity.field("SCO_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-
-        entity = this.getEntities().getEntity("DIM_SCORECARD_GROUP");
-        entity.field("SCG_PK").setValue(0);
-        entity.field("SCO_FK").setValue(0);
-        entity.field("SCG_NAME").setValue(Constants.UNKNOWN);
-        entity.field("SCG_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_METRIC");
-        entity.field("MET_PK").setValue(0);
-        entity.field("MET_NAME").setValue(Constants.UNKNOWN);
-        entity.field("MET_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-
-        entity = this.getEntities().getEntity("DIM_TERM");
-        entity.field("TRM_PK").setValue(0);
-        entity.field("TRM_NAME").setValue(Constants.UNKNOWN);
-        entity.field("TRM_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);     
-
-        entity = this.getEntities().getEntity("DIM_DATASOURCE");
-        entity.field("DSO_PK").setValue(0);
-        entity.field("DSO_SOURCENAME").setValue(Constants.UNKNOWN);
-        entity.field("DSO_CONNECTION").setValue(Constants.UNKNOWN);
-        entity.field("DSO_FUNCKEY").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity); 
-
-        entity = this.getEntities().getEntity("DIM_DQAXIS");
-        entity.field("DQX_PK").setValue(0);
-        entity.field("DQX_NAME").setValue(Constants.UNKNOWN);
-        entity.field("DQX_CODE").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_GLOSSARY");
-        entity.field("GLO_PK").setValue(0);
-        entity.field("GLO_NAME").setValue(Constants.UNKNOWN);
-        entity.field("GLO_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_TERM_TYPE");
-        entity.field("TRT_PK").setValue(0);
-        entity.field("TRT_NAME").setValue(Constants.UNKNOWN);
-        entity.field("TRT_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_CATEGORY");
-        entity.field("CAT_PK").setValue(0);
-        entity.field("CAT_NAME").setValue(Constants.UNKNOWN);
-        entity.field("CAT_DESCRIPTION").setValue(Constants.UNKNOWN_CODE);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_TERM_RELATIONSHIP");
-        entity.field("REL_PK").setValue(0);
-        entity.field("REL_NAME").setValue(Constants.UNKNOWN);
-        entity.field("REL_NAME").setValue(Constants.UNKNOWN);
-        insertUnknownLine(entity);
-        
-        entity = this.getEntities().getEntity("DIM_TERM_RELLINKS");
-        entity.field("TRL_PK").setValue(0);
-        entity.field("REL_FK").setValue(0);
-        insertUnknownLine(entity);
-        
+        this.getEntities().getEntity("Scorecard Dimension").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_CATEGORY").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_TERM_RELATIONSHIP").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_TERM_RELLINKS").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_JOB").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_CONTEXT").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_METRICTYPE").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_ORIGINE").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_SCORECARD_GROUP").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_METRIC").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_TERM").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_DATASOURCE").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_DQAXIS").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_GLOSSARY").insertDefaultRecords();
+        this.getEntities().getEntity("DIM_TERM_TYPE").insertDefaultRecords();
         // Init DIM_TIME
         initDimTime();
-        
-        // Init DIM_METRICTYPE
-        entity = this.getEntities().getEntity("DIM_METRICTYPE");
-        entity.insertDefaultRecords();
-        
-        // Init DIM_ORIGINE
-        entity = this.getEntities().getEntity("DIM_ORIGINE");
-        entity.insertDefaultRecords();
         
         this.addTrace("Dimensions Initialized successfully");
     }

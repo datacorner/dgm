@@ -16,8 +16,13 @@ for the custom queries :
 <joy-entities>
     
     <!-- Simple table -->
-    <joy-table name="APP_PARAMS" />
-    
+    <joy-table name="APP_PARAMS">
+        <joy-init-record>
+            <joy-field name="...">...</joy-field>
+            <joy-field name="...">...</joy-field>
+        </joy-init-record>
+    </joy-table>
+     
     <!-- Direct Query / SQL -->
     <joy-customquery name="Mandatory name">
         <!-- SQL Query here
