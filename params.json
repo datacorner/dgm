@@ -1,0 +1,6 @@
+{
+  "name": "DGM",
+  "tagline": "Data Governance Monitor Web Application",
+  "body": "### Welcome to the Data Governance Monitor WebPages !\r\n\r\nThis project proposes to design a Data Governance monitor application. The goal of this application is not to cover all the data governance aspects but to have a simple and easy to use application which enables to collect information (data quality scores, business taxonomy, etc.) and give the ability to manipulate these in a kind of data governance datamart.\r\n\r\n### Some screenshots\r\n\r\nSome screenshots\r\n\r\n# Home page\r\n![Home](https://github.com/caylabenoit/dgm/blob/master/docs/dgm_1.png)\r\n# Business map\r\n![Home page](https://github.com/caylabenoit/dgm/blob/master/docs/dgm_2.png)\r\n# Business Term Quality 360° view\r\n![Home page](https://github.com/caylabenoit/dgm/blob/master/docs/dgm_3.png)\r\nAnd\r\n![Home page](https://github.com/caylabenoit/dgm/blob/master/docs/dgm_4.png)\r\n# Global dashboard\r\n![Home page](https://github.com/caylabenoit/dgm/blob/master/docs/dgm_5.png)\r\n\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
