@@ -28,7 +28,7 @@
     <default-dateformat>yyyy-mm-dd HH:mm:ss</default-dateformat>
     
     <!-- Joy Version -->
-    <joy-version>0.1.5.3</joy-version>
+    <joy-version>0.1.5.4</joy-version>
     <joy-app-name>Data Governance Monitor</joy-app-name>
     
     <!-- datasources/entities configuration file here-->
