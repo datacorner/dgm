@@ -35,7 +35,8 @@ public class TASKCommonRAZ extends ActionTypeTASK {
      */
     protected void purgeTable(String Table) {
         IEntity entity = (IEntity)this.getEntities().getEntity(Table);
-        if (!entity.deleteAll())
+        entity.resetKeys();
+        if (!entity.delete())
             this.addTrace(Table + " not purged successfully");
     }
     

@@ -82,7 +82,7 @@ public class ReportCommonConsolidated extends ReportCommonAction {
             entity.useTheseFields(dimFieldKey, dimFieldName); 
             entity.addFilter(dimFieldKey + " IS NOT NULL");
             entity.addSort(dimFieldName); 
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             while (rs.next()) {
                 columns.addValue(dimFieldKey, 
                                  rs.getString(dimFieldKey), 
@@ -103,7 +103,7 @@ public class ReportCommonConsolidated extends ReportCommonAction {
     protected void loadGlobalData(int Key) {
         IEntity entity = this.getBOFactory().getEntity(this.dimTableName);
         entity.field(this.dimFieldKey).setKeyValue(Key);
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         this.loadSingle(rs);
         this.getBOFactory().closeResultSet(rs);
     }

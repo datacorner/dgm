@@ -53,7 +53,7 @@ public class ReportCommonAction extends ActionTypeForm {
             IEntity entity = getBOFactory().getEntity("Last Facts Only with details");
             entity.field(KeyName).setKeyValue(KeyValue);
             entity.addFilter("TRM_FK <> 0");
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
@@ -101,7 +101,7 @@ public class ReportCommonAction extends ActionTypeForm {
         try {
             IEntity entity = getBOFactory().getEntity(ViewName);
             entity.field(KeyName).setKeyValue(KeyValue);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             ChartWithDataset chartbar = new ChartWithDataset(Joy.parameters().getParameter("ChartsColors").getList(), Joy.parameters().getParameter("transparency").getValue().toString());    
             while (rs.next()) {
@@ -133,7 +133,7 @@ public class ReportCommonAction extends ActionTypeForm {
             IEntity entity = getBOFactory().getEntity(ViewName);
             if (KeyValue != 0)
                 entity.field(KeyName).setKeyValue(KeyValue);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
@@ -169,7 +169,7 @@ public class ReportCommonAction extends ActionTypeForm {
             IEntity entity = getBOFactory().getEntity(ViewName);
             if (KeyValue != 0)
                 entity.field(KeyName).setKeyValue(KeyValue);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
@@ -216,7 +216,7 @@ public class ReportCommonAction extends ActionTypeForm {
                 entity = getBOFactory().getEntity(ViewName);
             entity.field(KeyName).setKeyValue(key);
             entity.addSort("DQX_NAME", "RUNDATE DESC");
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             
             String lastDqxName = "";
             int nbScoreByDqx = 1;

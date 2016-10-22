@@ -70,7 +70,7 @@ public class LNDTermAction extends LNDCommonAction {
             // into the DIM table
             IEntity entity = this.getBOFactory().getEntity("Landing - List of available Glossary");
             entity.addSort("GLO_NAME");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             this.loadVector(rs, "GLO_ID",  "GLO_NAME", "GLOSSARY", PKSelected);
             this.getBOFactory().closeResultSet(rs);
 
@@ -84,7 +84,7 @@ public class LNDTermAction extends LNDCommonAction {
             // into the DIM table
             IEntity entity = this.getBOFactory().getEntity("Landing - List of available Category");
             entity.addSort("CAT_NAME");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             this.loadVector(rs, "CAT_ID",  "CAT_NAME", "CATEGORY", PKSelected);
             this.getBOFactory().closeResultSet(rs);
 

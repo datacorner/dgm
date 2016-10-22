@@ -35,7 +35,7 @@ public class SrcContextAction extends ActionTypeForm {
     public String list() {
         try {
             IEntity Entity = this.getBOFactory().getEntity("SRC_CONTEXT");
-            ResultSet rs = Entity.selectAll();
+            ResultSet rs = Entity.select();
             JoyFormMatrixEntry matrix = new JoyFormMatrixEntry();
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
@@ -59,9 +59,9 @@ public class SrcContextAction extends ActionTypeForm {
         if (!uid.equalsIgnoreCase("")) {
             try {
                 IEntity Entity = this.getBOFactory().getEntity("SRC_CONTEXT");
-                Entity.init();
+                Entity.reset();
                 Entity.field("CON_PK").setKeyValue(Integer.parseInt(uid));
-                ResultSet rs = Entity.selectFiltered();
+                ResultSet rs = Entity.select();
 
                 if (rs.next()) {
                     this.addFormSingleEntry("CON_PK", String.valueOf(rs.getInt("CON_PK")));
@@ -95,7 +95,7 @@ public class SrcContextAction extends ActionTypeForm {
         BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("SRC_CONTEXT");
         int uid = getIntArgumentValue("CON_PK");
         if (uid != 0) {
-            Entity.init();
+            Entity.reset();
             Entity.field("CON_PK").setKeyValue(uid);
             Entity.delete();
         }
@@ -108,7 +108,7 @@ public class SrcContextAction extends ActionTypeForm {
         
     	try {
             BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("SRC_CONTEXT");
-            Entity.init();
+            Entity.reset();
             Entity.field("CON_DESCRIPTION").setValue(getStrArgumentValue("CON_DESCRIPTION"));
             Entity.field("CON_FUNCKEY").setValue(getStrArgumentValue("CON_FUNCKEY"));
             if (uid == 0) {

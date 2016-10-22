@@ -44,8 +44,8 @@ public class ReportGlobalInvalidsAndCosts extends ActionTypeForm {
     private String getBarGlobalCostByDQAxis()
     {
         try {
-            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by DQ Axis"); //"LASTONLY_COST_IR_BYAXIS");
-            ResultSet rs = entity.selectAll();
+            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by DQ Axis"); 
+            ResultSet rs = entity.select();
 
             ChartWithDataset chartbar = new ChartWithDataset(Joy.parameters().getParameter("ChartsColors").getList(), Joy.parameters().getParameter("transparency").getValue().toString());   
             while (rs.next()) {
@@ -64,8 +64,8 @@ public class ReportGlobalInvalidsAndCosts extends ActionTypeForm {
     private String getBarGlobalCostByDataSource()
     {
         try {
-            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by Datasource"); //"LASTONLY_COST_IR_BYSOURCE");
-            ResultSet rs = entity.selectAll();
+            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by Datasource");
+            ResultSet rs = entity.select();
 
             ChartWithDataset chartbar = new ChartWithDataset(Joy.parameters().getParameter("ChartsColors").getList(), Joy.parameters().getParameter("transparency").getValue().toString());   
             while (rs.next()) {
@@ -85,8 +85,8 @@ public class ReportGlobalInvalidsAndCosts extends ActionTypeForm {
     private String getBarGlobalCostByContext()
     {
         try {
-            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by Context"); //"LASTONLY_COST_IR_BYCONTEXT");
-            ResultSet rs = entity.selectAll();
+            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by Context"); 
+            ResultSet rs = entity.select();
 
             ChartWithDataset chartbar = new ChartWithDataset(Joy.parameters().getParameter("ChartsColors").getList(), Joy.parameters().getParameter("transparency").getValue().toString());   
             while (rs.next()) {
@@ -105,8 +105,8 @@ public class ReportGlobalInvalidsAndCosts extends ActionTypeForm {
     private String getBarGlobalCostByTerm()
     {
         try {
-            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by Term"); //"LASTONLY_COST_IR_BYTERM");
-            ResultSet rs = entity.selectAll();
+            IEntity entity = this.getBOFactory().getEntity("Analytics - Global by Term"); 
+            ResultSet rs = entity.select();
 
             ChartWithDataset chartbar = new ChartWithDataset(Joy.parameters().getParameter("ChartsColors").getList(), Joy.parameters().getParameter("transparency").getValue().toString());   
             while (rs.next()) {

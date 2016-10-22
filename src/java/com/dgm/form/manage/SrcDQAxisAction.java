@@ -37,7 +37,7 @@ public class SrcDQAxisAction extends ActionTypeForm {
         JoyFormMatrixEntry matrix = new JoyFormMatrixEntry();
         try {
             IEntity Entity = this.getBOFactory().getEntity("SRC_DQAXIS");
-            ResultSet rs = Entity.selectAll();
+            ResultSet rs = Entity.select();
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
                 columns.addValue("DQX_PK", rs.getInt("DQX_PK"));
@@ -61,9 +61,9 @@ public class SrcDQAxisAction extends ActionTypeForm {
         if (!uid.equalsIgnoreCase("")) {
             try {
                 IEntity Entity = this.getBOFactory().getEntity("SRC_DQAXIS");
-                Entity.init();
+                Entity.reset();
                 Entity.field("DQX_PK").setKeyValue(Integer.valueOf(uid));
-                ResultSet rs = Entity.selectFiltered();
+                ResultSet rs = Entity.select();
 
                 if (rs.next()) {
                     this.addFormSingleEntry("DQX_PK", rs.getString("DQX_PK"));
@@ -105,9 +105,9 @@ public class SrcDQAxisAction extends ActionTypeForm {
         String ret = "";
         try {
             IEntity Entity = this.getBOFactory().getEntity("SRC_DQAXIS");
-            Entity.init();
+            Entity.reset();
             Entity.field("DQX_PK").setKeyValue(ID);
-            ResultSet rs = Entity.selectFiltered();
+            ResultSet rs = Entity.select();
             if (rs.next()) {
                 ret = rs.getString("DQX_LABEL");
             }
@@ -145,10 +145,10 @@ public class SrcDQAxisAction extends ActionTypeForm {
                 entListCluster.field("TRM_CLUSTER_ID").useThisField();
                 entListCluster.field("TRM_NAME").useThisField();
                 entListCluster.setDistinct(true);
-                ResultSet rs = entListCluster.selectAll();
+                ResultSet rs = entListCluster.select();
                 while (rs.next()) { // parcours les cluster id pour rajouter le nouvel axe
                     BOEntityReadWrite entNew = (BOEntityReadWrite)this.getBOFactory().getEntity("REL_TERM_METRIC");
-                    entNew.init();
+                    entNew.reset();
                     entNew.field("TMD_PK").setNextIDValue();
                     entNew.field("DQX_NAME").setValue(label);
                     entNew.field("TRM_CLUSTER_ID").setValue(rs.getInt("TRM_CLUSTER_ID"));
@@ -171,7 +171,7 @@ public class SrcDQAxisAction extends ActionTypeForm {
             if (id <= 0) return false;
             IEntity Entity = this.getBOFactory().getEntity("DQ Axis In DTM Scope");
             Entity.field("DQX_PK").setKeyValue(id);
-            ResultSet rs = Entity.selectFiltered();
+            ResultSet rs = Entity.select();
             if (rs.next()) {
                 this.addDisplayMessageError("03_DELETE_DQAXIS_KO");
                 return false;
@@ -190,7 +190,7 @@ public class SrcDQAxisAction extends ActionTypeForm {
         int uid = getIntArgumentValue("DQX_PK");
         if (uid != 0 && canDelete(uid)) {
             BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("SRC_DQAXIS");
-            Entity.init();
+            Entity.reset();
             Entity.field("DQX_PK").setKeyValue(uid);
             removeDQAxisReferences(uid);
             Entity.delete();

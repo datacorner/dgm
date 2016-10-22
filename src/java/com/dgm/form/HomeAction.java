@@ -70,14 +70,16 @@ public class HomeAction extends ActionTypeForm {
     
     private void  display_Metrics() {
         // display the DQ Axis global scores
-        ResultSet rs = this.getBOFactory().getEntity("AXIS_SCORE_HOME_00").selectAll();
+        IEntity entity = this.getBOFactory().getEntity("AXIS_SCORE_HOME_00");
+        entity.resetFilters();
+        ResultSet rs = entity.select();
         this.loadMatrix(rs, "SCORES");
         this.getBOFactory().getDB().closeResultSet(rs);
         
         // Display the best Terms / Home - Best terms
-        IEntity entity = this.getBOFactory().getEntity("Home - Best terms");
+        entity = this.getBOFactory().getEntity("Home - Best terms");
         entity.setLimitRecords(5);
-        rs = entity.selectFiltered();
+        rs = entity.select();
         this.loadMatrix(rs, "BEST_TERMS");
         this.getBOFactory().getDB().closeResultSet(rs);
     }

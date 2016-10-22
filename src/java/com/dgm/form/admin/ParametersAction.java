@@ -34,9 +34,9 @@ public class ParametersAction extends ActionTypeForm {
     @Override
     public String list() {
         IEntity entity = this.getBOFactory().getEntity("APP_PARAMS");
-        entity.init();
+        entity.reset();
         entity.field("PARAM_DISPLAY").setKeyValue("Y");
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         this.loadMatrix(rs, "LIST");
         this.getBOFactory().closeResultSet(rs);
         return super.list(); //To change body of generated methods, choose Tools | Templates.
@@ -55,7 +55,7 @@ public class ParametersAction extends ActionTypeForm {
             
             // DB update
             IEntity entity = this.getBOFactory().getEntity("APP_PARAMS");
-            entity.init();
+            entity.reset();
             entity.field("PARAM_NAME").setKeyValue(param);
             entity.field("PARAM_LABEL").setValue(this.getIntArgumentValue("PARAM_LABEL"));
             entity.field("PARAM_DISPLAY").setValue(this.getStrArgumentValue("PARAM_DISPLAY"));
@@ -82,9 +82,9 @@ public class ParametersAction extends ActionTypeForm {
         String parameter = this.getStrArgumentValue("parameter");
         if (!parameter.isEmpty()) {
             IEntity entity = this.getBOFactory().getEntity("APP_PARAMS");
-            entity.init();
+            entity.reset();
             entity.field("PARAM_NAME").setKeyValue(parameter);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             this.loadSingle(rs);
             this.getBOFactory().closeResultSet(rs);
             

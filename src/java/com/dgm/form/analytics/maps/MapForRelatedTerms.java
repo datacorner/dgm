@@ -69,7 +69,7 @@ public class MapForRelatedTerms extends ActionTypeForm {
         try {
             ResultSet rs;
             IEntity entity = getBOFactory().getEntity("Analytics - Terms Type List");
-            rs = entity.selectAll();
+            rs = entity.select();
             this.loadVector(rs, "TRT_NAME", "TRT_NAME", "termtypes", "TRT_NAME");
             this.getBOFactory().closeResultSet(rs);
 
@@ -91,7 +91,7 @@ public class MapForRelatedTerms extends ActionTypeForm {
             entity.addSort("TRM_NAME");
             entity.setDistinct(true);
             entity.useOnlyTheseFields("TRM_PK", "TRM_NAME");
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             this.loadVector(rs, "TRM_PK", "TRM_NAME", "term", String.valueOf(Key));
             getBOFactory().closeResultSet(rs);
             
@@ -120,7 +120,7 @@ public class MapForRelatedTerms extends ActionTypeForm {
             TermBean trm;
             
             entity.field("TRM_PK").setKeyValue(PK);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             
             if (rs.next()) {
                 trm = new TermBean(rs.getString("GLO_NAME"), 

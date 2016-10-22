@@ -48,7 +48,7 @@ public class LNDCommonAction extends ActionTypeForm {
         if (i != 0)
             entity.setLimitRecords(i);
         
-        ResultSet rs = entity.selectAll();
+        ResultSet rs = entity.select();
         this.loadMatrix(rs, "LIST");
         this.getBOFactory().closeResultSet(rs);
         this.addFormSingleEntry("LIMIT", i);
@@ -62,9 +62,9 @@ public class LNDCommonAction extends ActionTypeForm {
         if (!uid.equalsIgnoreCase("")) {
             try {
                 IEntity Entity = this.getBOFactory().getEntity(this.LandingTableName);
-                Entity.init();
+                Entity.reset();
                 Entity.field(this.LandingKeyName).setKeyValue(uid);
-                ResultSet rs = Entity.selectFiltered();
+                ResultSet rs = Entity.select();
 
                 this.loadSingle(rs);
                 editSpecific(rs);

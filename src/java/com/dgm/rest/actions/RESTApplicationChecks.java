@@ -46,7 +46,7 @@ public class RESTApplicationChecks extends ActionTypeREST {
         try {
             entity = this.getBOFactory().getEntity(Table);
             entity.field(Key).setKeyValue(Constants.UNKNOWN_VALUE);
-            rs = entity.selectFiltered();
+            rs = entity.select();
             empty = (!rs.next());
             
         } catch (Exception ex) {
@@ -90,7 +90,7 @@ public class RESTApplicationChecks extends ActionTypeREST {
         Collection<JSONObject> checkEntities = new ArrayList<>();
 
         for (IEntity entity : this.getBOFactory().getAll()) {
-            entity.init();
+            entity.reset();
             JSONObject retEntity = new JSONObject();
             JSONObject detail = new JSONObject();
             detail.put("Status", (entity.isInitialized() ? "OK" : "KO")); 

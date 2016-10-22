@@ -52,7 +52,7 @@ public class RelTermMetricAction extends ActionTypeForm {
                 IEntity entity = this.getBOFactory().getEntity("REL_TERM_METRIC");
                 entity.field("TRM_CLUSTER_ID").setKeyValue(id);
                 entity.addSort("DQX_NAME");
-                ResultSet rs = entity.selectFiltered();
+                ResultSet rs = entity.select();
                 int TRM_PK = this.getTrmPKFromClusterID(uid);
                 
                 while (rs.next()) {
@@ -102,7 +102,7 @@ public class RelTermMetricAction extends ActionTypeForm {
         JoyFormMatrixEntry matrix = new JoyFormMatrixEntry();
          try {
             IEntity entity = this.getBOFactory().getEntity("Rel Term Metric List");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
@@ -256,7 +256,7 @@ public class RelTermMetricAction extends ActionTypeForm {
      */
     private void loadListOfAvailableTerms() {
         IEntity entity = this.getBOFactory().getEntity("Available Terms");
-        ResultSet rs = entity.selectAll();
+        ResultSet rs = entity.select();
         this.loadVector(rs, "TERM_NAME", "TERM_NAME", "TERM_NAME", null);
         this.getBOFactory().closeResultSet(rs);
     }
@@ -270,7 +270,7 @@ public class RelTermMetricAction extends ActionTypeForm {
         
         try {
             IEntity entity = this.getBOFactory().getEntity("Available Metrics");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             while (rs.next()) {
                 line += "{id: '" + rs.getString("MET_NAME") + "', text:'" + rs.getString("MET_NAME") + "'},";
             }
@@ -294,11 +294,11 @@ public class RelTermMetricAction extends ActionTypeForm {
         
         try {
             IEntity entityAxis = this.getBOFactory().getEntity("SRC_DQAXIS");
-            ResultSet rs = entityAxis.selectAll();
+            ResultSet rs = entityAxis.select();
             BOEntityReadWrite entity = (BOEntityReadWrite)this.getBOFactory().getEntity("REL_TERM_METRIC");
             iCluster = entity.field("TRM_CLUSTER_ID").getNextID();
             while (rs.next()) {
-                entity.init();
+                entity.reset();
                 entity.field("TMD_PK").setNextIDValue();
                 entity.field("TMD_DESCRIPTION").setValue("");
                 entity.field("TRM_CLUSTER_ID").setValue(iCluster);
@@ -354,7 +354,7 @@ public class RelTermMetricAction extends ActionTypeForm {
         try {
             IEntity entity = this.getBOFactory().getEntity("Metric Condidate for autolink");
             List<RelationShip> tab = new ArrayList();
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             
             while (rs.next()) {                 
                 RelationShip rel = new RelationShip(rs.getString("TRM_NAME"), rs.getString("DQX_NAME"), rs.getString("DQX_CODE"));
@@ -394,7 +394,7 @@ public class RelTermMetricAction extends ActionTypeForm {
         boolean noUpdate = true;
         try {
             BOEntityReadWrite entity = (BOEntityReadWrite)this.getBOFactory().getEntity("DIM_METRIC");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
 
             while (rs.next()) { // parcours les metriques 
                 for (RelationShip candidat : candidates) { // parcours les metrics
@@ -435,7 +435,7 @@ public class RelTermMetricAction extends ActionTypeForm {
             
             IEntity entityMet = this.getBOFactory().getEntity("DIM_METRIC");
             entityMet.field("MET_NAME").setKeyValue(metname);
-            ResultSet rs = entityMet.selectFiltered();
+            ResultSet rs = entityMet.select();
             if (rs.next()) {
                 PK = rs.getInt("MET_PK");
             }
@@ -457,7 +457,7 @@ public class RelTermMetricAction extends ActionTypeForm {
         try {
             IEntity entityMet = this.getBOFactory().getEntity("Rel Term Metric Cluster");
             entityMet.field("TRM_CLUSTER_ID").setKeyValue(Integer.valueOf(ClusterID));
-            ResultSet rs = entityMet.selectFiltered();
+            ResultSet rs = entityMet.select();
             if (rs.next()) {
                 PK = rs.getInt("TRM_PK");
             }
@@ -474,7 +474,7 @@ public class RelTermMetricAction extends ActionTypeForm {
         try {
             IEntity entityMet = this.getBOFactory().getEntity("DIM_DQAXIS");
             entityMet.field("DQX_NAME").setKeyValue(DqxName);
-            ResultSet rs = entityMet.selectFiltered();
+            ResultSet rs = entityMet.select();
             if (rs.next()) {
                 PK = rs.getInt("DQX_PK");
             }

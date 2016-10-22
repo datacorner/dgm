@@ -36,7 +36,7 @@ public class RelScContextAction  extends ActionTypeForm {
         JoyFormMatrixEntry matrix = new JoyFormMatrixEntry();
         try {
             IEntity Entity = this.getBOFactory().getEntity("REL_SC_CONTEXT");
-            ResultSet rs = Entity.selectAll();
+            ResultSet rs = Entity.select();
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
                 columns.addValue("SCX_PK", rs.getString("SCX_PK"));
@@ -60,9 +60,9 @@ public class RelScContextAction  extends ActionTypeForm {
         if (!uid.equalsIgnoreCase("")) {
             try {
                 IEntity Entity = this.getBOFactory().getEntity("REL_SC_CONTEXT");
-                Entity.init();
+                Entity.reset();
                 Entity.field("SCX_PK").setKeyValue(Integer.parseInt(uid));
-                ResultSet rs = Entity.selectFiltered();
+                ResultSet rs = Entity.select();
 
                 if (rs.next()) {
                     this.addFormSingleEntry("SCX_PK", rs.getString("SCX_PK"));
@@ -102,7 +102,7 @@ public class RelScContextAction  extends ActionTypeForm {
         BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("REL_SC_CONTEXT");
         int uid = getIntArgumentValue("SCX_PK");
         if (uid != 0) {
-            Entity.init();
+            Entity.reset();
             Entity.field("SCX_PK").setKeyValue(uid);
             Entity.delete();
         }
@@ -115,7 +115,7 @@ public class RelScContextAction  extends ActionTypeForm {
         
     	try {
             BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("REL_SC_CONTEXT");
-            Entity.init();
+            Entity.reset();
             Entity.field("SCO_NAME").setValue(getStrArgumentValue("SCO_NAME"));
             Entity.field("SCX_DESCRIPTION").setValue(getStrArgumentValue("SCX_DESCRIPTION"));
             Entity.field("CON_DESCRIPTION").setValue(getStrArgumentValue("CON_DESCRIPTION"));
@@ -138,7 +138,7 @@ public class RelScContextAction  extends ActionTypeForm {
         try {
             IEntity EntitySrcContext = this.getBOFactory().getEntity("SRC_CONTEXT");
             EntitySrcContext.addSort("CON_DESCRIPTION");
-            ResultSet rs = EntitySrcContext.selectAll();
+            ResultSet rs = EntitySrcContext.select();
             columns.setSelected(_selected);
             
             while (rs.next()) {
@@ -159,7 +159,7 @@ public class RelScContextAction  extends ActionTypeForm {
             IEntity EntitySrcContext = this.getBOFactory().getEntity("Scorecard Dimension");
             EntitySrcContext.addSort("SCO_NAME");
             EntitySrcContext.addFilter("SCO_NAME NOT IN (SELECT SCO_NAME FROM REL_SC_CONTEXT)");
-            ResultSet rs = EntitySrcContext.selectFiltered();
+            ResultSet rs = EntitySrcContext.select();
             columns.setSelected(CurrentScorecard);
             
             while (rs.next()) {

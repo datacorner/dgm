@@ -38,7 +38,7 @@ public class SrcTermTypeAction extends ActionTypeForm {
         try {
             JoyFormMatrixEntry matrix = new JoyFormMatrixEntry();
             IEntity Entity = this.getBOFactory().getEntity("SRC_TERMTYPE");
-            ResultSet rs = Entity.selectAll();
+            ResultSet rs = Entity.select();
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
                 columns.addValue("GIO_PK", rs.getInt("GIO_PK"));
@@ -61,9 +61,9 @@ public class SrcTermTypeAction extends ActionTypeForm {
         if (!uid.equalsIgnoreCase("")) {
             try {
                 IEntity Entity = this.getBOFactory().getEntity("SRC_TERMTYPE");
-                Entity.init();
+                Entity.reset();
                 Entity.field("GIO_PK").setKeyValue(uid);
-                ResultSet rs = Entity.selectFiltered();
+                ResultSet rs = Entity.select();
 
                 if (rs.next()) {
                     this.addFormSingleEntry("GIO_PK", rs.getInt("GIO_PK"));
@@ -89,7 +89,7 @@ public class SrcTermTypeAction extends ActionTypeForm {
         int uid = getIntArgumentValue("GIO_PK");
         if (uid != 0) {
             BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("SRC_TERMTYPE");
-            Entity.init();
+            Entity.reset();
             Entity.field("GIO_PK").setKeyValue(uid);
             Entity.delete();
         }
@@ -112,7 +112,7 @@ public class SrcTermTypeAction extends ActionTypeForm {
         
     	try {
             BOEntityReadWrite Entity = (BOEntityReadWrite)this.getBOFactory().getEntity("SRC_TERMTYPE");
-            Entity.init();
+            Entity.reset();
             Entity.field("GIO_TERMTYPE_NAME").setValue(getStrArgumentValue("GIO_TERMTYPE_NAME"));
             Entity.field("GIO_ICON_PATHNAME").setValue(getStrArgumentValue("GIO_ICON_PATHNAME"));
             if (uid == 0) {
@@ -146,7 +146,7 @@ public class SrcTermTypeAction extends ActionTypeForm {
         try {
             IEntity entity = this.getBOFactory().getEntity("DIM_GLOSSARY");
             entity.addSort("GLO_NAME");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             
             while (rs.next()) {
                 columns.addValue("GLO_NAME", rs.getString("GLO_NAME"));

@@ -46,7 +46,8 @@ public class DTMListAction extends ActionTypeForm {
         if (i != 0)
             entity.setLimitRecords(i);
         
-        ResultSet rs = entity.selectAll();
+        entity.resetFilters();
+        ResultSet rs = entity.select();
         this.loadMatrix(rs, "LIST");
         this.getBOFactory().closeResultSet(rs);
         this.addFormSingleEntry("LIMIT", i);

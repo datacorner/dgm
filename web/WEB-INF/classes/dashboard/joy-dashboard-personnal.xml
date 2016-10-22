@@ -22,16 +22,11 @@
     
     <joy-dashboard id="r1" name="Personnal Dashboard">
         <joy-dashboard-row>
-             <joy-dashboard-bloc id="c3" type="polar" size="4" title="Global scoring per Data Quality Dimension"> 
+             <joy-dashboard-bloc id="c3" type="polar" size="6" title="Global scoring per Data Quality Dimension"> 
                 <joy-param name="entity">AXIS_SCORE_HOME_00</joy-param>
              </joy-dashboard-bloc>
-             <joy-dashboard-bloc id="c1" type="bar" size="4" title="No Owners/stewards"> 
+             <joy-dashboard-bloc id="c1" type="bar" size="6" title="No Owners/stewards"> 
                 <joy-param name="entity">NO_OWNER_HOME_02</joy-param>
-             </joy-dashboard-bloc>
-             <joy-dashboard-bloc id="d1" type="iframe" size="4" title="Informatica"> 
-                <joy-param name="src">http://www.informatica.com/</joy-param>
-                <joy-param name="height">250px</joy-param>
-                <joy-param name="width">100%</joy-param>
              </joy-dashboard-bloc>
         </joy-dashboard-row>
         

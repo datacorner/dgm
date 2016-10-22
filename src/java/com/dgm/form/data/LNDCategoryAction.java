@@ -59,7 +59,7 @@ public class LNDCategoryAction extends LNDCommonAction {
             // into the DIM table
             IEntity entity = this.getBOFactory().getEntity("Landing - List of available Category");
             entity.addSort("CAT_NAME");
-            ResultSet rs = entity.selectAll();
+            ResultSet rs = entity.select();
             this.loadVector(rs, "CAT_ID",  "CAT_NAME", "CATEGORY_PARENT_KEY", PKSelected);
             this.getBOFactory().closeResultSet(rs);
 

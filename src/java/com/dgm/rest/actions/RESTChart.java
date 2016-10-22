@@ -61,7 +61,7 @@ public class RESTChart extends RESTDataCommon {
         try {
             IEntity entity = this.getEntityFromPOST(2);
             if (entity == null) return "";
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             ChartWithDataset chartbar = new ChartWithDataset(Joy.parameters().getParameter("ChartsColors").getList(), Joy.parameters().getParameter("transparency").getValue().toString());   
             while (rs.next()) {
@@ -94,7 +94,7 @@ public class RESTChart extends RESTDataCommon {
                                                       Joy.parameters().getParameter("transparency").getValue().toString());
         IEntity entity = this.getEntityFromPOST(2);
         if (entity == null) return "";
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         
         try {
             while (rs.next())

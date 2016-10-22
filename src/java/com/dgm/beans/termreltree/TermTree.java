@@ -42,7 +42,7 @@ public class TermTree {
             TermBean trm;
             
             entity.field("TRM_PK").setKeyValue(PK);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             
             if (rs.next()) {
                 trm = new TermBean(rs.getString("GLO_NAME"), 
@@ -89,7 +89,7 @@ public class TermTree {
             IEntity entity = entities.getEntity("Analytics - Rel Term Relationships");
             entity.field("TERM_PK_SOURCE").setKeyValue(myTerm);
             entity.addSort("REL_NAME");
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             
             String rupture = "";
             RelationshipBean currentFolder = null;

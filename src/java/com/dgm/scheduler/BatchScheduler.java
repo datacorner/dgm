@@ -40,7 +40,7 @@ public class BatchScheduler extends ListenerBasic  {
                 int timer = 10;
                 try {
                     Joy.log().debug( "Get timeout information");
-                    timer = 30; //paramProvider.getParamValue("scheduletimeout").getIntValue();
+                    timer = 30;
                     Joy.log().debug("Timeout is defined to " + timer + " minutes");
 
                     scheduler = Executors.newSingleThreadScheduledExecutor();

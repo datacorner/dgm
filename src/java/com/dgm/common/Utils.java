@@ -20,6 +20,7 @@ import com.joy.Joy;
 import com.joy.bo.BOFactory;
 import java.sql.ResultSet;
 import com.joy.bo.IEntity;
+import java.sql.SQLException;
 
 /**
  * This class contains all the statics utilities
@@ -82,7 +83,7 @@ public class Utils {
             entity.field("GIO_TERMTYPE_NAME").setKeyValue(Glossary);
             String result;
             
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             if (rs.next()) 
                 result = rs.getString("GIO_ICON_PATHNAME");
             else
@@ -91,7 +92,7 @@ public class Utils {
             entities.closeResultSet(rs);
             return result;
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Joy.log().error(e);
             return Constants.DEFAULT_TERMTYPE_ICON;
         }

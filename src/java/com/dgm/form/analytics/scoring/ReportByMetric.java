@@ -55,7 +55,7 @@ public class ReportByMetric extends ReportCommonConsolidated {
         IEntity entity = getBOFactory().getEntity("Analytics - Metric Global");
         if (Key != 0)
             entity.field("MET_PK").setKeyValue(Key);
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         this.loadSingle(rs);
         getBOFactory().closeResultSet(rs);
     }
@@ -69,7 +69,7 @@ public class ReportByMetric extends ReportCommonConsolidated {
         if (Key != 0)
             entity.field("MET_FK").setKeyValue(Key);
         entity.useOnlyTheseFields("FRS_VALID_ROWS", "FRS_INVALID_ROWS","FRS_TOTALROWS","FRS_KPI_SCORE", "FRS_WEIGHT", "FRS_COST");
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         this.loadSingle(rs);
         getBOFactory().closeResultSet(rs);
     }

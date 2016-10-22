@@ -67,7 +67,7 @@ public class ReportByCategory extends ReportCommonConsolidated {
             IEntity entity = getBOFactory().getEntity("Analytics - Category Glossary List");
             if (Key != 0)
                 entity.field("CAT_PK").setKeyValue(Key);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             if (rs.next()) {
                 this.addFormSingleEntry("CAT_PK", rs.getString("GLO_NAME"));
@@ -96,7 +96,7 @@ public class ReportByCategory extends ReportCommonConsolidated {
                 entity.field("CAT_FILTERING").doNotUseThisField();
                 entity.setDistinct(true);
             }
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();
@@ -130,7 +130,7 @@ public class ReportByCategory extends ReportCommonConsolidated {
                 entity.field("CAT_FILTERING").doNotUseThisField();
                 entity.setDistinct(true);
             }
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             while (rs.next()) {
                 JoyFormVectorEntry columns = new JoyFormVectorEntry();

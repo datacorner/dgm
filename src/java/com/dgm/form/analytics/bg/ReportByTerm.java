@@ -74,7 +74,7 @@ public class ReportByTerm extends ReportCommonAction {
     public void calculateGlobalScore(int currentTerm) {
         IEntity entity = getBOFactory().getEntity("Analytics - Terms Global Score Calculation");
         entity.field("TRM_FK").setKeyValue(currentTerm);
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         
         try {
             if (rs.next())
@@ -113,7 +113,7 @@ public class ReportByTerm extends ReportCommonAction {
     private void loadLinkedContextList(int currentTerm) {
         IEntity entity = getBOFactory().getEntity("Analytics - Terms Context List");
         entity.field("TRM_FK").setKeyValue(currentTerm);
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
         
         this.loadMatrix(rs, "CONTEXT_LIST");
         getBOFactory().closeResultSet(rs);
@@ -126,7 +126,7 @@ public class ReportByTerm extends ReportCommonAction {
     private void loadLinkedDataSourceList(int currentTerm) {
         IEntity entity = getBOFactory().getEntity("Analytics - Terms DS List");
         entity.field("TRM_FK").setKeyValue(currentTerm);
-        ResultSet rs = entity.selectFiltered();
+        ResultSet rs = entity.select();
 
         this.loadMatrix(rs, "DATASOURCE_LIST");
         getBOFactory().closeResultSet(rs);
@@ -139,7 +139,7 @@ public class ReportByTerm extends ReportCommonAction {
         try {
             ResultSet rs;
             IEntity entity = getBOFactory().getEntity("Analytics - Terms Type List");
-            rs = entity.selectAll();
+            rs = entity.select();
             this.loadVector(rs, "TRT_PK", "TRT_NAME", "termtypes", "TRT_PK");
             this.getBOFactory().closeResultSet(rs);
 
@@ -162,10 +162,10 @@ public class ReportByTerm extends ReportCommonAction {
             ResultSet rs;
             if (! definedonly) {
                 IEntity entity = getBOFactory().getEntity("Analytics - Terms List");
-                rs = entity.selectAll();
+                rs = entity.select();
             } else {
                 IEntity entity = getBOFactory().getEntity("DIM_TERM");
-                rs = entity.selectAll();
+                rs = entity.select();
             }
             
             while (rs.next()) {
@@ -187,7 +187,7 @@ public class ReportByTerm extends ReportCommonAction {
         try {
             IEntity entity = getBOFactory().getEntity("Analytics - Terms Global Informations");
             entity.field("TRM_PK").setKeyValue(currentTerm);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
             ParamProvider myParam = new ParamProvider(getBOFactory());
             boolean displayInfa = myParam.getParamValue("INFORMATICA").getStrValue().equalsIgnoreCase(Constants.PARAM_YES);
             

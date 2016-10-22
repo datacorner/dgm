@@ -73,7 +73,7 @@ public class ParamProvider {
         try {
             IEntity entity = entities.getEntity("APP_PARAMS");
             entity.field("PARAM_NAME").setKeyValue(_Name);
-            ResultSet rs = entity.selectFiltered();
+            ResultSet rs = entity.select();
 
             if (rs.next()) {
                 result.setStrValue(rs.getString("PARAM_STRVALUE"));
