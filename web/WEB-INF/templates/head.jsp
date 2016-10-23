@@ -12,8 +12,6 @@
 
 <!-- Bootstrap Core CSS --><link href="./joy-external/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- MetisMenu CSS --><link href="./joy-external/bootstrap/components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-<!-- Custom Bootstrap Theme CSS -->
-<link href="./joy-external/bootstrap/theme/less/theme.css" rel="stylesheet">
 <!-- 
 <link href="./joy-external/bootstrap/theme/less/theme.less" rel="stylesheet/less">
 <script src="./joy-external/less/less.min.js" type="text/javascript"></script> 
@@ -32,6 +30,8 @@
 <!-- styles Menu DGM --><link href="./styles/dgmtaskmenu.css" rel="stylesheet" type="text/css"/>
 <!-- styles DGM --><link href="./styles/global.css" rel="stylesheet" type="text/css"/>
 
+<!-- Custom Bootstrap Theme CSS -->
+<link href="./joy-external/bootstrap/theme/less/theme.css" rel="stylesheet">
 <!-- End of Includes directives -->    
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

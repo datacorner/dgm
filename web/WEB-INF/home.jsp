@@ -36,10 +36,10 @@
                 </div>
                 
                 <div class="row">
-                    <UI:dgmSpot tag="TERMS" panelcolor="panel-primary" panelicon="term" classbloc="col-lg-3 col-md-6" />
-                    <UI:dgmSpot tag="METRICS" panelcolor="panel-red" panelicon="metric"  classbloc="col-lg-3 col-md-6" />
-                    <UI:dgmSpot tag="GLOSSARIES" panelcolor="panel-green" panelicon="glossary"  classbloc="col-lg-3 col-md-6" />
-                    <UI:dgmSpot tag="DQAXIS" panelcolor="panel-yellow" panelicon="dqaxis"  classbloc="col-lg-3 col-md-6" />
+                    <UI:dgmSpot tag="TERMS" panelcolor="spot-primary" panelicon="term" classbloc="col-lg-3 col-md-6" />
+                    <UI:dgmSpot tag="METRICS" panelcolor="spot-red" panelicon="metric"  classbloc="col-lg-3 col-md-6" />
+                    <UI:dgmSpot tag="GLOSSARIES" panelcolor="spot-green" panelicon="glossary"  classbloc="col-lg-3 col-md-6" />
+                    <UI:dgmSpot tag="DQAXIS" panelcolor="spot-yellow" panelicon="dqaxis"  classbloc="col-lg-3 col-md-6" />
                 </div>
                 
                 <div class="row">

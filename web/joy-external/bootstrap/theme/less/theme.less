@@ -364,6 +364,10 @@ table.dataTable thead .sorting:after {
     }
 }
 
+/*********************************
+    Adds by Benoit CAYLA from here
+**********************************/
+
 /* Header Surcharge */
 .navdgm { background-color: #919191; 
 	position: fixed;
@@ -379,3 +383,95 @@ table.dataTable thead .sorting:after {
 /* Panels Surcharge */
 .panel { border-radius: @borderradius;}
 .panel-heading { border-top-right-radius: @borderradius; border-top-left-radius: @borderradius; }
+.panel-default .panel-heading { border-color: #fff; background-color: #fff; }
+.panel-default { border-top-color: @bordertopdefault; border-top-width: 3px; }
+.panel-red  { border-color: #ddd; border-top-color: @brand-danger; border-top-width: 3px; }
+.panel-red .panel-heading { border-color: #fff; background-color: #fff; color: black; }
+.panel-green  { border-color: #ddd; border-top-color: @brand-success; border-top-width: 3px; }
+.panel-green .panel-heading { border-color: #fff; background-color: #fff; color: black; }
+.panel-success  { border-color: #ddd; border-top-color: @brand-success; border-top-width: 3px; }
+.panel-success .panel-heading { border-color: #fff; background-color: #fff; color: black; }
+.panel-yellow  { border-color: #ddd; border-top-color: @brand-warning; border-top-width: 3px; }
+.panel-yellow .panel-heading { border-color: #fff; background-color: #fff; color: black; }
+.panel-primary  { border-color: #ddd; border-top-color: @brand-primary; border-top-width: 3px; }
+.panel-primary .panel-heading { border-color: #fff; background-color: #fff; color: black; }
+.panel-info  { border-color: #ddd; border-top-color: @brand-info; border-top-width: 3px; }
+.panel-info .panel-heading { border-color: #fff; background-color: #fff; color: black; }
+
+/* Spots */
+
+.spot-primary {
+    border-color: @brand-primary;
+    .panel-heading {
+        border-color: @brand-primary;
+        color: white;
+        background-color: @brand-primary;
+        a {
+            color: white;
+            &:hover { color: white; text-decoration: none; }
+        }
+    }
+    a {
+        color: @brand-primary;
+        &:hover {
+            color: darken(@brand-primary, 15%);
+        }
+    }
+}
+
+.spot-green {
+    border-color: @brand-success;
+    .panel-heading {
+        border-color: @brand-success;
+        color: white;
+        background-color: @brand-success;
+        a {
+            color: white;
+            &:hover { color: white; text-decoration: none; }
+        }
+    }
+    a {
+        color: @brand-success;
+        &:hover {
+            color: darken(@brand-success, 15%);
+        }
+    }
+}
+
+.spot-red {
+    border-color: @brand-danger;
+    .panel-heading {
+        border-color: @brand-danger;
+        color: white;
+        background-color: @brand-danger;
+        a {
+            color: white;
+            &:hover { color: white; text-decoration: none; }
+        }
+    }
+    a {
+        color: @brand-danger;
+        &:hover {
+            color: darken(@brand-danger, 15%);
+        }
+    }
+}
+
+.spot-yellow {
+    border-color: @brand-warning;
+    .panel-heading {
+        border-color: @brand-warning;
+        color: white;
+        background-color: @brand-warning;
+        a {
+            color: white;
+            &:hover { color: white; text-decoration: none; }
+        }
+    }
+    a {
+        color: @brand-warning;
+        &:hover {
+            color: darken(@brand-warning, 15%);
+        }
+    }
+}
