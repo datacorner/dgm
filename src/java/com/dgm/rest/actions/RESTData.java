@@ -33,7 +33,7 @@ public class RESTData extends RESTDataCommon {
         
         IEntity entity = this.getEntityFromPOST(1);
         if (entity != null)
-            return entity.exportJsonWithFilter().toString();
+            return entity.exp().toString();
         else
             return "";
     }

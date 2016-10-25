@@ -27,11 +27,11 @@
 <!-- Lobipanel --><link href="./joy-external/bootstrap/components/lobipanel/dist/css/lobipanel.min.css" rel="stylesheet" type="text/css"/>
 <!-- vis.js --><link href="./joy-external/vis/dist/vis.min.css" rel="stylesheet" type="text/css" />
 <!-- datetime-picker --><link href="./joy-external/bootstrap/components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
-<!-- styles Menu DGM --><link href="./styles/dgmtaskmenu.css" rel="stylesheet" type="text/css"/>
-<!-- styles DGM --><link href="./styles/global.css" rel="stylesheet" type="text/css"/>
+<!-- styles Menu DGM --><link href="./theme/css/dgmtaskmenu.css" rel="stylesheet" type="text/css"/>
+<!-- styles DGM --><link href="./theme/css/global.css" rel="stylesheet" type="text/css"/>
 
 <!-- Custom Bootstrap Theme CSS -->
-<link href="./joy-external/bootstrap/theme/less/theme.css" rel="stylesheet">
+<link href="./theme/css/theme.css" rel="stylesheet">
 <!-- End of Includes directives -->    
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

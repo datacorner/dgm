@@ -37,6 +37,12 @@
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="row">
+                            <div class="col-lg-5">       
+                                <div class="blocGlobalScore">
+                                    <div class="globalScoreTitle"><span id="gauge-value"></span>%</div>
+                                    <canvas width=200 id="canvasScore" alt="Global score"></canvas>
+                                </div>
+                            </div> 
                             <div class="col-lg-7">
                                 <div class="divtermblocheader">
                                     <p><UI:dgmGlyphe name="status" /><B>Status :</B> <joy:ActionValueTag name="TRM_PHASE" /></p>
@@ -46,13 +52,7 @@
                                     <p><UI:dgmGlyphe name="businessmap" /><A href="<joy:JoyBasicURL object="mapbyterm" actiontype="display" />&nbhops=3&term=<joy:ActionValueTag name="TRM_PK" />">Relationship map</A></p>
                                     <p><UI:dgmGlyphe name="common-configuration" /><A href="<joy:ActionValueTag name="CONFIG_TERM_LINK" />">Term Configuration</A></p>
                                 </div>
-                            </div>
-                            <div class="col-lg-5">       
-                                <div class="divglobalcore">
-                                    <div class="globalheaderscore">Global Score</div>
-                                    <div class="globalscore"><joy:ActionValueTag name="GLOBALSCORE" />%</div>
-                                </div>
-                            </div>  
+                            </div> 
                         </div>   
                         <div class="row">
                             <div class="col-lg-12">
@@ -278,8 +278,7 @@ function callbackSuccess(content, tag) {
 loadJSON('./rest/relterm/3/<joy:ActionValueTag name="TRM_PK" />', 'relationship');
 
 // display the last run bars
-var ctx = document.getElementById("LastRun").getContext("2d");
-window.myBarArea = new Chart(ctx, {
+var configRuns = {
     type: 'bar',
     data: <joy:ActionValueTag name="LASTRUNS" />,
     options: {
@@ -290,10 +289,11 @@ window.myBarArea = new Chart(ctx, {
         legend: { position: 'bottom' },
         title: { display: true, text: 'Last runs (grouped per day)' }
     }
-});
+};
+window.LastRun = new Chart(document.getElementById("LastRun"), configRuns);
 
 // display the radar
-var config = {
+var configRadar = {
     type: 'radar',
     data: <joy:ActionValueTag name="MULTIPLE_RADAR" />,
     options: {
@@ -302,8 +302,25 @@ var config = {
         scale: { reverse: false, ticks: { beginAtZero: true  } }
     }
 };
-window.myRadar = new Chart(document.getElementById("radar"), config);
+window.myRadar = new Chart(document.getElementById("radar"), configRadar);
 
+// Display the global score
+var optsGlobalScore = {
+    lines: 1, // The number of lines to draw
+    angle: 0.15, // The length of each line
+    lineWidth: 0.25, // The line thickness
+    limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+    colorStart: '#A395C0',   // Colors
+    colorStop: '#A395C0',
+    strokeColor: '#EEEEEE',
+    generateGradient: true
+};
+var target = document.getElementById('canvasScore'); // your canvas element
+var gauge = new Donut(target).setOptions(optsGlobalScore); // create sexy gauge!
+gauge.maxValue = 100; // set max gauge value
+gauge.animationSpeed = 32; // set animation speed (32 is default value)
+gauge.set(<joy:ActionValueTag name="GLOBALSCORE" />); // set actual value
+gauge.setTextField(document.getElementById("gauge-value"));
 </script>
 
 </body>

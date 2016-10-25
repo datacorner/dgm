@@ -76,7 +76,7 @@ public class RESTSearch extends RESTPairMgtCommon {
 
             }
             Joy.log().info("REST search successful. Return JSON data.");
-            return entityTerm.exportJsonWithFilter().toString();
+            return entityTerm.exp().toString();
             
         } catch (Exception e) {
             Joy.log().error(e);

@@ -32,7 +32,7 @@ public class HomeAction extends ActionTypeForm {
         UITaglibSpotData spot = new UITaglibSpotData();
         IEntity query = this.getBOFactory().getEntity("List of terms used");
         IEntity table = this.getBOFactory().getEntity("DIM_TERM");
-        spot.setLittlelongtext("Business Terms Used");
+        spot.setLittlelongtext("Business Terms");
         spot.setBigshorttext(String.valueOf(query.count()) + " / " + String.valueOf(table.count()));
         spot.setLinkURL("byterm", "search");
         spot.setLinktext("View Business Terms KPIs");
@@ -42,7 +42,7 @@ public class HomeAction extends ActionTypeForm {
         spot = new UITaglibSpotData();
         query = this.getBOFactory().getEntity("List of metrics used");
         table = this.getBOFactory().getEntity("DIM_METRIC");
-        spot.setLittlelongtext("Metrics Used");
+        spot.setLittlelongtext("Metrics");
         spot.setBigshorttext(String.valueOf(query.count()) + " / " + String.valueOf(table.count()));
         spot.setLinkURL("bymetric", "search");
         spot.setLinktext("View Metrics");
@@ -51,7 +51,7 @@ public class HomeAction extends ActionTypeForm {
         // Glossaries
         spot = new UITaglibSpotData();
         table = this.getBOFactory().getEntity("DIM_GLOSSARY");
-        spot.setLittlelongtext("Glossaries Used");
+        spot.setLittlelongtext("Glossaries");
         spot.setBigshorttext(String.valueOf(table.count()));
         spot.setLinkURL("byglossary", "search");
         spot.setLinktext("View Glossaries KPIs");
@@ -60,7 +60,7 @@ public class HomeAction extends ActionTypeForm {
         // DQ Dimensions
         spot = new UITaglibSpotData();
         table = this.getBOFactory().getEntity("DIM_DQAXIS");
-        spot.setLittlelongtext("Data Quality Dimensions in scope");
+        spot.setLittlelongtext("Data Quality Dimensions");
         table.addFilter("DQX_PK>0");
         spot.setBigshorttext(String.valueOf(table.count(true)));
         spot.setLinkURL("bydqaxis", "search");

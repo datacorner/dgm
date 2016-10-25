@@ -22,7 +22,6 @@ body {
     #page-wrapper {
         position: inherit;
         margin: 0 0 0 250px;
-        padding: 0 30px;
         border-left: 1px solid darken(@gray-lightest, 6.5%);
     }
 }
@@ -370,7 +369,6 @@ table.dataTable thead .sorting:after {
 
 /* Header Surcharge */
 .navdgm { background-color: #919191; 
-	position: fixed;
 	float: left;
 	width: 100%;
 	padding: 0px 0px 0px 0px;
@@ -378,7 +376,9 @@ table.dataTable thead .sorting:after {
 .navdgm .navbar-brand { color: white; }
 .dropdown-toggle { color: white; }
 .page-header { font-size: 20px }
-#page-wrapper { padding-top: 25px; }
+#page-wrapper { 
+    padding-top: 5px; 
+}
 
 /* Panels Surcharge */
 .panel { border-radius: @borderradius;}

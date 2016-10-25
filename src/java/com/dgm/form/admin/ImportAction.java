@@ -44,7 +44,7 @@ public class ImportAction extends ActionTypeForm {
             if (!stringContent.isEmpty()) {
                 JSONObject jsonContent = new JSONObject(stringContent);
                 IEntity entity = this.getBOFactory().getEntity(this.getStrArgumentValue("import"));
-                Collection<ActionLogReport> logs = entity.importJson(jsonContent, false);
+                Collection<ActionLogReport> logs = entity.imp(jsonContent, false);
 
             } else {
                 Joy.log().info("The imported file is empty");
