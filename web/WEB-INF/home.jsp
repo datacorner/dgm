@@ -31,7 +31,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Data Governance Dashboard</h1>
+                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Home" />
                     </div>
                 </div>
                 
@@ -69,7 +69,7 @@
                 </div>
                             
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="panel panel-default panel-scores">
                             <div class="panel-heading">
                                 <i class="fa fa-dashboard fa-fw"></i> Global Scores
@@ -96,44 +96,29 @@
                         </div>    
                     </div>  
                     
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="panel panel-default panel-scores">
                             <div class="panel-heading">
                                 <i class="fa fa-dashboard fa-fw"></i> Best Terms
                             </div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <joy:ActionMatrixRowLoopTag name="BEST_TERMS">
-                                        <a href="#">
-                                            <div>
-                                                <p>
-                                                    <strong><UI:dgmGlyphe name="term" /><a href="<joy:JoyBasicURL object="byterm" actiontype="display" />&term=<joy:ActionMatrixByRowTag name="TRM_FK" />"><joy:ActionMatrixByRowTag name="TRM_NAME" /></a></strong>
-                                                    <span class="pull-right text-muted"><joy:ActionMatrixByRowTag name="GLOBALSCORE" />&nbsp;% Complete</span>
-                                                </p>
-                                                <div class="progress progress-striped active">
-                                                    <div class="progress-bar progress-striped" role="progressbar" aria-valuenow="<joy:ActionMatrixByRowTag name="GLOBALSCORE" />" aria-valuemin="0" aria-valuemax="100" style="width: <joy:ActionMatrixByRowTag name="GLOBALSCORE" />%">
-                                                        <span class="sr-only"><joy:ActionMatrixByRowTag name="GLOBALSCORE" />&nbsp;% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </joy:ActionMatrixRowLoopTag>
+                                    <UI:dgmListTerms matrixname="BEST_TERMS" labelname="TRM_NAME" scorename="GLOBALSCORE" termkey="TRM_FK"  />
                                 </div>
                             </div>
                         </div>    
                     </div>   
                     
-                    <div class="col-lg-6">
-                        <div class="panel panel-default" id="panel-dashOwnerMissing">
-                            <div class="panel-heading"><UI:dgmGlyphe name="dashboard" />Owner missing</div>
-                            <div class="panel-body">
-                                <div class="dataTable_wrapper">
-                                    <canvas id="MyNoOwner" ></canvas>
-                                    <div id="barLegend" ></div>
-                                </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default panel-scores">
+                            <div class="panel-heading">
+                                <i class="fa fa-dashboard fa-fw"></i> Worse Terms
                             </div>
-                        </div>            
-                    </div>   
+                            <div class="panel-body">
+                                <UI:dgmListTerms matrixname="WORSE_TERMS" labelname="TRM_NAME" scorename="GLOBALSCORE"  termkey="TRM_FK" />
+                            </div>
+                        </div>    
+                    </div>  
                     
                 </div>
 
@@ -231,27 +216,11 @@ function callbackSuccess(content, tag) {
             });
             break;
             
-        case 'noowner': 
-            var ctx = document.getElementById("MyNoOwner").getContext("2d");
-            window.MyNoOwner = new Chart(ctx, {
-                type: 'bar',
-                data: content,
-                options: {
-                    elements: {
-                        rectangle: { borderWidth: 2, borderSkipped: 'bottom' }
-                    },
-                    responsive: true,
-                    legend: { position: 'bottom' },
-                    title: { display: true, text: 'No Owners/stewards' }
-                }
-            });
-            break;
         default:
     }
 }
 loadJSON('./rest/charts/sds/AXIS_SCORE_HOME_00', 'polaraxis');
 loadJSON('./rest/charts/mds/GLOBAL_SCORING_HOME_01', 'barbyglossary');
-loadJSON('./rest/charts/mds/NO_OWNER_HOME_02', 'noowner');
 </script>
 
 </body>

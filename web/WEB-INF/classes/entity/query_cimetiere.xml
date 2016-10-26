@@ -169,3 +169,27 @@
         from lnd_metric 
         order by met_name
     </joy-customquery>
+    
+    
+    <joy-customquery name="Available Terms OBS">
+        SELECT DISTINCT TERM_NAME 
+        FROM LND_TERM 
+        WHERE TERM_NAME NOT IN (SELECT distinct rel_term_metric.trm_name FROM rel_term_metric)
+    </joy-customquery>
+    
+    
+    <joy-customquery name="Home - Best terms OBS"> <!-- Best terms scores -->
+        select TRM_FK, DIM_TERM.TRM_NAME, round(sum(FRS_KPI_SCORE*DQX_WEIGHT)/max((Select sum(DQX_WEIGHT) SC from DIM_DQAXIS)), 2) AS GLOBALSCORE
+        from (  select * 
+                from FACT_GOVERNANCE, 
+                     ( select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
+                       from FACT_GOVERNANCE) A
+                Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
+                and FACT_GOVERNANCE.TRM_FK > 0) X, 
+              DIM_DQAXIS, DIM_TERM
+        where X.DQX_FK = DIM_DQAXIS.DQX_PK
+        And X.TRM_FK = DIM_TERM.TRM_PK
+        And X.TRM_FK > 0
+        group by TRM_FK, DIM_TERM.TRM_NAME
+        order by GLOBALSCORE DESC
+    </joy-customquery>

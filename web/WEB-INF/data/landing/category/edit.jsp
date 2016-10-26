@@ -29,7 +29,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Business Term</h1>
+                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Data-Landing" />
+                        <h1 class="page-header">Landing tables management</h1>
                     </div>
                 </div>
                 
@@ -42,7 +43,7 @@
                     
                     <div class="col-lg-10">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Manage Business Term</div>
+                            <div class="panel-heading">Business Category Landing data</div>
                             
                             <div class="row">
                                 <div class="col-lg-12">  

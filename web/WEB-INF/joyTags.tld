@@ -357,6 +357,20 @@
       <required>false</required>
     </attribute>
   </tag>
+
+  <tag>
+    <name>NaviBreadCrumbsTag</name>
+    <tag-class>com.joy.taglibs.bootstrap.NaviBreadCrumbsTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+      <name>xmlconfig</name>
+      <required>true</required>
+    </attribute>
+    <attribute>
+      <name>activemenuid</name>
+      <required>false</required>
+    </attribute>
+  </tag>
   
   <tag>
     <name>NaviLeftMenuTag</name>

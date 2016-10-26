@@ -30,6 +30,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Analytics-S-Context" />
                         <h1 class="page-header"><joy:ActionValueTag name="CON_DESCRIPTION" /></h1>
                     </div>
                 </div>

@@ -30,6 +30,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Analytics-S-Metric" />
                         <h1 class="page-header"><joy:ActionValueTag name="MET_NAME" /></h1>
                     </div>
                 </div>

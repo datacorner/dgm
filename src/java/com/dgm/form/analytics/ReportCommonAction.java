@@ -281,7 +281,11 @@ public class ReportCommonAction extends ActionTypeForm {
                 JoyFormVectorEntry lastValVector = new JoyFormVectorEntry();
                 ChartCounterData myChart = new ChartCounterData(last,  Axis.get(i),  Axis.get(i));
                 myChart = setCounterOptions(myChart);
-
+                try {
+                    myChart.setThresolds(Integer.parseInt(Joy.parameters().getParameter("thresold_bad").getValue().toString()), 
+                                         Integer.parseInt(Joy.parameters().getParameter("thresold_good").getValue().toString()));
+                } catch (Exception e) {}
+                
                 lastValVector.addValue(TAG_COUNTER_NAME, Axis.get(i));
                 lastValVector.addValue(TAG_COUNTER_OBJECT, myChart); 
                 matrixLastValues.addRow(lastValVector);

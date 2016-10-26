@@ -52,21 +52,47 @@
         and TRM_STEWARD IS NULL
         group by GLO_NAME
     </joy-customquery>
+
+    <joy-composite name = "Total Weight for DQ Axis">
+        <joy-field alias="X">sum(DQX_WEIGHT)</joy-field>
+        <joy-entity alias="X">DIM_DQAXIS</joy-entity>
+    </joy-composite>    
     
-    <joy-customquery name="Home - Best terms"> <!-- Best terms scores -->
-        select TRM_FK, DIM_TERM.TRM_NAME, round(sum(FRS_KPI_SCORE*DQX_WEIGHT)/max(GLOBALSUM.SC), 2) AS GLOBALSCORE
-        from (  select * 
-                from FACT_GOVERNANCE, 
-                     ( select distinct FIRST_VALUE(frs_pk) OVER(PARTITION BY TRM_FK, MET_FK, DQX_FK, ORI_FK, CON_FK, DSO_FK ORDER BY JOB_FK DESC) As frs_pk 
-                       from FACT_GOVERNANCE) A
-                Where FACT_GOVERNANCE.frs_pk = A.FRS_PK
-                and FACT_GOVERNANCE.TRM_FK > 0) X, 
-              DIM_DQAXIS, DIM_TERM,
-              (Select sum(DQX_WEIGHT) SC from DIM_DQAXIS) GLOBALSUM
-        where X.DQX_FK = DIM_DQAXIS.DQX_PK
-        And X.TRM_FK = DIM_TERM.TRM_PK
-        And X.TRM_FK > 0
-        group by TRM_FK, DIM_TERM.TRM_NAME
-        order by GLOBALSCORE DESC
-    </joy-customquery>
+    <joy-composite name = "Home - Best terms">  <!-- Best terms scores -->
+        <joy-field alias="X">TRM_FK</joy-field>
+        <joy-field alias="T">TRM_NAME</joy-field>
+        <joy-field as="GLOBALSCORE">round(sum(FRS_KPI_SCORE*DQX_WEIGHT)/max((Select sum(DQX_WEIGHT) SC from DIM_DQAXIS)), 2)</joy-field>
+        <joy-entity alias="X">Last Facts Only</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="Q">DIM_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_FK" slave="DQX_PK" />
+        </joy-join>
+        <joy-join type="INNER">
+            <joy-entity alias="T">DIM_TERM</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join>
+        <joy-filter alias="X" field="TRM_FK" operator="&gt;">0</joy-filter>
+        <joy-group alias="X">TRM_FK</joy-group>
+        <joy-group alias="T">TRM_NAME</joy-group>
+        <joy-sort field="GLOBALSCORE" desc="yes" />
+    </joy-composite>
+
+    <joy-composite name = "Home - Worse terms">  <!-- Worse terms scores -->
+        <joy-field alias="X">TRM_FK</joy-field>
+        <joy-field alias="T">TRM_NAME</joy-field>
+        <joy-field as="GLOBALSCORE">round(sum(FRS_KPI_SCORE*DQX_WEIGHT)/max((Select sum(DQX_WEIGHT) SC from DIM_DQAXIS)), 2)</joy-field>
+        <joy-entity alias="X">Last Facts Only</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="Q">DIM_DQAXIS</joy-entity>
+            <joy-join-key master="DQX_FK" slave="DQX_PK" />
+        </joy-join>
+        <joy-join type="INNER">
+            <joy-entity alias="T">DIM_TERM</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join>
+        <joy-filter alias="X" field="TRM_FK" operator="&gt;">0</joy-filter>
+        <joy-group alias="X">TRM_FK</joy-group>
+        <joy-group alias="T">TRM_NAME</joy-group>
+        <joy-sort field="GLOBALSCORE" desc="no" />
+    </joy-composite> 
 </joy-entities>

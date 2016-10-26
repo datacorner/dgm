@@ -30,6 +30,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                         <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Data-Landing" />
                         <h1 class="page-header">Landing tables management</h1>
                     </div>
                 </div>

@@ -29,7 +29,6 @@
                 <joy-param name="entity">NO_OWNER_HOME_02</joy-param>
              </joy-dashboard-bloc>
         </joy-dashboard-row>
-        
     </joy-dashboard>
 
 </joy-dashboards> 

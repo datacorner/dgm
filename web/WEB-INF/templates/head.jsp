@@ -10,7 +10,7 @@
 
 <!-- Includes directives below -->
 
-<!-- Bootstrap Core CSS --><link href="./joy-external/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core CSS --><link href="./joy-external/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 <!-- MetisMenu CSS --><link href="./joy-external/bootstrap/components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 <!-- 
 <link href="./joy-external/bootstrap/theme/less/theme.less" rel="stylesheet/less">

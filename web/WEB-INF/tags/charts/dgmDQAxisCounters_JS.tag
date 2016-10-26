@@ -26,8 +26,8 @@ var opts<%= myChart.getCode() %> = {
     strokeColor: '#E0E0E0',   // to see which ones work best for you
     generateGradient: true
 };
-var target = document.getElementById('canvas-<%= myChart.getCode() %>'); // your canvas element
-var gauge = new Gauge(target).setOptions(opts<%= myChart.getCode() %>); // create sexy gauge!
+var target = document.getElementById('canvas-<%= myChart.getCode() %>'); 
+var gauge = new Gauge(target).setOptions(opts<%= myChart.getCode() %>);
 gauge.maxValue = 100; // set max gauge value
 gauge.animationSpeed = 32; // set animation speed (32 is default value)
 gauge.set(<%= myChart.getValue() %>); // set actual value

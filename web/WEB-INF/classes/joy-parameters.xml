@@ -29,7 +29,7 @@
     
     <!-- Joy Version -->
     <joy-version>0.1.5.4</joy-version>
-    <joy-app-name>Data Governance Monitor</joy-app-name>
+    <joy-app-name>DGM</joy-app-name>
     
     <!-- datasources/entities configuration file here-->
     <joy-entities>
@@ -62,6 +62,10 @@
     <app-parameter name="dimtime_month_begin" type="value">0</app-parameter>
     <app-parameter name="dimtime_day_begin" type="value">1</app-parameter>
     <app-parameter name="dimtime_nb_records" type="value">5000</app-parameter>
+
+    <!-- Thresold display -->
+    <app-parameter name="thresold_bad" type="value">35</app-parameter>
+    <app-parameter name="thresold_good" type="value">65</app-parameter>
     
     <!-- Gauges Colors & thresolds -->
     <app-parameter name="ThresoldBadToWarn" type="value">40</app-parameter>

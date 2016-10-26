@@ -11,6 +11,7 @@
 <%@attribute name="panelicon"%>
 <%@attribute name="classbloc"%> <!-- example: col-lg-3 col-md-6 -->
 <%
+    
     try {
         Action actionform = (Action)Joy.currentAction(request);
         UITaglibSpotData spotdata = (UITaglibSpotData)actionform.getFormSingleEntry(tag).getValue();

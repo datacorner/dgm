@@ -82,6 +82,13 @@ public class HomeAction extends ActionTypeForm {
         rs = entity.select();
         this.loadMatrix(rs, "BEST_TERMS");
         this.getBOFactory().getDB().closeResultSet(rs);
+        
+        // Display the best Terms / Home - Best terms
+        entity = this.getBOFactory().getEntity("Home - Worse terms");
+        entity.setLimitRecords(5);
+        rs = entity.select();
+        this.loadMatrix(rs, "WORSE_TERMS");
+        this.getBOFactory().getDB().closeResultSet(rs);
     }
     
     @Override

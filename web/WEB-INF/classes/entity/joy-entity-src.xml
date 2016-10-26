@@ -19,12 +19,13 @@
         <joy-filter alias="SC1" field="MET_NAME" operator="IS">NULL</joy-filter>
         <joy-sort alias="AT1" field="MET_NAME" desc="no" />
     </joy-composite>
-    
-    <joy-customquery name="Available Terms">
-        SELECT DISTINCT TERM_NAME 
-        FROM LND_TERM 
-        WHERE TERM_NAME NOT IN (SELECT distinct rel_term_metric.trm_name FROM rel_term_metric)
-    </joy-customquery>
+
+    <joy-composite name = "Available Terms" distinct="yes">
+        <joy-field alias="X">TERM_NAME</joy-field>
+        <joy-entity alias="X">LND_TERM</joy-entity>
+        <joy-filter alias="X" field="TERM_NAME" operator="NOT IN">(select distinct trm_name from rel_term_metric)</joy-filter>
+        <joy-sort alias="X" field="TERM_NAME" desc="no" />
+    </joy-composite>
     
     <joy-composite name = "Metric Condidate for autolink" distinct="no">
         <joy-field alias="AT1">TRM_NAME</joy-field>
