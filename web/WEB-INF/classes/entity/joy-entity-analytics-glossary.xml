@@ -14,6 +14,22 @@ for the custom queries :
 -->
 
 <joy-entities>
+    <joy-composite name = "Temp - Check if Glossary has score">
+        <joy-entity alias="T">DIM_TERM</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="G">DIM_GLOSSARY</joy-entity>
+            <joy-join-key master="GLO_FK" slave="GLO_PK" />
+        </joy-join>
+    </joy-composite>
+    
+    <joy-composite name = "Check if Glossary has score">
+        <joy-entity alias="T">FACT_GOVERNANCE</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="G">Temp - Check if Glossary has score</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join>
+    </joy-composite>
+    
     <joy-customquery name="Analytics - Glossary Last Runs"> <!-- Replace RPT_GLO_LASTRUNS -->
         select max(DIM_TIME.TIM_CALENDAR_DATE) AS rundate, 
         DIM_DQAXIS.DQX_NAME, 

@@ -5,7 +5,7 @@
 <%@taglib prefix="joy" uri="/WEB-INF/joyTags.tld"%>
 
 <html lang="en">
-
+<!-- term_search.jsp  -->
 <head>
     <jsp:directive.include file="../../templates/head.jsp" />
     <style type="text/css">
@@ -29,15 +29,16 @@
                 <joy:NaviTopRightTasksMenuTag />
                 <joy:NaviTopRightUserMgtMenuTag />
             </joy:NaviTopRightMenu>
-            <joy:NaviLeftMenuTag xmlconfig="joy-menu.xml" activemenuid="Analytics-BG-Term" />
+            <joy:NaviLeftMenuTag xmlconfig="joy-menu.xml" />
         </nav>
 
+        <joy:ActionHiddenTag name="target" />
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Analytics-BG-Term" />
+                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Analytics" />
                     </div>
                 </div>
                 
@@ -49,17 +50,10 @@
                                     <div class="panel-heading"><UI:dgmGlyphe name="term" />Direct access</div>
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
-                                        <joy:JoyFormTag inline="true" object='byterm' actiontype='display' name='myform'>
+                                        <label>&nbsp;Just select a Business Term</label>
                                         <div class="form-group">
-                                            <label>&nbsp;Just select a Business Term</label>
-                                            <joy:ActionComboBoxTag name="term" CSSClass="js-states form-control" />
-                                            <joy:JoyFormButtonTag id="btn1" label="Go" submit="true" CSSClass="btn btn-primary" />
-                                        </div>
-                                        </joy:JoyFormTag>
-                                        <div class="form-group">
-                                            <joy:JoyFormTag  object='byterm' actiontype='search' name='myform2'>
-                                            <joy:ActionCheckBoxTag name="termsdefined" onclick="document.forms['myform2'].submit();" />&nbsp;Show all Business terms<P>
-                                            </joy:JoyFormTag>
+                                            <joy:ActionComboBoxTag name="term" CSSClass="js-states form-control" id="term" /><p>&nbsp;<p>
+                                            <joy:JoyFormButtonTag id="btn1" label="Go" CSSClass="btn btn-primary" onclick="goto(document.getElementById('term').value);" />
                                         </div>
                                     </div>
                                 </div> 
@@ -115,12 +109,17 @@ $(document).ready(function() {
         placeholder: "Select an Term Type"
     });
     $( "#btn1" ).button();
-
+    $( "#btn2" ).button();
+    
     $('#searchresult').on('dblclick', 'tr', function (e) {
         var valSelected = $('td:eq(0)', this).html();
-        window.open('<joy:JoyBasicURL actiontype="display" object="byterm" />&term=' + valSelected, '_self');
+        goto(valSelected);
     });
 });
+
+function goto(term)  {
+    window.open('<joy:JoyBasicURL actiontype="display" />&term=' + term + "&object=" + document.getElementById('target').value, '_self');
+}
 
 function search() {
     var t1 = $('#searchresult').DataTable();

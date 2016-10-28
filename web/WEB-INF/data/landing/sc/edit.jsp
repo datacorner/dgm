@@ -50,22 +50,25 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Identifier</label>
-                                            <joy:ActionInputTextTag name="JOYFUNCKEY" CSSClass="form-control" />
+                                            <div class="input-group">
+                                                <span class="input-group-addon " id="basic-addon2"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> </span>
+                                                <joy:ActionInputTextTag name="JOYFUNCKEY" CSSId="JOYFUNCKEY" CSSClass="form-control" required="yes" maxlength="10" placeholder="Unique Identifier" ariadescribedby="basic-addon2" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                                     
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <joy:ActionInputTextTag name="SCO_NAME" CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="SCO_NAME" CSSClass="form-control" placeholder="Scorecard Name" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <joy:ActionInputTextTag name="SCO_DESCRIPTION"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="SCO_DESCRIPTION"   CSSClass="form-control" placeholder="Scorecard Description" />
                                         </div>
 
                                     </DIV>

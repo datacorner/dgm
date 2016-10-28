@@ -60,7 +60,16 @@ public class TermBean {
         this.level = 1;
         this.entities = entities;
     }
-
+    
+    public TermBean(BOFactory entities, String TermType, String Name, int Key, int Level) {
+        relationShips = new ArrayList();
+        this.type = TermType;
+        this.name = Name;
+        this.key = Key;
+        this.level = Level;
+        this.entities = entities;
+    }
+    
     public void setTermType(String TermType) {
         this.type = TermType;
     }
@@ -73,13 +82,7 @@ public class TermBean {
         this.key = Key;
     }
     
-    public TermBean(String TermType, String Name, int Key, int Level) {
-        relationShips = new ArrayList();
-        this.type = TermType;
-        this.name = Name;
-        this.key = Key;
-        this.level = Level;
-    }
+
 
     public String getTermType() {
         return type;

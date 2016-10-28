@@ -10,19 +10,6 @@
     <joy-table name="LND_SCORECARD" />
     <joy-table name="LND_SCORECARD_GROUP" />
     
-    <!-- Queries -->
-    <joy-customquery name="Landing - List of available Glossary"> 
-        select GLO_ID, GLO_NAME from DIM_GLOSSARY
-        UNION
-        select JOYFUNCKEY, GLOSSARY_NAME from LND_GLOSSARY
-    </joy-customquery>
-    
-    <joy-customquery name="Landing - List of available Category"> 
-        select CAT_ID, CAT_NAME from DIM_CATEGORY
-        UNION
-        select JOYFUNCKEY, CATEGORY_NAME from LND_CATEGORY
-    </joy-customquery>
-    
     <!-- Used for Landing mappings (sources) -->
     <joy-composite name = "Load - get Terms type" distinct="yes">
         <joy-field alias="X">TERM_TYPE</joy-field>

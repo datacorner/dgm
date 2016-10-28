@@ -17,6 +17,7 @@
 package com.dgm.form.analytics.bg;
 
 import com.dgm.form.analytics.ReportCommonConsolidated;
+import com.joy.bo.IEntity;
 
 
 /**
@@ -33,19 +34,35 @@ public class ReportByGlossary extends ReportCommonConsolidated {
         this.tagDimensionRequest = "glossary";
     }
     
+    /**
+     * Check if the current glossary has at least one score
+     * @param currentTerm TRM_PK
+     * @return false if no score
+     */
+    private boolean hasLeastOneScore(int Key) {
+        IEntity entity = getBOFactory().getEntity("Check if Glossary has score");
+        entity.field("GLO_FK").setKeyValue(Key);
+        return entity.hasRecord();
+    }
+    
     @Override
     public String display(int Key) {
         // Global data
         loadGlobalData(Key);
-        // Load trends value and radar data 
-        loadDQVectorsValAndTrends(Key, "Analytics - Glossary Last Runs", "GLO_FK");
-        // Metrics list
-        loadMetricTableList(Key, this.dimFieldKey); 
-        // Terms list
-        loadTermsList(Key, "GLO_FK", "Analytics - Glossary Term List");
-        // Category list
-        loadCategoryList(Key, "GLO_FK", "Analytics - Glossary Category List");
         
+        if (hasLeastOneScore(Key)) {
+            // Load trends value and radar data 
+            loadDQVectorsValAndTrends(Key, "Analytics - Glossary Last Runs", "GLO_FK");
+            // Metrics list
+            loadMetricTableList(Key, this.dimFieldKey); 
+            // Terms list
+            loadTermsList(Key, "GLO_FK", "Analytics - Glossary Term List");
+            // Category list
+            loadCategoryList(Key, "GLO_FK", "Analytics - Glossary Category List");
+        } else {
+            loadCBO(Key);
+            return super.nodata();
+        }
         return super.display(Key); 
     }
     

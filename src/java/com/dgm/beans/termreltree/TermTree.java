@@ -45,12 +45,13 @@ public class TermTree {
             ResultSet rs = entity.select();
             
             if (rs.next()) {
-                trm = new TermBean(rs.getString("GLO_NAME"), 
-                               rs.getString("TRM_NAME"), 
-                               rs.getInt("TRM_PK"),
-                               level);
+                trm = new TermBean(this.entities, 
+                        rs.getString("GLO_NAME"), 
+                                    rs.getString("TRM_NAME"), 
+                                    rs.getInt("TRM_PK"),
+                                    level);
             } else {
-                trm = new TermBean(entities);
+                trm = new TermBean(this.entities);
             }
             
             entities.closeResultSet(rs);

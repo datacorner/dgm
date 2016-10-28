@@ -43,38 +43,58 @@
                     
                     <div class="col-lg-10">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Manage Terms relationship</div>
+                            <div class="panel-heading">Manage Terms relationships</div>
                             
                             <div class="row">
                                 <div class="col-lg-12">  
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Identifier</label>
-                                            <joy:ActionInputTextTag name="JOYFUNCKEY" CSSClass="form-control" />
+                                            <div class="input-group">
+                                                <span class="input-group-addon " id="basic-addon2"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> </span>
+                                                <joy:ActionInputTextTag name="JOYFUNCKEY" CSSId="JOYFUNCKEY" CSSClass="form-control" required="yes" maxlength="10" placeholder="Unique Identifier" ariadescribedby="basic-addon2" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                                     
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <joy:ActionInputTextTag name="REL_NAME" CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="REL_NAME" CSSClass="form-control" placeholder="Relationship Name or Label" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <joy:ActionInputTextTag name="REL_DESCRIPTION"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="REL_DESCRIPTION"   CSSClass="form-control" placeholder="Relationship description"  />
                                         </div>
-                                        <div class="form-group">
-                                            <label>Business Term Source</label>
-                                            <joy:ActionInputTextTag name="REL_KEY_TERM_SOURCE"   CSSClass="form-control" />
+                                        <label>Source</label>
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <joy:ActionComboBoxTag name="TERM_CBO_SOURCE" CSSClass="combobox form-control" id="TERM_CBO_SOURCE" />
+                                            </div>  
+                                            <div class="col-lg-1">
+                                                <joy:JoyFormButtonTag id="btnselect1" label="Select >" CSSClass="btn btn-default largeinput" onclick="document.getElementById('REL_KEY_TERM_SOURCE').value = document.getElementById('TERM_CBO_SOURCE').value;" />
+                                            </div>  
+                                            <div class="col-lg-6">
+                                                <joy:ActionInputTextTag name="REL_KEY_TERM_SOURCE" CSSClass="form-control" CSSId="REL_KEY_TERM_SOURCE" placeholder="Term for source" />
+                                            </div> 
                                         </div>
-                                        <div class="form-group">
-                                            <label>Business Term Target</label>
-                                            <joy:ActionInputTextTag name="REL_KEY_TERM_TARGET"   CSSClass="form-control" />
+                                            <label>Target</label>
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <joy:ActionComboBoxTag name="TERM_CBO_TARGET" CSSClass="combobox form-control" id="TERM_CBO_TARGET" />
+                                            </div>  
+                                            <div class="col-lg-1">
+                                                <joy:JoyFormButtonTag id="btnselect1" label="Select >" CSSClass="btn btn-default largeinput" onclick="document.getElementById('REL_KEY_TERM_TARGET').value = document.getElementById('TERM_CBO_TARGET').value;" />
+                                            </div>  
+                                            <div class="col-lg-6">
+                                                <joy:ActionInputTextTag name="REL_KEY_TERM_TARGET" CSSClass="form-control" CSSId="REL_KEY_TERM_TARGET" placeholder="Term for target" />
+                                            </div> 
                                         </div>
+
                                     </DIV>
                                 </div>
                                         
@@ -106,6 +126,17 @@
         $( "#btn1" ).button();
         $( "#btn2" ).button();
         $( "#btn3" ).button();
+		$( "#btnselect1" ).button();
+        $( "#btnselect2" ).button();
+        $( '#TERM_CBO_SOURCE' ).select2({
+            allowClear: true,
+            placeholder: "Select a source"
+        });
+        $( '#TERM_CBO_TARGET' ).select2({
+            allowClear: true,
+            placeholder: "Select a target"
+        });
+        
     });
 </SCRIPT>
 </body>

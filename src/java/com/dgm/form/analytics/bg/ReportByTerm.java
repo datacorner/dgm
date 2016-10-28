@@ -41,6 +41,17 @@ public class ReportByTerm extends ReportCommonAction {
     }
     
     /**
+     * Check if the current term has at least one score
+     * @param currentTerm TRM_PK
+     * @return false if no score
+     */
+    private boolean asLeastOneScore(int currentTerm) {
+        IEntity entity = getBOFactory().getEntity("Check if Terms has score");
+        entity.field("TRM_PK").setKeyValue(currentTerm);
+        return entity.hasRecord();
+    }
+    
+    /**
      * Display the by term report
      * @return 
      */
@@ -52,18 +63,22 @@ public class ReportByTerm extends ReportCommonAction {
         if (iCurrentTerm != 0) {
             // Collect term informations
             loadGlobalData(iCurrentTerm); 
-            // Load trends value and radar data 
-            loadDQVectorsValAndTrends(iCurrentTerm, "Analytics - Terms Last Runs" ,  "TRM_FK"); //"RPT_TERM_LASTRUNS", "TRM_FK");
-            // Metrics list
-            loadMetricTableList(iCurrentTerm, "TRM_FK"); 
-            // Contexts list
-            loadLinkedContextList(iCurrentTerm);
-            // Data sources
-            loadLinkedDataSourceList(iCurrentTerm);
             // available Terms Combo
             loadTerms(false, iCurrentTerm);
-            // Global score
-            calculateGlobalScore(iCurrentTerm);
+            
+            if (asLeastOneScore(iCurrentTerm)) {
+                // Load trends value and radar data 
+                loadDQVectorsValAndTrends(iCurrentTerm, "Analytics - Terms Last Runs" ,  "TRM_FK");
+                // Metrics list
+                loadMetricTableList(iCurrentTerm, "TRM_FK"); 
+                // Contexts list
+                loadLinkedContextList(iCurrentTerm);
+                // Data sources
+                loadLinkedDataSourceList(iCurrentTerm);
+                // Global score
+                calculateGlobalScore(iCurrentTerm);
+            } else
+                return super.nodata();
         }
         return super.display(); //To change body of generated methods, choose Tools | Templates.
     }
@@ -80,9 +95,9 @@ public class ReportByTerm extends ReportCommonAction {
             if (rs.next())
                 this.addFormSingleEntry("GLOBALSCORE", rs.getString("GLOBALSCORE"));
             else
-                this.addFormSingleEntry("GLOBALSCORE", "--");
+                this.addFormSingleEntry("GLOBALSCORE", "0");
         } catch (SQLException ex) {
-            this.addFormSingleEntry("GLOBALSCORE", "--");
+            this.addFormSingleEntry("GLOBALSCORE", "0");
         }
         getBOFactory().closeResultSet(rs);
     }
@@ -94,6 +109,8 @@ public class ReportByTerm extends ReportCommonAction {
     @Override
     public String search() {
         int iCurrentTerm = getTermID();
+        
+        this.addFormSingleEntry("target", this.getStrArgumentValue("target"));
         
         boolean onlyTermsDefined = this.getStrArgumentValue("termsdefined").equalsIgnoreCase("on");
         this.addFormSingleEntry("termsdefined", onlyTermsDefined);
@@ -160,14 +177,9 @@ public class ReportByTerm extends ReportCommonAction {
         columns.setSelected(String.valueOf(currentTerm));
         try {
             ResultSet rs;
-            if (! definedonly) {
-                IEntity entity = getBOFactory().getEntity("Analytics - Terms List");
-                rs = entity.select();
-            } else {
-                IEntity entity = getBOFactory().getEntity("DIM_TERM");
-                rs = entity.select();
-            }
-            
+            IEntity entity = getBOFactory().getEntity("DIM_TERM");
+            rs = entity.select();
+
             while (rs.next()) {
                 columns.addValue("TRM_PK", rs.getString("TRM_PK"), rs.getString("TRM_NAME"));
             }
@@ -209,7 +221,7 @@ public class ReportByTerm extends ReportCommonAction {
                 // Term icon
                 String icon = Utils.getTermTypeIcon(this.getBOFactory(), rs.getString("TRT_NAME"));
                 this.addFormSingleEntry("ICON", icon);
-                this.addFormSingleEntry("IMGICO", (rs.getString("TRT_NAME").isEmpty() ? Constants.DEFAULT_TERMTYPE_ICON : icon));
+                this.addFormSingleEntry("IMGICO", (rs.getString("TRT_NAME").isEmpty() ? Joy.parameters().getParameter("DefaultTermTypeIcon").getValue().toString() : icon));
                 // Glossary link
                 this.addFormSingleEntry("GLOSSARY_LINK", Joy.href("byglossary", "display", rs.getString("GLO_NAME"), "glossary", String.valueOf(rs.getString("GLO_PK"))));
                 // Category link

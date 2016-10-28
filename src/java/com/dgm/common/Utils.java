@@ -72,29 +72,29 @@ public class Utils {
     }
     
     /**
-     * Return the Term's icon
-     * @param entities
-     * @param Glossary
+     * Return the Term's icon (image)
+     * @param entities data connection
+     * @param termType term type name
      * @return 
     */
-    public static String getTermTypeIcon(BOFactory entities, String Glossary) {
+    public static String getTermTypeIcon(BOFactory entities, String termType) {
         try {
             IEntity entity = entities.getEntity("SRC_TERMTYPE");
-            entity.field("GIO_TERMTYPE_NAME").setKeyValue(Glossary);
+            entity.field("GIO_TERMTYPE_NAME").setKeyValue(termType);
             String result;
             
             ResultSet rs = entity.select();
             if (rs.next()) 
                 result = rs.getString("GIO_ICON_PATHNAME");
             else
-                result =  Constants.DEFAULT_TERMTYPE_ICON;
+                result =  Joy.parameters().getParameter("DefaultTermTypeIcon").getValue().toString();
             
             entities.closeResultSet(rs);
             return result;
             
         } catch (SQLException e) {
             Joy.log().error(e);
-            return Constants.DEFAULT_TERMTYPE_ICON;
+            return Joy.parameters().getParameter("DefaultTermTypeIcon").getValue().toString();
         }
     } 
     

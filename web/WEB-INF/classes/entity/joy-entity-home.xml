@@ -54,7 +54,7 @@
     </joy-customquery>
 
     <joy-composite name = "Total Weight for DQ Axis">
-        <joy-field alias="X">sum(DQX_WEIGHT)</joy-field>
+        <joy-field>sum(DQX_WEIGHT)</joy-field>
         <joy-entity alias="X">DIM_DQAXIS</joy-entity>
     </joy-composite>    
     

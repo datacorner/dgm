@@ -38,22 +38,39 @@ public class ReportByCategory extends ReportCommonConsolidated {
         this.tagDimensionRequest = "category";
     }
     
+    /**
+     * Check if the current glossary has at least one score
+     * @param currentTerm TRM_PK
+     * @return false if no score
+     */
+    private boolean hasLeastOneScore(int Key) {
+        IEntity entity = getBOFactory().getEntity("Check if Category has score");
+        entity.field("CAT_FK").setKeyValue(Key);
+        return entity.hasRecord();
+    }
+    
     @Override
     public String display(int Key) {
         // Global data
         loadGlobalData(Key);
-        // Metrics list
-        loadMetricTableList(Key, this.dimFieldKey); 
-        // Load trends value and radar data 
-        loadDQVectorsValAndTrends(Key, "Analytics - Category Last Runs", "CAT_FK");        
-        // Terms list
-        loadTermsList(Key, "CAT_FK", "Analytics - Category Term List");
-        // Parents Category
-        loadParentsCategory(Key);
-        // Childs categories
-        loadChildsCategory(Key);
-        // Glossary
-        loadGlossary(Key);
+        
+        if (hasLeastOneScore(Key)) {
+            // Metrics list
+            loadMetricTableList(Key, this.dimFieldKey); 
+            // Load trends value and radar data 
+            loadDQVectorsValAndTrends(Key, "Analytics - Category Last Runs", "CAT_FK");        
+            // Terms list
+            loadTermsList(Key, "CAT_FK", "Analytics - Category Term List");
+            // Parents Category
+            loadParentsCategory(Key);
+            // Childs categories
+            loadChildsCategory(Key);
+            // Glossary
+            loadGlossary(Key);
+        } else {
+            loadCBO(Key);
+            return super.nodata();
+        }
         
         return super.display(Key); 
     }

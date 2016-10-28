@@ -22,7 +22,7 @@
                 <joy:NaviTopRightTasksMenuTag />
                 <joy:NaviTopRightUserMgtMenuTag />
             </joy:NaviTopRightMenu>
-            <joy:NaviLeftMenuTag xmlconfig="joy-menu.xml" activemenuid="Analytics-BG-Category" />
+            <joy:NaviLeftMenuTag xmlconfig="joy-menu.xml" activemenuid="Analytics-BG-Glossary" />
         </nav>
 
         <!-- Page Content -->
@@ -30,24 +30,28 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Analytics-BG-Category" />
-                        <h1 class="page-header"><joy:ActionValueTag name="CAT_NAME" /></h1>
+                        <joy:NaviBreadCrumbsTag xmlconfig="joy-menu.xml" activemenuid="Analytics-BG-Glossary" />
+                        <h1 class="page-header"><joy:ActionValueTag name="GLO_NAME" /></h1>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="panel panel-yellow">
-                            <div class="panel-heading"><UI:dgmGlyphe name="category" />Business Category:&nbsp;<joy:ActionValueTag name="CAT_NAME" /></div>
+                            <div class="panel-heading"><UI:dgmGlyphe name="glossary" />Glossary: <joy:ActionValueTag name="GLO_NAME" /></div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <label>My Glossary</label>
-                                <joy:ActionValueTag name="GLO_LINK" /><P>
-                                <label>Description</label>
-                                <joy:ActionValueTag name="CAT_DESCRIPTION" /><P>
-                                <joy:JoyFormTag inline="true" object='bycategory' actiontype='display' name='myform'>
                                 <div class="form-group">
-                                    <joy:ActionComboBoxTag name="category" CSSClass="js-states form-control" />
+                                    <Label>Definition : </Label>
+                                    <joy:ActionValueTag name="GLO_NAME" />
+                                </div>
+                                <div class="form-group">
+                                    <Label>Description : </Label>
+                                    <joy:ActionValueTag name="GLO_DESCRIPTION" />
+                                </div>
+                                <joy:JoyFormTag inline="true" object='byglossary' actiontype='display' name='myform'>
+                                <div class="form-group">
+                                    <joy:ActionComboBoxTag name="glossary" CSSClass="js-states form-control" />
                                     <joy:JoyFormButtonTag id="btn1" label="Change" submit="true" CSSClass="btn btn-primary" />
                                 </div>
                                 </joy:JoyFormTag>
@@ -79,12 +83,10 @@
                     <div class="col-lg-8">
                         <div class="panel panel-success">
                             <div class="panel-heading"><UI:dgmGlyphe name="common-chart" />Last runs</div>
-                            <div class="panel-body">
                                 <div>
                                     <canvas id="LastRun"></canvas>
                                     <div id="barLegend" ></div>
                                 </div>
-                            </div>
                         </div>
                     </div>   
                 </div>
@@ -100,7 +102,6 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#Metrics" data-toggle="tab">Metrics</a></li>
                                         <li><a href="#Terms" data-toggle="tab">Business Terms</a></li>
-                                        <li><a href="#pc" data-toggle="tab">Parents & Childs</a></li>
                                     </ul>
 
                                     <!-- Tab panes -->
@@ -155,20 +156,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="tab-pane fade" id="pc">
-                                            <label>Childs</label>
-                                            <ul>
-                                                <joy:ActionMatrixRowLoopTag name="CHILDS">
-                                                    <LI><joy:ActionMatrixByRowTag name="LINK" /></LI>
-                                                </joy:ActionMatrixRowLoopTag>
-                                            </ul>
-                                            <label>Parents</label>
-                                            <ul>
-                                                <joy:ActionMatrixRowLoopTag name="PARENTS">
-                                                    <LI><joy:ActionMatrixByRowTag name="LINK" /></LI>
-                                                </joy:ActionMatrixRowLoopTag>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.panel-body -->
@@ -191,12 +178,13 @@ $(document).ready(function() {
     $('#matablelist2').DataTable({
         responsive: true
     });
-    $( '#category' ).select2({
-        placeholder: "Select an Category"
+    $( '#glossary' ).select2({
+        placeholder: "Select an Term"
     });
     $( "#btn1" ).button();
 
 });
+
 
 // display the last run bars
 var ctx = document.getElementById("LastRun").getContext("2d");
@@ -204,20 +192,10 @@ window.myBarArea = new Chart(ctx, {
     type: 'bar',
     data: <joy:ActionValueTag name="LASTRUNS" />,
     options: {
-        elements: {
-            rectangle: {
-                borderWidth: 2,
-                borderSkipped: 'bottom'
-            }
-        },
+        elements: { rectangle: { borderWidth: 2, borderSkipped: 'bottom' } },
         responsive: true,
-        legend: {
-            position: 'bottom'
-        },
-        title: {
-            display: true,
-            text: 'Last runs (grouped per day)'
-        }
+        legend: { position: 'bottom' },
+        title: { display: true, text: 'Last runs (grouped per day)' }
     }
 });
 
@@ -226,19 +204,9 @@ var config = {
     type: 'radar',
     data: <joy:ActionValueTag name="MULTIPLE_RADAR" />,
     options: {
-        legend: {
-            position: 'bottom',
-        },
-        title: {
-            display: true,
-            text: 'Synthesis per Data Quality Dimension'
-        },
-        scale: {
-          reverse: false,
-          ticks: {
-            beginAtZero: true
-          }
-        }
+        legend: { position: 'bottom' },
+        title: { display: true, text: 'Synthesis per Data Quality Dimension' },
+        scale: { reverse: false, ticks: { beginAtZero: true } }
     }
 };
 window.myRadar = new Chart(document.getElementById("radar"), config);

@@ -49,9 +49,36 @@
                                 <div class="col-lg-12">  
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label>Identifier</label>
-                                            <joy:ActionInputTextTag name="JOYFUNCKEY" CSSId="JOYFUNCKEY" CSSClass="form-control" required="yes" maxlength="10" />
                                             <div class="help-block with-errors"></div>
+                                            <label>Identifier</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon " id="basic-addon2"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> </span>
+                                                <joy:ActionInputTextTag name="JOYFUNCKEY" CSSId="JOYFUNCKEY" CSSClass="form-control" required="yes" maxlength="10" placeholder="Unique Identifier" ariadescribedby="basic-addon2" />
+                                            </div>
+                                            <label>Glossary</label>
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <joy:ActionComboBoxTag name="GLOSSARY_CBO" CSSClass="combobox form-control" id="GLOSSARY_CBO" />
+                                                </div>  
+                                                <div class="col-lg-1">
+                                                    <joy:JoyFormButtonTag id="btnselect1" label="Select >" CSSClass="btn btn-default largeinput" onclick="document.getElementById('GLOSSARY_KEY').value = document.getElementById('GLOSSARY_CBO').value;" />
+                                                </div>  
+                                                <div class="col-lg-6">
+                                                    <joy:ActionInputTextTag name="GLOSSARY_KEY" CSSClass="form-control" CSSId="GLOSSARY_KEY" placeholder="Glossary Identifier" />
+                                                </div> 
+                                            </div>
+                                            <label>Category</label>
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <joy:ActionComboBoxTag name="CATEGORY_CBO" CSSClass="combobox form-control" id="CATEGORY_CBO" />
+                                                </div>  
+                                                <div class="col-lg-1">
+                                                    <joy:JoyFormButtonTag id="btnselect2" label="Select >" CSSClass="btn btn-default largeinput" onclick="document.getElementById('CATEGORY_KEY').value = document.getElementById('CATEGORY_CBO').value;" />
+                                                </div>  
+                                                <div class="col-lg-6">
+                                                    <joy:ActionInputTextTag name="CATEGORY_KEY" CSSClass="form-control" CSSId="CATEGORY_KEY" placeholder="Category Identifier" />
+                                                </div> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,31 +89,31 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <joy:ActionInputTextTag name="TERM_NAME" CSSId="TERM_NAME" CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_NAME" CSSId="TERM_NAME" CSSClass="form-control" placeholder="Business Term name" />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
-                                            <joy:ActionInputTextTag name="TERM_STATUS"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_STATUS"   CSSClass="form-control" placeholder="Business Term Status" />
                                         </div>
                                         <div class="form-group">
                                             <label>Func. Key</label>
-                                            <joy:ActionInputTextTag name="TERM_FUNCKEY"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_FUNCKEY"   CSSClass="form-control" placeholder="Functionnal Key" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <joy:ActionInputTextTag name="TERM_DESCRIPTION"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_DESCRIPTION"   CSSClass="form-control" placeholder="Business Term Description" />
                                         </div>
                                         <div class="form-group">
                                             <label>Usage</label>
-                                            <joy:ActionInputTextTag name="TERM_USAGE"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_USAGE" CSSClass="form-control"   placeholder="Usage"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Example</label>
-                                            <joy:ActionInputTextTag name="TERM_EXAMPLE"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_EXAMPLE"   CSSClass="form-control"  placeholder="Example" />
                                         </div>
                                         <div class="form-group">
                                             <label>Phase</label>
-                                            <joy:ActionInputTextTag name="TERM_PHASE"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_PHASE"   CSSClass="form-control"  placeholder="Phase" />
                                         </div>
 
                                     </DIV>
@@ -96,28 +123,26 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Owner</label>
-                                            <joy:ActionInputTextTag name="TERM_OWNER"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_OWNER"   CSSClass="form-control"  placeholder="Business Term's Owner name" />
                                         </div>
                                         <div class="form-group">
                                             <label>Owner Email</label>
-                                            <joy:ActionInputTextTag name="TERM_OWNER_EMAIL"   CSSClass="form-control" />
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1">@</span>
+                                                <joy:ActionInputTextTag name="TERM_OWNER_EMAIL"   CSSClass="form-control"  placeholder="Owner's Email" />
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Steward</label>
-                                            <joy:ActionInputTextTag name="TERM_STEWARD"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="TERM_STEWARD"   CSSClass="form-control"  placeholder="Business Term's Steward name" />
                                         </div>                                
                                         <div class="form-group">
                                             <label>Steward Email</label>
-                                            <joy:ActionInputTextTag name="TERM_STEWARD_EMAIL"   CSSClass="form-control" />
+                                            <div class="input-group">
+                                                 <span class="input-group-addon" id="basic-addon1">@</span>
+                                                <joy:ActionInputTextTag name="TERM_STEWARD_EMAIL"   CSSClass="form-control" ariadescribedby="basic-addon1" placeholder="Steward's Email" />
+                                             </div>      
                                         </div>  
-                                        <div class="form-group">
-                                            <label>Glossary</label>
-                                            <joy:ActionComboBoxTag name="GLOSSARY" CSSClass="combobox form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Category</label>
-                                            <joy:ActionComboBoxTag name="CATEGORY" CSSClass="combobox form-control" />
-                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -149,11 +174,13 @@
         $( "#btn1" ).button();
         $( "#btn2" ).button();
         $( "#btn3" ).button();
-        $( '#GLOSSARY' ).select2({
+        $( "#btnselect1" ).button();
+        $( "#btnselect2" ).button();
+        $( '#GLOSSARY_CBO' ).select2({
             allowClear: true,
             placeholder: "Select an glossary"
         });
-        $( '#CATEGORY' ).select2({
+        $( '#CATEGORY_CBO' ).select2({
             allowClear: true,
             placeholder: "Select an category"
         });

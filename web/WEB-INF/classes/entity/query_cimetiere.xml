@@ -193,3 +193,16 @@
         group by TRM_FK, DIM_TERM.TRM_NAME
         order by GLOBALSCORE DESC
     </joy-customquery>
+    
+    <!-- Queries -->
+    <joy-customquery name="Landing - List of available Glossary"> 
+        select GLO_ID, GLO_NAME from DIM_GLOSSARY
+        UNION
+        select JOYFUNCKEY, GLOSSARY_NAME from LND_GLOSSARY
+    </joy-customquery>
+    
+    <joy-customquery name="Landing - List of available Category"> 
+        select CAT_ID, CAT_NAME from DIM_CATEGORY
+        UNION
+        select JOYFUNCKEY, CATEGORY_NAME from LND_CATEGORY
+    </joy-customquery>

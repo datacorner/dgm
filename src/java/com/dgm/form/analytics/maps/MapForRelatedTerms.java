@@ -35,10 +35,28 @@ public class MapForRelatedTerms extends ActionTypeForm {
     
     @Override
     public String search() {
+        this.addFormSingleEntry("target", this.getStrArgumentValue("target"));
         loadCBO(0, DEFAULT_NB_HOP);
+        loadTermTypes();
         return super.search(); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /**
+     * Load the Term Type combo
+     */
+    private void loadTermTypes() {
+        try {
+            ResultSet rs;
+            IEntity entity = getBOFactory().getEntity("Analytics - Terms Type List");
+            rs = entity.select();
+            this.loadVector(rs, "TRT_PK", "TRT_NAME", "termtypes", "TRT_PK");
+            this.getBOFactory().closeResultSet(rs);
 
+        } catch (Exception e) {
+            Joy.log().error(e);
+        }
+    }
+    
     @Override
     public String display() {
         int Term, nbHops;
@@ -88,10 +106,11 @@ public class MapForRelatedTerms extends ActionTypeForm {
         // Load the terms Combobox
         try {
             IEntity entity = getBOFactory().getEntity("DIM_TERM");
+            ResultSet rs = entity.select();
             entity.addSort("TRM_NAME");
             entity.setDistinct(true);
             entity.useOnlyTheseFields("TRM_PK", "TRM_NAME");
-            ResultSet rs = entity.select();
+            rs = entity.select();
             this.loadVector(rs, "TRM_PK", "TRM_NAME", "term", String.valueOf(Key));
             getBOFactory().closeResultSet(rs);
             
@@ -123,12 +142,13 @@ public class MapForRelatedTerms extends ActionTypeForm {
             ResultSet rs = entity.select();
             
             if (rs.next()) {
-                trm = new TermBean(rs.getString("GLO_NAME"), 
-                               rs.getString("TRM_NAME"), 
-                               rs.getInt("TRM_PK"),
-                               level);
+                trm = new TermBean(this.getBOFactory(), 
+                                    rs.getString("GLO_NAME"), 
+                                    rs.getString("TRM_NAME"), 
+                                    rs.getInt("TRM_PK"),
+                                    level);
             } else {
-                trm = new TermBean(getBOFactory());
+                trm = new TermBean(this.getBOFactory());
             }
             
             getBOFactory().closeResultSet(rs);

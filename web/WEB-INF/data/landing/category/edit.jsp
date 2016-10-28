@@ -50,30 +50,43 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Identifier</label>
-                                            <joy:ActionInputTextTag name="JOYFUNCKEY" CSSClass="form-control" />
+                                            <div class="input-group">
+                                                <span class="input-group-addon " id="basic-addon2"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> </span>
+                                                <joy:ActionInputTextTag name="JOYFUNCKEY" CSSId="JOYFUNCKEY" CSSClass="form-control" required="yes" maxlength="10" placeholder="Unique Identifier" ariadescribedby="basic-addon2" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                                     
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <joy:ActionInputTextTag name="CATEGORY_NAME" CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="CATEGORY_NAME" CSSClass="form-control" placeholder="Category Name" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <joy:ActionInputTextTag name="CATEGORY_DESCRIPTION"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="CATEGORY_DESCRIPTION"   CSSClass="form-control" placeholder="Category Description" />
                                         </div>
                                         <div class="form-group">
                                             <label>Full path</label>
-                                            <joy:ActionInputTextTag name="CATEGORY_FULLPATH"   CSSClass="form-control" />
+                                            <joy:ActionInputTextTag name="CATEGORY_FULLPATH"   CSSClass="form-control" placeholder="Category tree Full Path" />
                                         </div>
+                                        <label>Parent Category (Identifier)</label>
                                         <div class="form-group">
-                                            <label>Parent Category</label>
-                                            <joy:ActionComboBoxTag name="CATEGORY_PARENT_KEY" CSSClass="combobox form-control" />
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <joy:ActionComboBoxTag name="CATEGORY_PARENT_KEY_CBO" CSSClass="combobox form-control" id="CATEGORY_PARENT_KEY_CBO" />
+                                                </div>  
+                                                <div class="col-lg-1">
+                                                    <joy:JoyFormButtonTag id="btnselect" label="Select >" CSSClass="btn btn-default largeinput" onclick="document.getElementById('CATEGORY_PARENT_KEY').value = document.getElementById('CATEGORY_PARENT_KEY_CBO').value;" />
+                                                </div>  
+                                                <div class="col-lg-6">
+                                                    <joy:ActionInputTextTag name="CATEGORY_PARENT_KEY" CSSClass="form-control" CSSId="CATEGORY_PARENT_KEY" placeholder="Parent Category Identifier" />
+                                                </div> 
+                                            </div> 
                                         </div> 
                                     </DIV>
                                 </div>    
@@ -105,7 +118,8 @@
         $( "#btn1" ).button();
         $( "#btn2" ).button();
         $( "#btn3" ).button();
-        $( '#CATEGORY_PARENT_KEY' ).select2({
+        $( "#btnselect" ).button();
+        $( '#CATEGORY_PARENT_KEY_CBO' ).select2({
             allowClear: true,
             placeholder: "Select an category"
         });

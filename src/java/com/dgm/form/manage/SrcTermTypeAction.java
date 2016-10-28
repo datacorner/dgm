@@ -130,7 +130,7 @@ public class SrcTermTypeAction extends ActionTypeForm {
     }
     
     private void loadCBOAvailableIcons(String PKSelected) {
-        List<JoyParameter> icons = Joy.parameters().getParameter("GlossaryAvailableIcons").getList();
+        List<JoyParameter> icons = Joy.parameters().getParameter("TermTypeIcons").getList();
         JoyFormVectorEntry columns = new JoyFormVectorEntry();
         
         for (JoyParameter param : icons) {

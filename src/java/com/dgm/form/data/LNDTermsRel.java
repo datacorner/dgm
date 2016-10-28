@@ -16,7 +16,10 @@
  */
 package com.dgm.form.data;
 
+import com.joy.Joy;
 import com.joy.bo.IEntity;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -35,6 +38,36 @@ public class LNDTermsRel extends LNDCommonAction {
         Entity.field("REL_KEY_TERM_TARGET").setValue(getStrArgumentValue("REL_KEY_TERM_TARGET"));
         Entity.field("REL_NAME").setValue(getStrArgumentValue("REL_NAME"));
         Entity.field("REL_DESCRIPTION").setValue(getStrArgumentValue("REL_DESCRIPTION"));
+    }
+    
+    @Override
+    public void editSpecific (ResultSet rs) { 
+        try {
+            loadCBOTerm(rs.getString("rel_key_term_source"), "TERM_CBO_SOURCE");
+            loadCBOTerm(rs.getString("rel_key_term_target"), "TERM_CBO_TARGET");
+        } catch (SQLException ex) {
+            Joy.log().error(ex);
+        }
+    }
+    
+    @Override
+    public void addSpecific () { 
+        loadCBOTerm("", "TERM_CBO_SOURCE");
+        loadCBOTerm("", "TERM_CBO_TARGET");
+    }
+    
+    private void loadCBOTerm(String PKSelected, String cboName) {
+        try {
+            // into the DIM table
+            IEntity entity = this.getBOFactory().getEntity("DIM_TERM");
+            entity.addSort("TRM_NAME");
+            ResultSet rs = entity.select();
+            this.loadVector(rs, "TRM_FUNCKEY",  "TRM_NAME", cboName, PKSelected);
+            this.getBOFactory().closeResultSet(rs);
+
+        } catch (Exception e) {
+            Joy.log().error( e);
+        }
     }
     
 }

@@ -61,17 +61,17 @@ public class LNDTermAction extends LNDCommonAction {
         Entity.field("TERM_OWNER_EMAIL").setValue(getStrArgumentValue("TERM_OWNER_EMAIL"));
         Entity.field("TERM_STEWARD").setValue(getStrArgumentValue("TERM_STEWARD"));
         Entity.field("TERM_STEWARD_EMAIL").setValue(getStrArgumentValue("TERM_STEWARD_EMAIL"));
-        Entity.field("GLOSSARY_KEY").setValue(getStrArgumentValue("GLOSSARY"));
-        Entity.field("CATEGORY_KEY").setValue(getStrArgumentValue("CATEGORY"));
+        Entity.field("GLOSSARY_KEY").setValue(getStrArgumentValue("GLOSSARY_KEY"));
+        Entity.field("CATEGORY_KEY").setValue(getStrArgumentValue("CATEGORY_KEY"));
     }
     
     private void loadCBOGlossaries(String PKSelected) {
         try {
             // into the DIM table
-            IEntity entity = this.getBOFactory().getEntity("Landing - List of available Glossary");
+            IEntity entity = this.getBOFactory().getEntity("DIM_GLOSSARY");
             entity.addSort("GLO_NAME");
             ResultSet rs = entity.select();
-            this.loadVector(rs, "GLO_ID",  "GLO_NAME", "GLOSSARY", PKSelected);
+            this.loadVector(rs, "GLO_ID",  "GLO_NAME", "GLOSSARY_CBO", PKSelected);
             this.getBOFactory().closeResultSet(rs);
 
         } catch (Exception e) {
@@ -82,10 +82,10 @@ public class LNDTermAction extends LNDCommonAction {
     private void loadCBOCategories(String PKSelected) {
         try {
             // into the DIM table
-            IEntity entity = this.getBOFactory().getEntity("Landing - List of available Category");
+            IEntity entity = this.getBOFactory().getEntity("DIM_CATEGORY");
             entity.addSort("CAT_NAME");
             ResultSet rs = entity.select();
-            this.loadVector(rs, "CAT_ID",  "CAT_NAME", "CATEGORY", PKSelected);
+            this.loadVector(rs, "CAT_ID",  "CAT_NAME", "CATEGORY_CBO", PKSelected);
             this.getBOFactory().closeResultSet(rs);
 
         } catch (Exception e) {

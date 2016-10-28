@@ -37,7 +37,6 @@ public class Constants {
     public static int UNKNOWN_VALUE = 0;
     
     public static String PARAM_WORKFLOW_INIT = "wf_Init";
-    public static String DEFAULT_TERMTYPE_ICON = "default.png";
     
     public static String FORMAT_FLOAT = "%.1f";
 }

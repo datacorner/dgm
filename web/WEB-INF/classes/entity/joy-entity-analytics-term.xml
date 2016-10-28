@@ -14,7 +14,15 @@ for the custom queries :
 -->
 
 <joy-entities>
-
+    
+    <joy-composite name = "Check if Terms has score">
+        <joy-entity alias="T">FACT_GOVERNANCE</joy-entity>
+        <joy-join type="INNER">
+            <joy-entity alias="C">DIM_TERM</joy-entity>
+            <joy-join-key master="TRM_FK" slave="TRM_PK" />
+        </joy-join>
+    </joy-composite>
+    
     <!-- BUSINESS TERMS -->
     <joy-customquery name="Analytics - Terms Last Runs"> <!-- Replace RPT_TERM_LASTRUNS -->
         select max(DIM_TIME.TIM_CALENDAR_DATE) AS rundate, 
